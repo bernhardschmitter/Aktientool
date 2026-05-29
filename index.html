@@ -1,38 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aktientool PWA</title>
-  <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css">
-  <meta name="theme-color" content="#111827">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Aktientool">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aktientool V3</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div><h1 id="pageTitle">Aktientool</h1><p id="pageSubtitle">Indikatoren aus Numbers-Logik · Trend · Depot</p></div>
-    <nav><button id="homeButton" class="secondary">Übersicht</button><button id="portfolioButton" class="secondary">Depot</button><button id="updateButton">Kurse laden</button></nav>
-  </header>
-  <main>
-    <section id="homePage" class="page active">
-      <section class="card">
-        <div class="toolbar">
-          <input id="searchInput" placeholder="Aktie suchen, z. B. SAP, Apple, NVDA">
-          <select id="filterSelect"><option value="all">Alle Signale</option><option value="buy">Nur Kaufen</option><option value="sell">Verkaufshinweise</option><option value="strongSell">Stark verkaufen</option><option value="owned">Nur Depotwerte</option></select>
-          <select id="sortSelect"><option value="signal">Nach Signalstärke</option><option value="trend">Nach Trend</option><option value="name">Nach Name</option><option value="symbol">Nach Ticker</option><option value="group">Nach Gruppe</option></select>
-        </div>
-        <p class="hint" id="statusLine">Bereit.</p>
-      </section>
-      <section class="card"><h2>Watchlist</h2><div id="stockList"></div></section>
-      <section class="card"><h2>Aktie hinzufügen</h2><div class="grid-4"><input id="symbolInput" placeholder="Ticker z. B. AAPL"><input id="nameInput" placeholder="Name optional"><input id="startPriceInput" type="number" step="0.01" placeholder="Startkurs optional"><button id="addStockButton">Hinzufügen</button></div><p class="hint">Aktien werden lokal gespeichert. Die 144 Ticker aus deiner Numbers-Datei sind als Startliste enthalten.</p></section>
-    </section>
-    <section id="detailPage" class="page"><section class="card"><button id="backFromDetail" class="secondary">← Zurück</button><div id="detailPanel"></div></section></section>
-    <section id="portfolioPage" class="page"><section class="card"><button id="backFromPortfolio" class="secondary">← Zurück</button><h2>Musterdepot / Börsenspiel</h2><div id="portfolioPanel"></div></section></section>
-  </main>
-  <footer>Aktientool PWA · private Nutzung · Daten lokal auf deinem Gerät</footer>
-  <script src="./data.js"></script><script src="./app.js"></script>
+<header class="topbar">
+  <div><h1>Aktientool V3</h1><p>Übersicht, Detailanalyse, Depot & Verkaufssignale</p></div>
+  <nav>
+    <button data-route="home">Übersicht</button>
+    <button data-route="depot">Depot</button>
+    <button data-route="signals">Signale</button>
+  </nav>
+</header>
+<main>
+<section id="home" class="view active">
+  <div class="panel hero"><div><h2>Aktienübersicht</h2><p>Alle erkannten Aktien aus deiner Numbers-Liste. Kurse werden nach Möglichkeit live geladen, sonst bleibt der gespeicherte Stand sichtbar.</p></div><div class="kpis"><span id="kpiStocks">0 Aktien</span><span id="kpiSell">0 Verkauf</span><span id="kpiDepot">0 Depot</span></div></div>
+  <div class="toolbar"><input id="search" placeholder="Aktie oder Kennung suchen…"><select id="groupFilter"><option value="">Alle Gruppen</option></select></div>
+  <div id="stockGrid" class="grid"></div>
+  <div class="panel add"><h3>Aktie hinzufügen</h3><div class="form"><input id="newSymbol" placeholder="Kennung z.B. AAPL"><input id="newName" placeholder="Name"><select id="newGroup"><option>US Tech</option><option>DAX</option><option>US Aktien</option><option>ETF</option></select><button id="addStock">Hinzufügen</button></div></div>
+</section>
+<section id="detail" class="view"><button class="back" data-route="home">← Zurück</button><div id="detailContent"></div></section>
+<section id="depot" class="view"><button class="back" data-route="home">← Zurück</button><h2>Depot</h2><p class="muted">Depotwerte mit Trendindikatoren und Verkaufssignal, sobald mindestens ein negativer Indikator anschlägt.</p><div id="depotTable"></div></section>
+<section id="signals" class="view"><button class="back" data-route="home">← Zurück</button><h2>Signale</h2><div id="signalTable"></div></section>
+</main>
+<footer>V3 rekonstruiert aus Aktientool.numbers · Daten lokal im Browser erweiterbar</footer>
+<script src="data/stocks.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

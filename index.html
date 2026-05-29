@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aktientool PWA</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="theme-color" content="#111827">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Aktientool</h1>
+      <p>Indikatoren, Signale und Musterdepot</p>
+    </div>
+    <button id="resetButton" class="danger secondary">Demo zurücksetzen</button>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1. Aktien frei ergänzen</h2>
+      <div class="grid-4">
+        <input id="symbolInput" placeholder="Ticker z. B. AAPL">
+        <input id="nameInput" placeholder="Name z. B. Apple">
+        <input id="startPriceInput" type="number" step="0.01" placeholder="Startkurs">
+        <button id="addStockButton">Aktie hinzufügen</button>
+      </div>
+      <p class="hint">Die App arbeitet aktuell mit lokal gespeicherten Demo-/Eingabekursen. Echte Kursdaten können später über eine API ergänzt werden.</p>
+    </section>
+
+    <section class="layout">
+      <section class="card">
+        <h2>Aktienliste</h2>
+        <div id="stockList"></div>
+      </section>
+
+      <section class="card">
+        <h2>Analyse</h2>
+        <div id="analysisPanel">Bitte eine Aktie auswählen.</div>
+      </section>
+    </section>
+
+    <section class="card">
+      <h2>2. Kursdaten ergänzen</h2>
+      <div id="priceEditor">Bitte eine Aktie auswählen.</div>
+    </section>
+
+    <section class="card">
+      <h2>3. Musterdepot / Börsenspiel</h2>
+      <div id="portfolioPanel"></div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

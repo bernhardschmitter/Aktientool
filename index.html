@@ -13,76 +13,26 @@
 </head>
 <body>
   <header>
-    <div>
-      <h1 id="pageTitle">Aktientool</h1>
-      <p id="pageSubtitle">Watchlist, Signale und Musterdepot</p>
-    </div>
-    <nav>
-      <button id="homeButton" class="secondary">Übersicht</button>
-      <button id="portfolioButton" class="secondary">Depot</button>
-      <button id="updateButton">Kurse laden</button>
-    </nav>
+    <div><h1 id="pageTitle">Aktientool</h1><p id="pageSubtitle">Indikatoren aus Numbers-Logik · Trend · Depot</p></div>
+    <nav><button id="homeButton" class="secondary">Übersicht</button><button id="portfolioButton" class="secondary">Depot</button><button id="updateButton">Kurse laden</button></nav>
   </header>
-
   <main>
     <section id="homePage" class="page active">
       <section class="card">
         <div class="toolbar">
           <input id="searchInput" placeholder="Aktie suchen, z. B. SAP, Apple, NVDA">
-          <select id="filterSelect">
-            <option value="all">Alle Signale</option>
-            <option value="buy">Nur Kaufen</option>
-            <option value="sell">Nur Verkaufen</option>
-            <option value="hold">Nur Halten</option>
-            <option value="owned">Nur Depotwerte</option>
-          </select>
-          <select id="sortSelect">
-            <option value="signal">Nach Signalstärke</option>
-            <option value="name">Nach Name</option>
-            <option value="symbol">Nach Ticker</option>
-          </select>
+          <select id="filterSelect"><option value="all">Alle Signale</option><option value="buy">Nur Kaufen</option><option value="sell">Verkaufshinweise</option><option value="strongSell">Stark verkaufen</option><option value="owned">Nur Depotwerte</option></select>
+          <select id="sortSelect"><option value="signal">Nach Signalstärke</option><option value="trend">Nach Trend</option><option value="name">Nach Name</option><option value="symbol">Nach Ticker</option><option value="group">Nach Gruppe</option></select>
         </div>
         <p class="hint" id="statusLine">Bereit.</p>
       </section>
-
-      <section class="card">
-        <h2>Watchlist</h2>
-        <div id="stockList"></div>
-      </section>
-
-      <section class="card">
-        <h2>Aktie hinzufügen</h2>
-        <div class="grid-4">
-          <input id="symbolInput" placeholder="Ticker z. B. AAPL">
-          <input id="nameInput" placeholder="Name z. B. Apple">
-          <input id="startPriceInput" type="number" step="0.01" placeholder="Startkurs optional">
-          <button id="addStockButton">Hinzufügen</button>
-        </div>
-        <p class="hint">Neue Aktien werden lokal gespeichert. Für US-Aktien wird automatisch z. B. AAPL → AAPL.US bei Stooq versucht.</p>
-      </section>
+      <section class="card"><h2>Watchlist</h2><div id="stockList"></div></section>
+      <section class="card"><h2>Aktie hinzufügen</h2><div class="grid-4"><input id="symbolInput" placeholder="Ticker z. B. AAPL"><input id="nameInput" placeholder="Name optional"><input id="startPriceInput" type="number" step="0.01" placeholder="Startkurs optional"><button id="addStockButton">Hinzufügen</button></div><p class="hint">Aktien werden lokal gespeichert. Die 144 Ticker aus deiner Numbers-Datei sind als Startliste enthalten.</p></section>
     </section>
-
-    <section id="detailPage" class="page">
-      <section class="card">
-        <button id="backFromDetail" class="secondary">← Zurück</button>
-        <div id="detailPanel"></div>
-      </section>
-    </section>
-
-    <section id="portfolioPage" class="page">
-      <section class="card">
-        <button id="backFromPortfolio" class="secondary">← Zurück</button>
-        <h2>Musterdepot / Börsenspiel</h2>
-        <div id="portfolioPanel"></div>
-      </section>
-    </section>
+    <section id="detailPage" class="page"><section class="card"><button id="backFromDetail" class="secondary">← Zurück</button><div id="detailPanel"></div></section></section>
+    <section id="portfolioPage" class="page"><section class="card"><button id="backFromPortfolio" class="secondary">← Zurück</button><h2>Musterdepot / Börsenspiel</h2><div id="portfolioPanel"></div></section></section>
   </main>
-
-  <footer>
-    <span>Aktientool PWA · private Nutzung · Daten lokal auf deinem Gerät</span>
-  </footer>
-
-  <script src="./data.js"></script>
-  <script src="./app.js"></script>
+  <footer>Aktientool PWA · private Nutzung · Daten lokal auf deinem Gerät</footer>
+  <script src="./data.js"></script><script src="./app.js"></script>
 </body>
 </html>

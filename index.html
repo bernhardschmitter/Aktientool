@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aktientool V3</title>
+  <title>Aktientool V3.1</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <header class="topbar">
-  <div><h1>Aktientool V3</h1><p>Übersicht, Detailanalyse, Depot & Verkaufssignale</p></div>
+  <div><h1>Aktientool V3.1</h1><p>Übersicht, Detailanalyse, Depot & Verkaufssignale · V3.1</p></div>
   <nav>
     <button data-route="home">Übersicht</button>
     <button data-route="depot">Depot</button>
@@ -23,7 +23,7 @@
   <div class="panel add"><h3>Aktie hinzufügen</h3><div class="form"><input id="newSymbol" placeholder="Kennung z.B. AAPL"><input id="newName" placeholder="Name"><select id="newGroup"><option>US Tech</option><option>DAX</option><option>US Aktien</option><option>ETF</option></select><button id="addStock">Hinzufügen</button></div></div>
 </section>
 <section id="detail" class="view"><button class="back" data-route="home">← Zurück</button><div id="detailContent"></div></section>
-<section id="depot" class="view"><button class="back" data-route="home">← Zurück</button><h2>Depot</h2><p class="muted">Depotwerte mit Trendindikatoren und Verkaufssignal, sobald mindestens ein negativer Indikator anschlägt.</p><div id="depotTable"></div></section>
+<section id="depot" class="view"><button class="back" data-route="home">← Zurück</button><h2>Depot</h2><p class="muted">Depotwerte mit Trendindikatoren, Verkaufssignal und Gewinn/Verlust seit Kauf.</p><div id="depotTable"></div></section>
 <section id="signals" class="view"><button class="back" data-route="home">← Zurück</button><h2>Signale</h2><div id="signalTable"></div></section>
 </main>
 <footer>V3 rekonstruiert aus Aktientool.numbers · Daten lokal im Browser erweiterbar</footer>

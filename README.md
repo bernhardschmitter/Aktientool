@@ -1,47 +1,39 @@
-# Aktientool PWA für GitHub Pages
+# Aktientool PWA Version 2
 
-Private Progressive Web App für iPhone und iPad.
+## Neu in dieser Version
 
-## Upload zu GitHub
+- Watchlist als Startseite
+- Detailanalyse auf eigener Seite
+- Zurück-Button von der Detailanalyse
+- Depot auf eigener Seite
+- Zurück-Button vom Depot
+- Verkaufssignal direkt auf der Depotseite
+- Aktien hinzufügen am Ende der Startseite
+- Suchfeld, Signalfilter und Sortierung
+- Aktienliste aus der vorhandenen Watchlist als Startbestand
+- Kursdaten-Abruf über Stooq als erste Datenquelle
+- Fallback: Wenn keine Daten geladen werden können, bleiben vorhandene lokale Daten erhalten
 
-Diese Dateien müssen direkt im Hauptordner deines GitHub-Repositories liegen:
+## GitHub Pages Update
+
+Alle Dateien direkt in das Repository hochladen und bestehende Dateien ersetzen:
 
 - index.html
-- app.js
 - style.css
+- data.js
+- app.js
 - manifest.json
 - service-worker.js
 - icon.svg
 - README.md
 
-## GitHub Pages aktivieren
+Danach unter Actions/Pages kurz warten, bis GitHub die Seite neu veröffentlicht hat.
 
-1. Repository öffnen.
-2. Settings öffnen.
-3. Pages auswählen.
-4. Source: Deploy from a branch.
-5. Branch: main.
-6. Folder: /root.
-7. Save.
+## Hinweis zur Datenquelle
 
-Danach zeigt GitHub dir eine Webadresse an.
+Die App versucht Kursdaten von Stooq zu laden. Nicht jeder Ticker wird dort unter exakt demselben Symbol gefunden.
+Wenn ein Ticker nicht geladen wird, bleibt die Aktie trotzdem erhalten. Dann können wir das Symbol später gezielt anpassen.
 
-## Auf iPhone/iPad installieren
+## Lokale Daten
 
-1. GitHub-Pages-Adresse in Safari öffnen.
-2. Teilen-Symbol antippen.
-3. Zum Home-Bildschirm wählen.
-4. App-Symbol starten.
-
-## Funktionen
-
-- Aktien frei hinzufügen und löschen
-- Kursdaten manuell ergänzen
-- CSV-Kursdaten importieren
-- Indikatoren: SMA20/SMA50, RSI14, MACD, Momentum 10
-- Signalregel: Kaufen/Verkaufen bei mindestens 2 gleichgerichteten Indikatoren
-- Musterdepot mit Cash, Positionen, Gewinn/Verlust und Transaktionen
-
-## Hinweis
-
-Die App speichert Daten lokal auf dem Gerät. Wenn Safari-Daten gelöscht werden, können diese lokalen Daten verloren gehen.
+Die App speichert Daten im lokalen Browser-Speicher des Geräts. Bei einem Update der GitHub-Dateien bleiben deine lokalen Depotdaten normalerweise erhalten.

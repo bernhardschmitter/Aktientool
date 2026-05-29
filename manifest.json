@@ -1,15 +1,18 @@
 {
   "name": "Aktientool PWA",
   "short_name": "Aktientool",
+  "description": "Private Aktienanalyse mit Indikatoren, Signalen und Musterdepot",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f3f4f6",
   "theme_color": "#111827",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "./icon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }

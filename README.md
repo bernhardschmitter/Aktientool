@@ -1,4 +1,4 @@
-# Aktientool V3.11
+# Aktientool V3.12
 
 Änderungen gegenüber V3.5:
 

@@ -7,6 +7,7 @@ const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depo
 const overviewExtraKey = 'aktientool_v36_overview_extra';
 const overviewHiddenKey = 'aktientool_v37_overview_hidden';
 const courseUpdateKey = 'aktientool_v38_course_timestamp';
+const liveQuotesKey = 'aktientool_v312_live_quotes';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 let currentDetailSymbol = null;
@@ -35,6 +36,70 @@ function signalClass(v) { return Number(v) > 0 ? 'good' : Number(v) < 0 ? 'bad' 
 function sellCount(s) { let n = Number(s.sell || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('-') && Number(sig[k]) > 0) n++; }); return n; }
 function buyCount(s) { let n = Number(s.buy || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('+') && Number(sig[k]) > 0) n++; }); return n; }
 function trendText(s) { const v = Number(s.trendScore); return Number.isFinite(v) ? (v > 0 ? '+' + fmt(v) : fmt(v)) : '–'; }
+function loadLiveQuotes() {
+  try { return JSON.parse(localStorage.getItem(liveQuotesKey) || '{}'); }
+  catch (e) { return {}; }
+}
+function saveLiveQuotes(q) { localStorage.setItem(liveQuotesKey, JSON.stringify(q || {})); }
+function liveQuoteFor(sym) { return loadLiveQuotes()[String(sym || '').toUpperCase()] || null; }
+function effectivePrice(s) {
+  const q = liveQuoteFor(s.symbol);
+  return q && Number.isFinite(Number(q.close)) ? Number(q.close) : Number(s.price);
+}
+function effectivePercent(s) {
+  const q = liveQuoteFor(s.symbol);
+  if (q && Number.isFinite(Number(q.close)) && Number.isFinite(Number(q.prevClose)) && Number(q.prevClose) !== 0) return (Number(q.close) - Number(q.prevClose)) / Number(q.prevClose);
+  return s.percent;
+}
+function quoteDate(s) {
+  const q = liveQuoteFor(s.symbol);
+  return q && q.date ? q.date : null;
+}
+function stooqSymbol(sym) {
+  const raw = String(sym || '').trim().toLowerCase();
+  if (!raw) return '';
+  if (raw.endsWith('.de')) return raw;
+  if (raw.endsWith('.us')) return raw;
+  if (raw.includes('.')) return raw;
+  return raw + '.us';
+}
+function parseStooqCsv(text) {
+  const lines = String(text || '').trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length < 2 || /no data/i.test(text)) throw new Error('Keine Kursdaten');
+  const rows = lines.slice(1).map(line => line.split(',')).filter(c => c.length >= 5 && c[0]);
+  if (!rows.length) throw new Error('Keine Kursdaten');
+  const last = rows[rows.length - 1], prev = rows.length > 1 ? rows[rows.length - 2] : null;
+  return { date: last[0], open: Number(last[1]), high: Number(last[2]), low: Number(last[3]), close: Number(last[4]), volume: Number(last[5] || 0), prevClose: prev ? Number(prev[4]) : null, source: 'Stooq' };
+}
+function daysSince(dateStr) {
+  if (!dateStr) return Infinity;
+  const d = new Date(dateStr + 'T12:00:00');
+  return Math.floor((Date.now() - d.getTime()) / 86400000);
+}
+function priceStatus(s) {
+  const q = liveQuoteFor(s.symbol);
+  if (!q) return { cls: 'priceFallback', text: 'Fallback/fest' };
+  if (q.error) return { cls: 'priceStale', text: 'Fehler/Fallback' };
+  const age = daysSince(q.date);
+  if (age <= 1) return { cls: 'priceFresh', text: 'aktuell' };
+  if (age <= 3) return { cls: 'priceWarn', text: 'leicht alt' };
+  return { cls: 'priceStale', text: 'alt' };
+}
+function priceHtml(s, compact=false) {
+  const st = priceStatus(s), date = quoteDate(s);
+  const line = date ? `${date} · ${st.text}` : st.text;
+  return `<span class="${st.cls}">${fmt(effectivePrice(s))}</span>${compact ? '' : `<div class="muted priceDate">${line}</div>`}`;
+}
+async function fetchStooqQuote(stock) {
+  const symbol = stooqSymbol(stock.symbol);
+  if (!symbol) throw new Error('Kein Symbol');
+  const url = 'https://stooq.com/q/d/l/?s=' + encodeURIComponent(symbol) + '&i=d';
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const text = await res.text();
+  return parseStooqCsv(text);
+}
+
 function showPage(id) { if(id!=='detail'&&id!=='newsPage'&&id!=='chartPage') previousPage=id; document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); window.scrollTo(0, 0); }
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => showPage(b.dataset.page));
 $('#backBtn').onclick = () => showPage(previousPage || 'overview');
@@ -58,8 +123,8 @@ function renderOverview() {
   const body = $('#stockTable tbody');
   let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
-    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td><td>${fmt(s.price)}</td>
-    <td class="${signalClass(s.percent)}">${pct(s.percent)}</td><td class="good">${buyCount(s) || ''}</td><td class="bad">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
+    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td><td>${priceHtml(s)}</td>
+    <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td><td class="good signalCount">${buyCount(s) || ''}</td><td class="bad signalCount">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
 }
@@ -115,28 +180,47 @@ function addOverviewStock() {
 }
 window.addOverviewStock = addOverviewStock;
 
-function updateCourses() {
+async function updateCourses() {
+  const btn = $('#updateCoursesBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Lade Kurse …'; }
   const now = new Date();
+  const quotes = loadLiveQuotes();
+  const stocks = allOverviewStocks();
+  let ok = 0, fail = 0;
+  for (const stock of stocks) {
+    try {
+      const q = await fetchStooqQuote(stock);
+      if (!Number.isFinite(Number(q.close))) throw new Error('Ungültiger Kurs');
+      quotes[String(stock.symbol).toUpperCase()] = { ...q, updatedAt: now.toISOString(), fallbackPrice: stock.price };
+      ok++;
+    } catch (e) {
+      const prev = quotes[String(stock.symbol).toUpperCase()];
+      quotes[String(stock.symbol).toUpperCase()] = { ...(prev || {}), error: String(e.message || e), updatedAt: now.toISOString(), fallbackPrice: stock.price };
+      fail++;
+    }
+  }
+  saveLiveQuotes(quotes);
   localStorage.setItem(courseUpdateKey, now.toISOString());
-  renderStats();
-  alert('Kursdatum aktualisiert. Hinweis: Die Kurse selbst stammen weiterhin aus den eingebauten Daten.');
+  if (btn) { btn.disabled = false; btn.textContent = 'Update'; }
+  renderAll();
+  alert(`Kursupdate abgeschlossen: ${ok} erfolgreich, ${fail} Fehler. Fehlerhafte Werte bleiben als Fallback markiert.`);
 }
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.11';
+  $('#version').textContent = DATA.version || 'V3.12';
   const el = $('#courseTimestamp');
   if (el) {
     const stored = localStorage.getItem(courseUpdateKey);
     const ts = stored ? new Date(stored) : new Date();
     if (!stored) localStorage.setItem(courseUpdateKey, ts.toISOString());
-    el.innerHTML = '<b>' + ts.toLocaleString('de-DE') + '</b>';
+    el.innerHTML = '<b>Letztes Kursupdate: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Stooq EOD, Fehler = Fallback</span>';
   }
 }
 
 function card(s, mode = 'normal') {
   const showBuy = mode !== 'sell';
   return `<div class="card ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name} <span class="muted">${s.symbol}</span></h3>
-    <div class="grid"><div class="metric">Kurs<br><b>${fmt(s.price)}</b></div><div class="metric">Änderung<br><b class="${signalClass(s.percent)}">${pct(s.percent)}</b></div>
-    ${showBuy ? `<div class="metric">Kauf<br><b class="good">${buyCount(s)}</b></div>` : ''}<div class="metric">Verkauf<br><b class="bad">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
+    <div class="grid"><div class="metric">Kurs<br><b>${priceHtml(s)}</b></div><div class="metric">Änderung<br><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
+    ${showBuy ? `<div class="metric">Kauf<br><b class="good signalCount">${buyCount(s)}</b></div>` : ''}<div class="metric">Verkauf<br><b class="bad signalCount">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
     <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot'}</button></div></div>`;
 }
 
@@ -154,7 +238,7 @@ function addOrRemoveDepot(sym) {
   if (qtyRaw === null) return;
   const qty = Number(String(qtyRaw).replace(',', '.'));
   if (!Number.isFinite(qty) || qty <= 0) { alert('Bitte eine gültige Stückzahl eingeben.'); return; }
-  const buyPrice = Number(s.price || 0);
+  const buyPrice = Number(effectivePrice(s) || 0);
   const cost = qty * buyPrice;
   depotState.positions[sym] = { qty, buyPrice };
   depotState.cash = Number(depotState.cash || 0) - cost;
@@ -163,7 +247,7 @@ function addOrRemoveDepot(sym) {
 function removeDepot(sym) {
   const p = depotState.positions[sym];
   const s = DATA.stocks.find(x => x.symbol === sym);
-  if (p && s) depotState.cash = Number(depotState.cash || 0) + Number(p.qty || 0) * Number(s.price || 0);
+  if (p && s) depotState.cash = Number(depotState.cash || 0) + Number(p.qty || 0) * Number(effectivePrice(s) || 0);
   delete depotState.positions[sym];
   saveDepot();
 }
@@ -183,7 +267,7 @@ function portfolioTotals() {
   const positions = Object.entries(depotState.positions).map(([sym, p]) => {
     const s = DATA.stocks.find(x => x.symbol === sym);
     if (!s) return null;
-    const qty = Number(p.qty || 0), buyPrice = Number(p.buyPrice || 0), price = Number(s.price || 0);
+    const qty = Number(p.qty || 0), buyPrice = Number(p.buyPrice || 0), price = Number(effectivePrice(s) || 0);
     const value = qty * price, cost = qty * buyPrice, gain = value - cost;
     return { s, p, qty, buyPrice, price, value, cost, gain };
   }).filter(Boolean);
@@ -199,7 +283,7 @@ function renderDepot() {
     <div class="metric">Cash<br><b>${eur(depotState.cash)}</b></div><div class="metric">Aktienwert<br><b>${eur(stockValue)}</b></div><div class="metric">Gesamtwert<br><b>${eur(total)}</b></div><div class="metric">Gewinn/Verlust<br><b class="${signalClass(gainTotal)}">${eur(gainTotal)}</b></div>
   </div><div class="actions"><button onclick="resetDepot()">Depot zurücksetzen</button></div>` +
   (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Verkauf</th><th>Trend</th><th></th></tr></thead><tbody>` +
-    positions.map(x => `<tr><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><input class="miniInput" type="number" step="1" value="${x.qty}" onchange="setDepot('${x.s.symbol}','qty',this.value)"></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${fmt(x.price)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td><button onclick="removeDepot('${x.s.symbol}')">Entfernen</button></td></tr>`).join('') +
+    positions.map(x => `<tr><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><input class="miniInput" type="number" step="1" value="${x.qty}" onchange="setDepot('${x.s.symbol}','qty',this.value)"></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td><button onclick="removeDepot('${x.s.symbol}')">Entfernen</button></td></tr>`).join('') +
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }
 
@@ -294,7 +378,7 @@ function detail(sym) {
       <button onclick="showNews('${s.symbol}')">Google News</button>
       <button onclick="showTradingView('${s.symbol}')">TradingView</button>
     </div>
-    <div class="grid"><div class="metric">Kurs<br><b>${fmt(s.price)}</b></div><div class="metric">Kauf gesamt<br><b class="good">${buyCount(s)}</b></div><div class="metric">Verkauf gesamt<br><b class="bad">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
+    <div class="grid"><div class="metric">Kurs<br><b>${priceHtml(s)}</b></div><div class="metric">Kauf gesamt<br><b class="good signalCount">${buyCount(s)}</b></div><div class="metric">Verkauf gesamt<br><b class="bad signalCount">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
     <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>

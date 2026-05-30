@@ -5,6 +5,8 @@ const eur = n => n == null || !Number.isFinite(Number(n)) ? '–' : Number(n).to
 const pct = n => n == null || n === '' || !Number.isFinite(Number(n)) ? '–' : (Number(n) * 100).toLocaleString('de-DE', { maximumFractionDigits: 2 }) + ' %';
 const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depotdaten erhalten bleiben
 const overviewExtraKey = 'aktientool_v36_overview_extra';
+const overviewHiddenKey = 'aktientool_v37_overview_hidden';
+const courseUpdateKey = 'aktientool_v37_course_timestamp';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
@@ -15,10 +17,16 @@ function getExtraOverviewStocks() {
   catch (e) { return []; }
 }
 function saveExtraOverviewStocks(list) { localStorage.setItem(overviewExtraKey, JSON.stringify(list)); }
+function getHiddenOverviewSymbols() {
+  try { return JSON.parse(localStorage.getItem(overviewHiddenKey) || '[]'); }
+  catch (e) { return []; }
+}
+function saveHiddenOverviewSymbols(list) { localStorage.setItem(overviewHiddenKey, JSON.stringify(list)); }
 function allOverviewStocks() {
+  const hidden = new Set(getHiddenOverviewSymbols().map(x => String(x).toUpperCase()));
   const extras = getExtraOverviewStocks().filter(x => x && x.symbol);
   const existing = new Set(DATA.stocks.map(s => String(s.symbol).toUpperCase()));
-  return DATA.stocks.concat(extras.filter(x => !existing.has(String(x.symbol).toUpperCase())));
+  return DATA.stocks.concat(extras.filter(x => !existing.has(String(x.symbol).toUpperCase()))).filter(s => !hidden.has(String(s.symbol).toUpperCase()));
 }
 function isDepot(s) { return !!depotState.positions[s.symbol]; }
 function signalClass(v) { return Number(v) > 0 ? 'good' : Number(v) < 0 ? 'bad' : ''; }
@@ -33,6 +41,10 @@ function initFilters() {
   $('#search').oninput = renderOverview;
   const addBtn = $('#addOverviewBtn');
   if (addBtn) addBtn.onclick = addOverviewStock;
+  const updateBtn = $('#updateCoursesBtn');
+  if (updateBtn) updateBtn.onclick = updateCourses;
+  const removeBtn = $('#removeSelectedOverviewBtn');
+  if (removeBtn) removeBtn.onclick = removeSelectedOverviewStocks;
   const symbolInput = $('#addOverviewSymbol');
   if (symbolInput) symbolInput.onkeydown = e => { if (e.key === 'Enter') addOverviewStock(); };
 }
@@ -42,10 +54,26 @@ function renderOverview() {
   const body = $('#stockTable tbody');
   let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
-    <td class="${isDepot(s) ? 'depotText' : ''}"><b>${s.symbol}</b></td><td class="${isDepot(s) ? 'depotText' : ''}">${s.name}</td><td>${fmt(s.price)}</td>
+    <td class="${isDepot(s) ? 'depotText' : ''}"><b>${s.symbol}</b></td><td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}</td><td>${fmt(s.price)}</td>
     <td class="${signalClass(s.percent)}">${pct(s.percent)}</td><td class="good">${buyCount(s) || ''}</td><td class="bad">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
+    <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
 }
+
+function removeSelectedOverviewStocks() {
+  const selected = Array.from(document.querySelectorAll('.removeOverviewCheck:checked')).map(x => String(x.value).toUpperCase());
+  if (!selected.length) { alert('Bitte mindestens eine Aktie auswählen.'); return; }
+  if (!confirm(selected.length + ' Aktie(n) aus der Übersicht entfernen?')) return;
+  const sel = new Set(selected);
+  const extras = getExtraOverviewStocks().filter(s => !sel.has(String(s.symbol).toUpperCase()));
+  saveExtraOverviewStocks(extras);
+  const dataSymbols = new Set(DATA.stocks.map(s => String(s.symbol).toUpperCase()));
+  const hidden = new Set(getHiddenOverviewSymbols().map(x => String(x).toUpperCase()));
+  selected.forEach(sym => { if (dataSymbols.has(sym)) hidden.add(sym); });
+  saveHiddenOverviewSymbols(Array.from(hidden));
+  renderOverview();
+}
+window.removeSelectedOverviewStocks = removeSelectedOverviewStocks;
 
 
 function addOverviewStock() {
@@ -83,8 +111,23 @@ function addOverviewStock() {
 }
 window.addOverviewStock = addOverviewStock;
 
+function updateCourses() {
+  const now = new Date();
+  localStorage.setItem(courseUpdateKey, now.toISOString());
+  renderStats();
+  alert('Kursdatum aktualisiert. Hinweis: Die Kurse selbst stammen weiterhin aus den eingebauten Daten.');
+}
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.6';
+  $('#version').textContent = DATA.version || 'V3.7';
+  const el = $('#courseTimestamp');
+  if (el) {
+    const stored = localStorage.getItem(courseUpdateKey);
+    const ts = stored ? new Date(stored) : new Date();
+    if (!stored) localStorage.setItem(courseUpdateKey, ts.toISOString());
+    const ageHours = (Date.now() - ts.getTime()) / 36e5;
+    const status = ageHours > 24 ? '<span class="bad">älter als 24 h</span>' : '<span class="good">aktuell</span>';
+    el.innerHTML = 'Kurse aktualisiert: <b>' + ts.toLocaleString('de-DE') + '</b> · ' + status;
+  }
 }
 
 function card(s, mode = 'normal') {
@@ -199,7 +242,7 @@ function detail(sym) {
     <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
-    <div class="actions"><button onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot'}</button></div>`;
+    <div class="actions"><button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot übernehmen'}</button></div>`;
   showPage('detail'); drawChart(s.history || []);
 }
 

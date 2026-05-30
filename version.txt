@@ -1,5 +1,2 @@
-Aktientool V3.6
-- Depothinweis in Übersicht entfernt
-- Aktien per Symbol lokal zur Übersicht hinzufügen
-- Depot bleibt von Übersicht-Ergänzungen getrennt
-- Cache-Fix ?v=3.6
+Aktientool V3.7
+Änderungen: Übersicht iPhone optimiert, Kursupdate-Button mit Zeitstempel, Entfernen aus Übersicht per Auswahl, größerer Depot-Button in Detailanalyse.

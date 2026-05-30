@@ -10,6 +10,7 @@ const courseUpdateKey = 'aktientool_v38_course_timestamp';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 let currentDetailSymbol = null;
+let previousPage='overview';
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
 
 function saveDepot() { localStorage.setItem(depotKey, JSON.stringify(depotState)); renderAll(); }
@@ -34,9 +35,9 @@ function signalClass(v) { return Number(v) > 0 ? 'good' : Number(v) < 0 ? 'bad' 
 function sellCount(s) { let n = Number(s.sell || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('-') && Number(sig[k]) > 0) n++; }); return n; }
 function buyCount(s) { let n = Number(s.buy || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('+') && Number(sig[k]) > 0) n++; }); return n; }
 function trendText(s) { const v = Number(s.trendScore); return Number.isFinite(v) ? (v > 0 ? '+' + fmt(v) : fmt(v)) : '–'; }
-function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); window.scrollTo(0, 0); }
+function showPage(id) { if(id!=='detail'&&id!=='newsPage'&&id!=='chartPage') previousPage=id; document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); window.scrollTo(0, 0); }
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => showPage(b.dataset.page));
-$('#backBtn').onclick = () => showPage('overview');
+$('#backBtn').onclick = () => showPage(previousPage || 'overview');
 if ($('#newsBackBtn')) $('#newsBackBtn').onclick = () => currentDetailSymbol ? detail(currentDetailSymbol) : showPage('overview');
 if ($('#chartBackBtn')) $('#chartBackBtn').onclick = () => currentDetailSymbol ? detail(currentDetailSymbol) : showPage('overview');
 
@@ -57,7 +58,7 @@ function renderOverview() {
   const body = $('#stockTable tbody');
   let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
-    <td class="${isDepot(s) ? 'depotText' : ''}"><b>${s.symbol}</b></td><td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}</td><td>${fmt(s.price)}</td>
+    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td><td>${fmt(s.price)}</td>
     <td class="${signalClass(s.percent)}">${pct(s.percent)}</td><td class="good">${buyCount(s) || ''}</td><td class="bad">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
@@ -121,7 +122,7 @@ function updateCourses() {
   alert('Kursdatum aktualisiert. Hinweis: Die Kurse selbst stammen weiterhin aus den eingebauten Daten.');
 }
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.9';
+  $('#version').textContent = DATA.version || 'V3.10';
   const el = $('#courseTimestamp');
   if (el) {
     const stored = localStorage.getItem(courseUpdateKey);
@@ -247,7 +248,7 @@ function tradingViewUrl(stock) {
   const sym = String(stock.symbol || '').toUpperCase();
   let tv = sym.replace('.', ':');
   if (sym.endsWith('.DE')) tv = 'XETR:' + sym.replace('.DE', '');
-  return 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(tv);
+  return 'https://www.investing.com/chart/?symbol=' + encodeURIComponent(tv);
 }
 function showNews(sym) {
   const s = allOverviewStocks().find(x => x.symbol === sym);

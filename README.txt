@@ -1,9 +1,9 @@
-Aktientool V3.9 - Upload-Anleitung
+Aktientool V3.10 - Upload-Anleitung
 
 1. ZIP entpacken.
 2. Im GitHub-Repository alte Dateien löschen oder überschreiben.
 3. Alle Dateien aus diesem Ordner ins Root-Verzeichnis hochladen.
 4. Nicht den ZIP-Ordner selbst hochladen.
 5. GitHub Actions / Pages Deployment abwarten.
-6. Prüfen: /version.txt muss Aktientool V3.9 anzeigen.
+6. Prüfen: /version.txt muss Aktientool V3.10 anzeigen.
 7. Bei Cache-Problemen: /?v=36 öffnen.

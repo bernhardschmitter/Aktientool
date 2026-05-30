@@ -1,18 +1,25 @@
-# Aktientool V3
+# Aktientool V3.3
 
-Rekonstruierte Version für GitHub Pages.
+Korrigierte Version mit fest integrierten Aktienstammdaten.
 
-## Dateien
-- `index.html` Startdatei für GitHub Pages
-- `style.css` Layout
-- `app.js` Logik, Navigation, Kurse, Signale
-- `data/stocks.js` Aktienliste
-- `.nojekyll` verhindert Jekyll-Verarbeitung bei GitHub Pages
+## Enthaltene Dateien
 
-## Upload bei GitHub
-Alle Dateien und den Ordner `data` direkt in das Repository hochladen, nicht den übergeordneten ZIP-Ordner.
+- `index.html` – Startseite der Web-App
+- `style.css` – Layout und Darstellung
+- `app.js` – Programmlogik
+- `data.js` – fest integrierte Aktien- und Indikatordaten
+- `version.txt` – sichtbare Versionskennung für Kontrolle nach Upload
+- `README.md` – diese Beschreibung
+- `README.txt` – kurze Upload-Anleitung
+- `DEPLOYMENT.md` – GitHub-Pages-Checkliste
 
-## Änderungen V3.1
-- Im Depot wird Gewinn/Verlust seit Kauf angezeigt.
-- Der Chartverlauf in der Detailansicht hat eine beschriftete Zeitachse.
-- Aktien, die im Depot sind, werden in der Übersicht sichtbar markiert.
+## Wichtig
+
+Bitte in GitHub Pages den Inhalt dieses Ordners hochladen, nicht den ZIP-Ordner selbst.
+Wenn alte Dateien im Repository liegen, diese vorher löschen oder vollständig überschreiben.
+
+Nach dem Upload prüfen:
+
+https://bernhardschmitter.github.io/Aktientool/version.txt
+
+Dort muss `Aktientool V3.3` stehen.

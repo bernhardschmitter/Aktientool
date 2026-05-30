@@ -4,11 +4,22 @@ const fmt = n => n == null || n === '' || !Number.isFinite(Number(n)) ? '–' : 
 const eur = n => n == null || !Number.isFinite(Number(n)) ? '–' : Number(n).toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
 const pct = n => n == null || n === '' || !Number.isFinite(Number(n)) ? '–' : (Number(n) * 100).toLocaleString('de-DE', { maximumFractionDigits: 2 }) + ' %';
 const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depotdaten erhalten bleiben
+const overviewExtraKey = 'aktientool_v36_overview_extra';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
 
 function saveDepot() { localStorage.setItem(depotKey, JSON.stringify(depotState)); renderAll(); }
+function getExtraOverviewStocks() {
+  try { return JSON.parse(localStorage.getItem(overviewExtraKey) || '[]'); }
+  catch (e) { return []; }
+}
+function saveExtraOverviewStocks(list) { localStorage.setItem(overviewExtraKey, JSON.stringify(list)); }
+function allOverviewStocks() {
+  const extras = getExtraOverviewStocks().filter(x => x && x.symbol);
+  const existing = new Set(DATA.stocks.map(s => String(s.symbol).toUpperCase()));
+  return DATA.stocks.concat(extras.filter(x => !existing.has(String(x.symbol).toUpperCase())));
+}
 function isDepot(s) { return !!depotState.positions[s.symbol]; }
 function signalClass(v) { return Number(v) > 0 ? 'good' : Number(v) < 0 ? 'bad' : ''; }
 function sellCount(s) { let n = Number(s.sell || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('-') && Number(sig[k]) > 0) n++; }); return n; }
@@ -20,20 +31,60 @@ $('#backBtn').onclick = () => showPage('overview');
 
 function initFilters() {
   $('#search').oninput = renderOverview;
+  const addBtn = $('#addOverviewBtn');
+  if (addBtn) addBtn.onclick = addOverviewStock;
+  const symbolInput = $('#addOverviewSymbol');
+  if (symbolInput) symbolInput.onkeydown = e => { if (e.key === 'Enter') addOverviewStock(); };
 }
 
 function renderOverview() {
   const q = $('#search').value.toLowerCase();
   const body = $('#stockTable tbody');
-  let rows = DATA.stocks.filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
+  let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
     <td class="${isDepot(s) ? 'depotText' : ''}"><b>${s.symbol}</b></td><td class="${isDepot(s) ? 'depotText' : ''}">${s.name}</td><td>${fmt(s.price)}</td>
     <td class="${signalClass(s.percent)}">${pct(s.percent)}</td><td class="good">${buyCount(s) || ''}</td><td class="bad">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
   </tr>`).join('');
 }
 
+
+function addOverviewStock() {
+  const input = $('#addOverviewSymbol');
+  if (!input) return;
+  const sym = String(input.value || '').trim().toUpperCase();
+  if (!sym) { alert('Bitte ein Symbol eingeben.'); return; }
+  if (allOverviewStocks().some(s => String(s.symbol).toUpperCase() === sym)) {
+    alert(sym + ' ist bereits in der Übersicht vorhanden.');
+    input.value = '';
+    return;
+  }
+  const nameRaw = prompt('Name der Aktie eingeben:', sym);
+  if (nameRaw === null) return;
+  const extra = {
+    symbol: sym,
+    name: String(nameRaw || sym).trim() || sym,
+    price: null,
+    change: null,
+    percent: null,
+    buy: 0,
+    sell: 0,
+    trendScore: 0,
+    volumeFlag: '',
+    history: [],
+    signals: {},
+    trend: {},
+    isManual: true
+  };
+  const extras = getExtraOverviewStocks();
+  extras.push(extra);
+  saveExtraOverviewStocks(extras);
+  input.value = '';
+  renderOverview();
+}
+window.addOverviewStock = addOverviewStock;
+
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.5';
+  $('#version').textContent = DATA.version || 'V3.6';
 }
 
 function card(s, mode = 'normal') {
@@ -52,7 +103,8 @@ function renderLists() {
 
 function addOrRemoveDepot(sym) {
   if (depotState.positions[sym]) { removeDepot(sym); return; }
-  const s = DATA.stocks.find(x => x.symbol === sym);
+  const s = allOverviewStocks().find(x => x.symbol === sym);
+  if (!s) { alert('Symbol nicht gefunden.'); return; }
   const qtyRaw = prompt(`Stückzahl für ${sym} eingeben:`, '1');
   if (qtyRaw === null) return;
   const qty = Number(String(qtyRaw).replace(',', '.'));
@@ -140,7 +192,7 @@ function activeSignalList(sig, stock, type) {
 }
 
 function detail(sym) {
-  let s = DATA.stocks.find(x => x.symbol === sym); if (!s) return;
+  let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
   const sig = s.signals || {};
   $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas>
     <div class="grid"><div class="metric">Kurs<br><b>${fmt(s.price)}</b></div><div class="metric">Kauf gesamt<br><b class="good">${buyCount(s)}</b></div><div class="metric">Verkauf gesamt<br><b class="bad">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>

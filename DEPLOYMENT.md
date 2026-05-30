@@ -4,30 +4,23 @@
 
 - Repository öffnen
 - Alle alten Dateien im Root-Verzeichnis entfernen oder überschreiben
-- Diese Dateien hochladen:
-  - index.html
-  - style.css
-  - app.js
-  - data.js
-  - version.txt
-  - README.md
-  - README.txt
-  - DEPLOYMENT.md
+- Alle Dateien aus dieser ZIP hochladen
+- Nicht den ZIP-Ordner selbst hochladen
 
 ## Kontrolle
 
-Nach dem grünen Deployment diese URLs öffnen:
+Nach dem grünen Deployment öffnen:
 
 - https://bernhardschmitter.github.io/Aktientool/
 - https://bernhardschmitter.github.io/Aktientool/version.txt
 
 Bei Cache-Problemen:
 
-- https://bernhardschmitter.github.io/Aktientool/?v=33
+- https://bernhardschmitter.github.io/Aktientool/?v=36
 
 ## Erwartetes Ergebnis
 
-- Startseite zeigt Aktientool V3.3
-- Aktienanzahl ist nicht 0
-- Detailseite öffnet sich
-- Depotseite funktioniert lokal je Browser
+- Startseite zeigt Aktientool V3.6
+- Übersicht startet ohne Depothinweis
+- Unten in der Übersicht kann ein Symbol ergänzt werden
+- Depotseite bleibt unabhängig davon

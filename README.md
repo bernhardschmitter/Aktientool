@@ -1,25 +1,13 @@
-# Aktientool V3.3
+# Aktientool V3.6
 
-Korrigierte Version mit fest integrierten Aktienstammdaten.
+Änderungen gegenüber V3.5:
 
-## Enthaltene Dateien
+- Depothinweis am Anfang der Übersicht entfernt
+- Neue Aktien können unten in der Übersicht per Symbol ergänzt werden
+- Ergänzte Symbole werden lokal im Browser gespeichert
+- Hinzufügen zur Übersicht ist getrennt vom Depot
+- Cache-Fix mit `?v=3.6` für CSS und JavaScript
 
-- `index.html` – Startseite der Web-App
-- `style.css` – Layout und Darstellung
-- `app.js` – Programmlogik
-- `data.js` – fest integrierte Aktien- und Indikatordaten
-- `version.txt` – sichtbare Versionskennung für Kontrolle nach Upload
-- `README.md` – diese Beschreibung
-- `README.txt` – kurze Upload-Anleitung
-- `DEPLOYMENT.md` – GitHub-Pages-Checkliste
+## Upload
 
-## Wichtig
-
-Bitte in GitHub Pages den Inhalt dieses Ordners hochladen, nicht den ZIP-Ordner selbst.
-Wenn alte Dateien im Repository liegen, diese vorher löschen oder vollständig überschreiben.
-
-Nach dem Upload prüfen:
-
-https://bernhardschmitter.github.io/Aktientool/version.txt
-
-Dort muss `Aktientool V3.3` stehen.
+Alle Dateien aus der ZIP ins Root-Verzeichnis des GitHub-Repositories hochladen und vorhandene Dateien überschreiben.

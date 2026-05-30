@@ -1,2 +1,2 @@
-Aktientool V3.10
-Änderungen: Buttons für Google News und Investing.com direkt unter dem Kursdiagramm in der Detailansicht. Chartanalyse-Absprung auf Investing.com umgestellt. Cache-Parameter auf 3.10.
+Aktientool V3.11
+Änderungen: Chartanalyse-Absprung von Investing.com auf TradingView umgestellt. Direkter Chartaufruf aus dem Aktiensymbol, z.B. XETR für deutsche Werte und NASDAQ für Nasdaq-Werte. Cache-Parameter auf 3.11.

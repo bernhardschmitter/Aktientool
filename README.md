@@ -1,4 +1,4 @@
-# Aktientool V3.7
+# Aktientool V3.8
 
 Änderungen gegenüber V3.5:
 
@@ -6,7 +6,7 @@
 - Neue Aktien können unten in der Übersicht per Symbol ergänzt werden
 - Ergänzte Symbole werden lokal im Browser gespeichert
 - Hinzufügen zur Übersicht ist getrennt vom Depot
-- Cache-Fix mit `?v=3.7` für CSS und JavaScript
+- Cache-Fix mit `?v=3.8` für CSS und JavaScript
 
 ## Upload
 

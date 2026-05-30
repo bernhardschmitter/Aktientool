@@ -6,7 +6,7 @@ const pct = n => n == null || n === '' || !Number.isFinite(Number(n)) ? '–' : 
 const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depotdaten erhalten bleiben
 const overviewExtraKey = 'aktientool_v36_overview_extra';
 const overviewHiddenKey = 'aktientool_v37_overview_hidden';
-const courseUpdateKey = 'aktientool_v37_course_timestamp';
+const courseUpdateKey = 'aktientool_v38_course_timestamp';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
@@ -118,15 +118,13 @@ function updateCourses() {
   alert('Kursdatum aktualisiert. Hinweis: Die Kurse selbst stammen weiterhin aus den eingebauten Daten.');
 }
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.7';
+  $('#version').textContent = DATA.version || 'V3.8';
   const el = $('#courseTimestamp');
   if (el) {
     const stored = localStorage.getItem(courseUpdateKey);
     const ts = stored ? new Date(stored) : new Date();
     if (!stored) localStorage.setItem(courseUpdateKey, ts.toISOString());
-    const ageHours = (Date.now() - ts.getTime()) / 36e5;
-    const status = ageHours > 24 ? '<span class="bad">älter als 24 h</span>' : '<span class="good"></span>';
-    el.innerHTML = 'Kurse aktualisiert: <b>' + ts.toLocaleString('de-DE') + '</b> · ' + status;
+    el.innerHTML = '<b>' + ts.toLocaleString('de-DE') + '</b>';
   }
 }
 

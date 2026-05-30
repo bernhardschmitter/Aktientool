@@ -1,2 +1,2 @@
-Aktientool V3.7
-Änderungen: Übersicht iPhone optimiert, Kursupdate-Button mit Zeitstempel, Entfernen aus Übersicht per Auswahl, größerer Depot-Button in Detailanalyse.
+Aktientool V3.8
+Änderungen: echte V3.8-Basis, Versionsnummern und Cache-Parameter auf 3.8, Kursdatum kompakt als Datum/Uhrzeit mit Update-Button in derselben Zeile, Status aktuell/veraltet entfernt.

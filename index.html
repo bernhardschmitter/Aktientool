@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aktientool V3.7</title>
-<link rel="stylesheet" href="style.css?v=3.7">
+<title>Aktientool V3.8</title>
+<link rel="stylesheet" href="style.css?v=3.8">
 </head>
 <body>
 <header>
-  <div><h1>Aktientool <span id="version">V3.7</span></h1><p>Stammdaten fest integriert · aus Numbers-Datei übernommen</p></div>
-  <nav><button data-page="overview">Übersicht</button><button id="updateCoursesBtn" type="button">Kurse update</button><button data-page="buy">Kauf</button><button data-page="sell">Verkauf</button><button data-page="depot">Depot</button></nav>
+  <div><h1>Aktientool <span id="version">V3.8</span></h1><p>Stammdaten fest integriert · aus Numbers-Datei übernommen</p></div>
+  <nav><button data-page="overview">Übersicht</button><button data-page="buy">Kauf</button><button data-page="sell">Verkauf</button><button data-page="depot">Depot</button></nav>
 </header>
 <main>
 <section id="overview" class="page active">
-  <div id="courseTimestamp" class="courseTimestamp"></div>
+  <div class="courseLine"><span id="courseTimestamp" class="courseTimestamp"></span><button id="updateCoursesBtn" type="button">Update</button></div>
   <div class="toolbar"><input id="search" placeholder="Suche Aktie oder Symbol …"></div>
   <div class="tablewrap"><table id="stockTable"><thead><tr><th>Symbol</th><th class="nameCol">Aktie</th><th>Kurs</th><th>%</th><th>Kauf</th><th>Verkauf</th><th>Trend</th><th>Entf.</th></tr></thead><tbody></tbody></table></div>
   <div class="actions removeOverviewActions"><button id="removeSelectedOverviewBtn" type="button">Ausgewählte entfernen</button></div>
@@ -24,6 +24,6 @@
 <section id="depot" class="page"><h2>Depot</h2><div class="note">Startkapital 10.000 €. Cash, Aktienwert und Gewinn/Verlust werden lokal im Browser gespeichert.</div><div id="depotList" class="list"></div></section>
 <section id="detail" class="page"><button id="backBtn" class="back">← Zurück</button><div id="detailContent"></div></section>
 </main>
-<footer>Aktientool V3.7 · Daten fest eingebaut · keine externe Aktien-Datei nötig</footer>
-<script src="data.js?v=3.7"></script><script src="app.js?v=3.7"></script>
+<footer>Aktientool V3.8 · Daten fest eingebaut · keine externe Aktien-Datei nötig</footer>
+<script src="data.js?v=3.8"></script><script src="app.js?v=3.8"></script>
 </body></html>

@@ -125,7 +125,7 @@ function renderStats() {
     const ts = stored ? new Date(stored) : new Date();
     if (!stored) localStorage.setItem(courseUpdateKey, ts.toISOString());
     const ageHours = (Date.now() - ts.getTime()) / 36e5;
-    const status = ageHours > 24 ? '<span class="bad">älter als 24 h</span>' : '<span class="good">aktuell</span>';
+    const status = ageHours > 24 ? '<span class="bad">älter als 24 h</span>' : '<span class="good"></span>';
     el.innerHTML = 'Kurse aktualisiert: <b>' + ts.toLocaleString('de-DE') + '</b> · ' + status;
   }
 }

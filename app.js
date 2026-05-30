@@ -7,7 +7,7 @@ const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depo
 const overviewExtraKey = 'aktientool_v36_overview_extra';
 const overviewHiddenKey = 'aktientool_v37_overview_hidden';
 const courseUpdateKey = 'aktientool_v38_course_timestamp';
-const liveQuotesKey = 'aktientool_v312_live_quotes';
+const liveQuotesKey = 'aktientool_v313_live_quotes';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 let currentDetailSymbol = null;
@@ -76,21 +76,45 @@ function daysSince(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
   return Math.floor((Date.now() - d.getTime()) / 86400000);
 }
+function dateOnly(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function isWeekday(d) { const day = d.getDay(); return day !== 0 && day !== 6; }
+function expectedTradingDate(now = new Date()) {
+  let d = dateOnly(now);
+  // Nach Börsenschluss wäre der heutige Handelstag erwartbar, davor der vorherige Werktag.
+  if (d.getDay() !== 0 && d.getDay() !== 6 && now.getHours() < 19) d.setDate(d.getDate() - 1);
+  while (!isWeekday(d)) d.setDate(d.getDate() - 1);
+  return d;
+}
+function tradingDaysBehind(dateStr) {
+  if (!dateStr) return Infinity;
+  const quote = dateOnly(new Date(dateStr + 'T12:00:00'));
+  const expected = expectedTradingDate();
+  if (quote >= expected) return 0;
+  let missed = 0, d = new Date(quote);
+  d.setDate(d.getDate() + 1);
+  while (d <= expected) { if (isWeekday(d)) missed++; d.setDate(d.getDate() + 1); }
+  return missed;
+}
+function hasCourseUpdateRun() { return !!localStorage.getItem(courseUpdateKey); }
+function setUpdateStatus(text, cls = '') {
+  const el = $('#updateStatus');
+  if (el) { el.textContent = text || ''; el.className = 'updateStatus ' + cls; }
+}
 function priceStatus(s) {
   const q = liveQuoteFor(s.symbol);
-  if (!q) return { cls: 'priceFixed', text: 'Fixdaten' };
+  if (!q) return hasCourseUpdateRun() ? { cls: 'priceStale', text: 'Fixdaten/kein Update' } : { cls: 'priceFixed', text: 'Fixdaten' };
   if (q.error) return { cls: 'priceStale', text: 'Fehler/Fallback' };
-  const age = daysSince(q.date);
-  if (age <= 1) return { cls: 'priceFresh', text: 'aktuell' };
-  if (age <= 3) return { cls: 'priceWarn', text: 'leicht alt' };
-  return { cls: 'priceStale', text: 'alt' };
+  const missed = tradingDaysBehind(q.date);
+  if (missed <= 0) return { cls: 'priceFresh', text: 'aktuell' };
+  if (missed === 1) return { cls: 'priceWarn', text: '1 Handelstag alt' };
+  return { cls: 'priceStale', text: missed + ' Handelstage alt' };
 }
 function priceHtml(s, compact=false) {
   const st = priceStatus(s), date = quoteDate(s);
   const line = date ? `${date} · ${st.text}` : st.text;
   return `<span class="${st.cls}">${fmt(effectivePrice(s))}</span>${compact ? '' : `<div class="muted priceDate">${line}</div>`}`;
 }
-function fetchWithTimeout(url, ms = 9000) {
+function fetchWithTimeout(url, ms = 4500) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ms);
   return fetch(url, { cache: 'no-store', signal: controller.signal }).finally(() => clearTimeout(timer));
@@ -206,43 +230,57 @@ window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
   const btn = $('#updateCoursesBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Lade Kurse …'; }
   const now = new Date();
   const quotes = loadLiveQuotes();
   const stocks = allOverviewStocks();
   let ok = 0, fail = 0;
-  for (const stock of stocks) {
-    try {
-      const q = await fetchStooqQuote(stock);
-      if (!Number.isFinite(Number(q.close))) throw new Error('Ungültiger Kurs');
-      quotes[String(stock.symbol).toUpperCase()] = { ...q, updatedAt: now.toISOString(), fallbackPrice: stock.price };
-      ok++;
-    } catch (e) {
-      const prev = quotes[String(stock.symbol).toUpperCase()];
-      quotes[String(stock.symbol).toUpperCase()] = { ...(prev || {}), error: String(e.message || e), updatedAt: now.toISOString(), fallbackPrice: stock.price };
-      fail++;
+  if (btn) { btn.disabled = true; btn.textContent = 'Lade Kurse …'; }
+  setUpdateStatus('Starte Kursupdate …', 'warn');
+  try {
+    for (let i = 0; i < stocks.length; i++) {
+      const stock = stocks[i];
+      setUpdateStatus(`Lade ${i + 1}/${stocks.length}: ${stock.symbol} · OK ${ok} · Fehler ${fail}`, 'warn');
+      try {
+        const q = await fetchStooqQuote(stock);
+        if (!Number.isFinite(Number(q.close))) throw new Error('Ungültiger Kurs');
+        quotes[String(stock.symbol).toUpperCase()] = { ...q, error: '', updatedAt: now.toISOString(), fallbackPrice: stock.price };
+        ok++;
+      } catch (e) {
+        const prev = quotes[String(stock.symbol).toUpperCase()];
+        quotes[String(stock.symbol).toUpperCase()] = { ...(prev || {}), error: String(e.message || e), updatedAt: now.toISOString(), fallbackPrice: stock.price };
+        fail++;
+      }
+      if ((i + 1) % 5 === 0) { saveLiveQuotes(quotes); renderOverview(); }
+      await new Promise(r => setTimeout(r, 0));
     }
+    saveLiveQuotes(quotes);
+    localStorage.setItem(courseUpdateKey, now.toISOString());
+    renderAll();
+    const cls = fail ? (ok ? 'warn' : 'bad') : 'good';
+    setUpdateStatus(`Fertig: ${ok} erfolgreich, ${fail} Fehler · ${now.toLocaleString('de-DE')}`, cls);
+    if (fail) alert(`Kursupdate abgeschlossen: ${ok} erfolgreich, ${fail} Fehler. Fehlerhafte Werte werden rot als Fallback/Fixdaten markiert.`);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Update'; }
   }
-  saveLiveQuotes(quotes);
-  localStorage.setItem(courseUpdateKey, now.toISOString());
-  if (btn) { btn.disabled = false; btn.textContent = 'Update'; }
-  renderAll();
-  alert(`Kursupdate abgeschlossen: ${ok} erfolgreich, ${fail} Fehler. Fehlerhafte Werte bleiben als Fallback markiert.`);
 }
+
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.12';
+  $('#version').textContent = DATA.version || 'V3.13';
   const el = $('#courseTimestamp');
   if (el) {
     const stored = localStorage.getItem(courseUpdateKey);
-    const ts = stored ? new Date(stored) : new Date();
-    if (!stored) localStorage.setItem(courseUpdateKey, ts.toISOString());
-    el.innerHTML = '<b>Letztes Kursupdate: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Stooq EOD, Fehler = Fallback</span>';
+    if (stored) {
+      const ts = new Date(stored);
+      el.innerHTML = '<b>Letztes Kursupdate: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Stooq EOD, Fehler = roter Fallback</span>';
+    } else {
+      el.innerHTML = '<b>Noch kein Kursupdate in dieser Version</b><span class="muted"> · Fixdaten aus Datei</span>';
+    }
   }
 }
 
 function card(s, mode = 'normal') {
   const showBuy = mode !== 'sell';
-  return `<div class="card ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name} <span class="muted">${s.symbol}</span></h3>
+  return `<div class="card signalCard ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name} <span class="muted">${s.symbol}</span></h3>
     <div class="grid"><div class="metric">Kurs<br><b>${priceHtml(s)}</b></div><div class="metric">Änderung<br><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
     ${showBuy ? `<div class="metric">Kauf<br><b class="good signalCount">${buyCount(s)}</b></div>` : ''}<div class="metric">Verkauf<br><b class="bad signalCount">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
     <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot'}</button></div></div>`;

@@ -5,7 +5,12 @@
 
 .buttonLink{display:inline-block;border:1px solid var(--line);background:#1e293b;color:var(--text);padding:10px 13px;border-radius:12px;font-weight:650;text-decoration:none}.buttonLink:hover{border-color:var(--accent);color:white}.detailActions{align-items:center}.detailActions button,.detailActions .buttonLink{min-width:135px;text-align:center}
 
-/* V3.12 Kursstatus und kompaktere Signal-Darstellung */
+/* V3.13 Kursstatus und kompaktere Signal-Darstellung */
 .priceDate{font-size:.78rem;margin-top:2px;line-height:1.15}.priceFresh{color:var(--good)}.priceWarn{color:var(--warn)}.priceStale,.priceFallback{color:var(--bad)}.priceFixed{color:var(--text)}td.signalCount,th.signalCount{text-align:center!important;vertical-align:middle}.metric .signalCount{display:block;text-align:center;min-width:1.6em}.courseLine{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.courseTimestamp{color:var(--muted)}
 
 #stockTable th:nth-child(4),#stockTable th:nth-child(5),#stockTable td:nth-child(4),#stockTable td:nth-child(5){text-align:center!important;}
+
+/* V3.13 Update-Status, trading-day freshness und kompaktere Kauf/Verkauf-Karten */
+.updateStatus{font-size:.9rem;color:var(--muted)}.updateStatus.good{color:var(--good)}.updateStatus.warn{color:var(--warn)}.updateStatus.bad{color:var(--bad)}
+.signalCard{padding:11px}.signalCard h3{font-size:1rem;margin:0 0 .25rem}.signalCard .grid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:7px;margin-top:7px}.signalCard .metric{padding:8px}.signalCard .actions{margin-top:8px}.signalCard button{padding:8px 10px}
+@media(max-width:700px){.signalCard .grid{grid-template-columns:repeat(3,minmax(80px,1fr));gap:6px}.signalCard .metric{font-size:.85rem;padding:7px}.signalCard h3{font-size:.95rem}.priceDate{font-size:.72rem}}

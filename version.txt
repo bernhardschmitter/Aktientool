@@ -1,4 +1,4 @@
-Aktientool V3.3
+Aktientool V3.4
 Build: 2026-05-30
 Daten: fest integriert in data.js
-Hinweis: Wenn diese Datei online V3.3 zeigt, ist der neue Upload aktiv.
+Cache-Fix: CSS/JS/Daten mit ?v=3.4 eingebunden.

@@ -78,7 +78,7 @@ function daysSince(dateStr) {
 }
 function priceStatus(s) {
   const q = liveQuoteFor(s.symbol);
-  if (!q) return { cls: 'priceFallback', text: 'Fallback/fest' };
+  if (!q) return { cls: 'priceFixed', text: 'Fixdaten' };
   if (q.error) return { cls: 'priceStale', text: 'Fehler/Fallback' };
   const age = daysSince(q.date);
   if (age <= 1) return { cls: 'priceFresh', text: 'aktuell' };
@@ -90,13 +90,37 @@ function priceHtml(s, compact=false) {
   const line = date ? `${date} · ${st.text}` : st.text;
   return `<span class="${st.cls}">${fmt(effectivePrice(s))}</span>${compact ? '' : `<div class="muted priceDate">${line}</div>`}`;
 }
+function fetchWithTimeout(url, ms = 9000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { cache: 'no-store', signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
+async function fetchTextWithFallback(url) {
+  const urls = [
+    url,
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(url)
+  ];
+  let lastError = null;
+  for (const u of urls) {
+    try {
+      const res = await fetchWithTimeout(u);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      if (text && !/no data/i.test(text)) return text;
+      lastError = new Error('Keine Kursdaten');
+    } catch (e) {
+      lastError = e;
+    }
+  }
+  throw lastError || new Error('Kursdaten nicht erreichbar');
+}
+
 async function fetchStooqQuote(stock) {
   const symbol = stooqSymbol(stock.symbol);
   if (!symbol) throw new Error('Kein Symbol');
   const url = 'https://stooq.com/q/d/l/?s=' + encodeURIComponent(symbol) + '&i=d';
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error('HTTP ' + res.status);
-  const text = await res.text();
+  const text = await fetchTextWithFallback(url);
   return parseStooqCsv(text);
 }
 

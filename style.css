@@ -6,4 +6,6 @@
 .buttonLink{display:inline-block;border:1px solid var(--line);background:#1e293b;color:var(--text);padding:10px 13px;border-radius:12px;font-weight:650;text-decoration:none}.buttonLink:hover{border-color:var(--accent);color:white}.detailActions{align-items:center}.detailActions button,.detailActions .buttonLink{min-width:135px;text-align:center}
 
 /* V3.12 Kursstatus und kompaktere Signal-Darstellung */
-.priceDate{font-size:.78rem;margin-top:2px;line-height:1.15}.priceFresh{color:var(--good)}.priceWarn{color:var(--warn)}.priceStale,.priceFallback{color:var(--bad)}.signalCount{text-align:center;display:inline-block;min-width:1.6em}.stockTable .signalCount{text-align:center}.courseLine{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.courseTimestamp{color:var(--muted)}td.signalCount,th.signalCount{text-align:center}
+.priceDate{font-size:.78rem;margin-top:2px;line-height:1.15}.priceFresh{color:var(--good)}.priceWarn{color:var(--warn)}.priceStale,.priceFallback{color:var(--bad)}.priceFixed{color:var(--text)}td.signalCount,th.signalCount{text-align:center!important;vertical-align:middle}.metric .signalCount{display:block;text-align:center;min-width:1.6em}.courseLine{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px}.courseTimestamp{color:var(--muted)}
+
+#stockTable th:nth-child(4),#stockTable th:nth-child(5),#stockTable td:nth-child(4),#stockTable td:nth-child(5){text-align:center!important;}

@@ -1,7 +1,4 @@
-Aktientool V3.15
+Aktientool V3.16
 
-Neu:
-- Kein manueller Kursupdate-Button mehr
-- Kurse werden automatisch über GitHub Actions in prices.json geschrieben
-- Webseite liest prices.json beim Öffnen
-- Farblogik für Kursfrische bleibt erhalten
+Automatisches EOD-Kursupdate über GitHub Actions.
+Wichtig: Nach dem Hochladen muss unter GitHub > Actions ggf. die Workflow-Ausführung erlaubt werden. Danach kann der Workflow "Update EOD prices" manuell gestartet werden. Anschließend erzeugt er prices.json automatisch.

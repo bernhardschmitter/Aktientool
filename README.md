@@ -1,4 +1,4 @@
-# Aktientool V3.15
+# Aktientool V3.16
 
 Automatisches EOD-Kursupdate über GitHub Actions. Die Webseite lädt `prices.json`; der manuelle Browser-Update-Button wurde entfernt.
 

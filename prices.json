@@ -1,7 +1,8 @@
 {
-  "version": "V3.15",
+  "version": "V3.16",
   "generatedAt": null,
   "source": "Automatisches EOD-Update via GitHub Action / Stooq",
+  "symbolsTotal": 0,
   "count": 0,
   "errorCount": 0,
   "errors": {},

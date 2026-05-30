@@ -67,9 +67,9 @@ async function loadAutoPrices() {
     const res = await fetch('prices.json?v=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('prices.json HTTP ' + res.status);
     const data = await res.json();
-    autoPriceData = { generatedAt: data.generatedAt || null, source: data.source || 'Automatisches EOD-Update', quotes: data.quotes || {} };
+    autoPriceData = { generatedAt: data.generatedAt || null, source: data.source || 'Automatisches EOD-Update', quotes: data.quotes || {}, symbolsTotal: data.symbolsTotal || 0, errorCount: data.errorCount || 0 };
     const count = Object.keys(autoPriceData.quotes || {}).length;
-    if (el) { el.textContent = count ? `Automatische Kursdatei geladen: ${count} Werte` : 'Automatische Kursdatei noch leer'; el.className = 'updateStatus ' + (count ? 'good' : 'warn'); }
+    if (el) { el.textContent = count ? `Automatische Kursdatei geladen: ${count} Werte` : 'Automatische Kursdatei noch leer · GitHub Action starten/prüfen'; el.className = 'updateStatus ' + (count ? 'good' : 'warn'); }
   } catch (e) {
     autoPriceData = { generatedAt: null, source: 'prices.json', quotes: {} };
     if (el) { el.textContent = 'Keine automatische Kursdatei geladen · Fixdaten aus Datei'; el.className = 'updateStatus bad'; }
@@ -263,21 +263,22 @@ function addOverviewStock() {
 window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
-  // V3.15: Manuelles Browser-Update wurde bewusst entfernt.
+  // V3.16: Manuelles Browser-Update wurde bewusst entfernt.
   // Die Kurse werden automatisch per GitHub Action in prices.json aktualisiert.
   setUpdateStatus('Automatisches EOD-Update aktiv · kein manuelles Update nötig', 'good');
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.15';
+  $('#version').textContent = DATA.version || 'V3.16';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
+    const errCount = (autoPriceData && autoPriceData.errorCount) || 0;
     if (autoPriceData && autoPriceData.generatedAt && count) {
       const ts = new Date(autoPriceData.generatedAt);
-      el.innerHTML = '<b>Kursstand: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Automatisches EOD-Update · Fehler/alte Daten = farbig markiert</span>';
+      el.innerHTML = '<b>Kursstand: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Automatisches EOD-Update · Werte: ' + count + ' · Fehler: ' + errCount + ' · Fehler/alte Daten = farbig markiert</span>';
     } else {
-      el.innerHTML = '<b>Noch kein automatisches Kursupdate vorhanden</b><span class="muted"> · Fixdaten aus Datei · GitHub Action erzeugt prices.json</span>';
+      el.innerHTML = '<b>Noch kein automatisches Kursupdate vorhanden</b><span class="muted"> · Fixdaten aus Datei · GitHub Action muss prices.json noch erzeugen</span>';
     }
   }
 }

@@ -9,6 +9,7 @@ const overviewHiddenKey = 'aktientool_v37_overview_hidden';
 const courseUpdateKey = 'aktientool_v38_course_timestamp';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
+let currentDetailSymbol = null;
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
 
 function saveDepot() { localStorage.setItem(depotKey, JSON.stringify(depotState)); renderAll(); }
@@ -36,6 +37,8 @@ function trendText(s) { const v = Number(s.trendScore); return Number.isFinite(v
 function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); window.scrollTo(0, 0); }
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => showPage(b.dataset.page));
 $('#backBtn').onclick = () => showPage('overview');
+if ($('#newsBackBtn')) $('#newsBackBtn').onclick = () => currentDetailSymbol ? detail(currentDetailSymbol) : showPage('overview');
+if ($('#chartBackBtn')) $('#chartBackBtn').onclick = () => currentDetailSymbol ? detail(currentDetailSymbol) : showPage('overview');
 
 function initFilters() {
   $('#search').oninput = renderOverview;
@@ -118,7 +121,7 @@ function updateCourses() {
   alert('Kursdatum aktualisiert. Hinweis: Die Kurse selbst stammen weiterhin aus den eingebauten Daten.');
 }
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.8';
+  $('#version').textContent = DATA.version || 'V3.9';
   const el = $('#courseTimestamp');
   if (el) {
     const stored = localStorage.getItem(courseUpdateKey);
@@ -232,7 +235,51 @@ function activeSignalList(sig, stock, type) {
   return `<div class="signalList">${items.map(x => `<div><b class="${x.cls}">${x.name} ${x.sign}</b><span>${x.text}</span></div>`).join('')}</div>`;
 }
 
+
+function externalSymbol(sym) {
+  return String(sym || '').replace('.DE', '').replace('.F', '').replace('.AS', '').replace('.PA', '').replace('.MI', '').replace('.SW', '');
+}
+function googleNewsUrl(stock) {
+  const q = encodeURIComponent((stock.name || stock.symbol) + ' ' + stock.symbol + ' Aktie Börse News');
+  return 'https://news.google.com/search?q=' + q + '&hl=de&gl=DE&ceid=DE:de';
+}
+function tradingViewUrl(stock) {
+  const sym = String(stock.symbol || '').toUpperCase();
+  let tv = sym.replace('.', ':');
+  if (sym.endsWith('.DE')) tv = 'XETR:' + sym.replace('.DE', '');
+  return 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(tv);
+}
+function showNews(sym) {
+  const s = allOverviewStocks().find(x => x.symbol === sym);
+  if (!s) return;
+  currentDetailSymbol = sym;
+  const url = googleNewsUrl(s);
+  $('#newsContent').innerHTML = `<h2>Google News <span class="muted">${s.symbol}</span></h2>
+    <div class="card">
+      <h3>${s.name}</h3>
+      <p>Öffnet die aktuellen Google-News zur Aktie in einem neuen Tab. Danach kannst du hier wieder zur Detailanalyse zurückspringen.</p>
+      <div class="actions"><a class="buttonLink" href="${url}" target="_blank" rel="noopener">Google News öffnen</a></div>
+    </div>`;
+  showPage('newsPage');
+}
+function showTradingView(sym) {
+  const s = allOverviewStocks().find(x => x.symbol === sym);
+  if (!s) return;
+  currentDetailSymbol = sym;
+  const url = tradingViewUrl(s);
+  $('#chartContent').innerHTML = `<h2>TradingView <span class="muted">${s.symbol}</span></h2>
+    <div class="card">
+      <h3>${s.name}</h3>
+      <p>Öffnet die Aktie direkt in TradingView in einem neuen Tab. Die Detailanalyse bleibt im Aktientool erreichbar.</p>
+      <div class="actions"><a class="buttonLink" href="${url}" target="_blank" rel="noopener">TradingView öffnen</a></div>
+    </div>`;
+  showPage('chartPage');
+}
+window.showNews = showNews;
+window.showTradingView = showTradingView;
+
 function detail(sym) {
+  currentDetailSymbol = sym;
   let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
   const sig = s.signals || {};
   $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas>
@@ -240,7 +287,11 @@ function detail(sym) {
     <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
-    <div class="actions"><button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot übernehmen'}</button></div>`;
+    <div class="actions detailActions">
+      <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot übernehmen'}</button>
+      <button onclick="showNews('${s.symbol}')">Google News</button>
+      <button onclick="showTradingView('${s.symbol}')">TradingView</button>
+    </div>`;
   showPage('detail'); drawChart(s.history || []);
 }
 

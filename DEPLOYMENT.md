@@ -20,7 +20,7 @@ Bei Cache-Problemen:
 
 ## Erwartetes Ergebnis
 
-- Startseite zeigt Aktientool V3.8
+- Startseite zeigt Aktientool V3.9
 - Übersicht startet ohne Depothinweis
 - Unten in der Übersicht kann ein Symbol ergänzt werden
 - Depotseite bleibt unabhängig davon

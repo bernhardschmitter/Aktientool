@@ -7,11 +7,13 @@ const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depo
 const overviewExtraKey = 'aktientool_v36_overview_extra';
 const overviewHiddenKey = 'aktientool_v37_overview_hidden';
 const courseUpdateKey = 'aktientool_v38_course_timestamp';
-const liveQuotesKey = 'aktientool_v314_live_quotes';
+const liveQuotesKey = 'aktientool_v315_auto_quotes';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 let currentDetailSymbol = null;
 let previousPage='overview';
+let autoPriceData = { generatedAt: null, source: 'prices.json', quotes: {} };
+
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
 
 function saveDepot() { localStorage.setItem(depotKey, JSON.stringify(depotState)); renderAll(); }
@@ -37,11 +39,14 @@ function sellCount(s) { let n = Number(s.sell || 0); const sig = s.signals || {}
 function buyCount(s) { let n = Number(s.buy || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('+') && Number(sig[k]) > 0) n++; }); return n; }
 function trendText(s) { const v = Number(s.trendScore); return Number.isFinite(v) ? (v > 0 ? '+' + fmt(v) : fmt(v)) : '–'; }
 function loadLiveQuotes() {
-  try { return JSON.parse(localStorage.getItem(liveQuotesKey) || '{}'); }
-  catch (e) { return {}; }
+  return autoPriceData && autoPriceData.quotes ? autoPriceData.quotes : {};
 }
-function saveLiveQuotes(q) { localStorage.setItem(liveQuotesKey, JSON.stringify(q || {})); }
-function liveQuoteFor(sym) { return loadLiveQuotes()[String(sym || '').toUpperCase()] || null; }
+function saveLiveQuotes(q) {
+  autoPriceData.quotes = q || {};
+}
+function liveQuoteFor(sym) {
+  return loadLiveQuotes()[String(sym || '').toUpperCase()] || null;
+}
 function effectivePrice(s) {
   const q = liveQuoteFor(s.symbol);
   return q && Number.isFinite(Number(q.close)) ? Number(q.close) : Number(s.price);
@@ -54,6 +59,22 @@ function effectivePercent(s) {
 function quoteDate(s) {
   const q = liveQuoteFor(s.symbol);
   return q && q.date ? q.date : null;
+}
+async function loadAutoPrices() {
+  const el = $('#updateStatus');
+  try {
+    if (el) { el.textContent = 'Lade automatische Kursdatei …'; el.className = 'updateStatus warn'; }
+    const res = await fetch('prices.json?v=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('prices.json HTTP ' + res.status);
+    const data = await res.json();
+    autoPriceData = { generatedAt: data.generatedAt || null, source: data.source || 'Automatisches EOD-Update', quotes: data.quotes || {} };
+    const count = Object.keys(autoPriceData.quotes || {}).length;
+    if (el) { el.textContent = count ? `Automatische Kursdatei geladen: ${count} Werte` : 'Automatische Kursdatei noch leer'; el.className = 'updateStatus ' + (count ? 'good' : 'warn'); }
+  } catch (e) {
+    autoPriceData = { generatedAt: null, source: 'prices.json', quotes: {} };
+    if (el) { el.textContent = 'Keine automatische Kursdatei geladen · Fixdaten aus Datei'; el.className = 'updateStatus bad'; }
+  }
+  renderAll();
 }
 function stooqSymbol(sym) {
   const raw = String(sym || '').trim().toLowerCase();
@@ -102,7 +123,7 @@ function setUpdateStatus(text, cls = '') {
 }
 function priceStatus(s) {
   const q = liveQuoteFor(s.symbol);
-  if (!q) return hasCourseUpdateRun() ? { cls: 'priceStale', text: 'Fixdaten/kein Update' } : { cls: 'priceFixed', text: 'Fixdaten' };
+  if (!q) return { cls: 'priceFixed', text: 'Fixdaten/kein EOD-Wert' };
   if (q.error) return { cls: 'priceStale', text: 'Fehler/Fallback' };
   const missed = tradingDaysBehind(q.date);
   if (missed <= 0) return { cls: 'priceFresh', text: 'aktuell' };
@@ -173,8 +194,6 @@ function initFilters() {
   $('#search').oninput = renderOverview;
   const addBtn = $('#addOverviewBtn');
   if (addBtn) addBtn.onclick = addOverviewStock;
-  const updateBtn = $('#updateCoursesBtn');
-  if (updateBtn) updateBtn.onclick = updateCourses;
   const removeBtn = $('#removeSelectedOverviewBtn');
   if (removeBtn) removeBtn.onclick = removeSelectedOverviewStocks;
   const symbolInput = $('#addOverviewSymbol');
@@ -244,57 +263,21 @@ function addOverviewStock() {
 window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
-  const btn = $('#updateCoursesBtn');
-  const now = new Date();
-  const quotes = loadLiveQuotes();
-  const stocks = allOverviewStocks();
-  let ok = 0, fail = 0;
-  const sourceCount = {};
-  let lastErrorText = '';
-  if (btn) { btn.disabled = true; btn.textContent = 'Lade Kurse …'; }
-  setUpdateStatus('Starte Kursupdate …', 'warn');
-  try {
-    for (let i = 0; i < stocks.length; i++) {
-      const stock = stocks[i];
-      setUpdateStatus(`Lade ${i + 1}/${stocks.length}: ${stock.symbol} · OK ${ok} · Fehler ${fail}`, 'warn');
-      try {
-        const q = await fetchStooqQuote(stock);
-        if (!Number.isFinite(Number(q.close))) throw new Error('Ungültiger Kurs');
-        quotes[String(stock.symbol).toUpperCase()] = { ...q, error: '', updatedAt: now.toISOString(), fallbackPrice: stock.price };
-        sourceCount[q.source || 'Stooq'] = (sourceCount[q.source || 'Stooq'] || 0) + 1;
-        ok++;
-      } catch (e) {
-        const prev = quotes[String(stock.symbol).toUpperCase()];
-        lastErrorText = stock.symbol + ': ' + String(e.message || e);
-        quotes[String(stock.symbol).toUpperCase()] = { ...(prev || {}), error: String(e.message || e), updatedAt: now.toISOString(), fallbackPrice: stock.price };
-        fail++;
-      }
-      if ((i + 1) % 5 === 0) { saveLiveQuotes(quotes); renderOverview(); }
-      await new Promise(r => setTimeout(r, 0));
-    }
-    saveLiveQuotes(quotes);
-    localStorage.setItem(courseUpdateKey, now.toISOString());
-    renderAll();
-    const cls = fail ? (ok ? 'warn' : 'bad') : 'good';
-    const sourceText = Object.keys(sourceCount).length ? ' · Quelle: ' + Object.entries(sourceCount).map(([k,v]) => k + ' ' + v).join(', ') : '';
-    const errText = fail ? ' · letzter Fehler: ' + lastErrorText : '';
-    setUpdateStatus(`Fertig: ${ok} erfolgreich, ${fail} Fehler · ${now.toLocaleString('de-DE')}${sourceText}${errText}`, cls);
-    if (fail) alert(`Kursupdate abgeschlossen: ${ok} erfolgreich, ${fail} Fehler. Fehlerhafte Werte werden rot als Fallback/Fixdaten markiert.`);
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'Update'; }
-  }
+  // V3.15: Manuelles Browser-Update wurde bewusst entfernt.
+  // Die Kurse werden automatisch per GitHub Action in prices.json aktualisiert.
+  setUpdateStatus('Automatisches EOD-Update aktiv · kein manuelles Update nötig', 'good');
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.14';
+  $('#version').textContent = DATA.version || 'V3.15';
   const el = $('#courseTimestamp');
   if (el) {
-    const stored = localStorage.getItem(courseUpdateKey);
-    if (stored) {
-      const ts = new Date(stored);
-      el.innerHTML = '<b>Letztes Kursupdate: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Stooq EOD, Fehler = roter Fallback</span>';
+    const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
+    if (autoPriceData && autoPriceData.generatedAt && count) {
+      const ts = new Date(autoPriceData.generatedAt);
+      el.innerHTML = '<b>Kursstand: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Automatisches EOD-Update · Fehler/alte Daten = farbig markiert</span>';
     } else {
-      el.innerHTML = '<b>Noch kein Kursupdate in dieser Version</b><span class="muted"> · Fixdaten aus Datei</span>';
+      el.innerHTML = '<b>Noch kein automatisches Kursupdate vorhanden</b><span class="muted"> · Fixdaten aus Datei · GitHub Action erzeugt prices.json</span>';
     }
   }
 }
@@ -485,4 +468,4 @@ function drawChart(points) {
   ctx.fillText('Zeitachse: Handelstage bis heute', w / 2 - 80, h - 4);
 }
 function renderAll() { renderStats(); renderOverview(); renderLists(); }
-initFilters(); renderAll();
+initFilters(); renderAll(); loadAutoPrices();

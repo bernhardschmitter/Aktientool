@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aktientool V3.14</title>
+<title>Aktientool V3.15</title>
 <meta name="theme-color" content="#101827">
-<link rel="manifest" href="manifest.webmanifest?v=3.14">
-<link rel="icon" type="image/svg+xml" href="favicon.svg?v=3.14">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3.14">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=3.14">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.14">
-<link rel="stylesheet" href="style.css?v=3.14">
+<link rel="manifest" href="manifest.webmanifest?v=3.15">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=3.15">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3.15">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=3.15">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.15">
+<link rel="stylesheet" href="style.css?v=3.15">
 </head>
 <body>
 <header>
-  <div><h1>Aktientool <span id="version">V3.14</span></h1><p>Stammdaten fest integriert · Kursupdate via Stooq · V3.14</p></div>
+  <div><h1>Aktientool <span id="version">V3.15</span></h1><p>Stammdaten fest integriert · automatisches EOD-Update · V3.15</p></div>
   <nav><button data-page="overview">Übersicht</button><button data-page="buy">Kauf</button><button data-page="sell">Verkauf</button><button data-page="depot">Depot</button></nav>
 </header>
 <main>
 <section id="overview" class="page active">
-  <div class="courseLine"><span id="courseTimestamp" class="courseTimestamp"></span><button id="updateCoursesBtn" type="button">Update</button><span id="updateStatus" class="updateStatus"></span></div>
+  <div class="courseLine"><span id="courseTimestamp" class="courseTimestamp"></span><span id="updateStatus" class="updateStatus"></span></div>
   <div class="toolbar"><input id="search" placeholder="Suche Aktie oder Symbol …"></div>
   <div class="tablewrap"><table id="stockTable"><thead><tr><th class="nameCol">Aktie</th><th>Kurs</th><th>%</th><th class="signalCount">Kauf</th><th class="signalCount">VK</th><th>Trend</th><th>Entf.</th></tr></thead><tbody></tbody></table></div>
   <div class="actions removeOverviewActions"><button id="removeSelectedOverviewBtn" type="button">Ausgewählte entfernen</button></div>
@@ -32,6 +32,6 @@
 <section id="newsPage" class="page"><button id="newsBackBtn" class="back">← Zurück zur Detailanalyse</button><div id="newsContent"></div></section>
 <section id="chartPage" class="page"><button id="chartBackBtn" class="back">← Zurück zur Detailanalyse</button><div id="chartContent"></div></section>
 </main>
-<footer>Aktientool V3.14 · Stammdaten fest eingebaut · EOD-Kursupdate via Stooq · V3.14</footer>
-<script src="data.js?v=3.14"></script><script src="app.js?v=3.14"></script>
+<footer>Aktientool V3.15 · Stammdaten fest eingebaut · automatisches EOD-Kursupdate · V3.15</footer>
+<script src="data.js?v=3.15"></script><script src="app.js?v=3.15"></script>
 </body></html>

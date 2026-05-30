@@ -1,9 +1,7 @@
-Aktientool V3.14 - Upload-Anleitung
+Aktientool V3.15
 
-1. ZIP entpacken.
-2. Im GitHub-Repository alte Dateien löschen oder überschreiben.
-3. Alle Dateien aus diesem Ordner ins Root-Verzeichnis hochladen.
-4. Nicht den ZIP-Ordner selbst hochladen.
-5. GitHub Actions / Pages Deployment abwarten.
-6. Prüfen: /version.txt muss Aktientool V3.14 anzeigen.
-7. Bei Cache-Problemen: /?v=36 öffnen.
+Neu:
+- Kein manueller Kursupdate-Button mehr
+- Kurse werden automatisch über GitHub Actions in prices.json geschrieben
+- Webseite liest prices.json beim Öffnen
+- Farblogik für Kursfrische bleibt erhalten

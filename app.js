@@ -7,7 +7,7 @@ const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depo
 const overviewExtraKey = 'aktientool_v36_overview_extra';
 const overviewHiddenKey = 'aktientool_v37_overview_hidden';
 const courseUpdateKey = 'aktientool_v38_course_timestamp';
-const liveQuotesKey = 'aktientool_v313_live_quotes';
+const liveQuotesKey = 'aktientool_v314_live_quotes';
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 let currentDetailSymbol = null;
@@ -114,25 +114,38 @@ function priceHtml(s, compact=false) {
   const line = date ? `${date} · ${st.text}` : st.text;
   return `<span class="${st.cls}">${fmt(effectivePrice(s))}</span>${compact ? '' : `<div class="muted priceDate">${line}</div>`}`;
 }
-function fetchWithTimeout(url, ms = 4500) {
+function yyyymmdd(d) {
+  return d.getFullYear().toString() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+}
+function stooqDailyUrl(symbol) {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - 21);
+  return 'https://stooq.com/q/d/l/?s=' + encodeURIComponent(symbol) + '&d1=' + yyyymmdd(start) + '&d2=' + yyyymmdd(end) + '&i=d';
+}
+function fetchWithTimeout(url, ms = 6500) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ms);
   return fetch(url, { cache: 'no-store', signal: controller.signal }).finally(() => clearTimeout(timer));
 }
 
 async function fetchTextWithFallback(url) {
+  // Auf iPhone/iPad blockt Safari direkte Stooq-Aufrufe oft per CORS.
+  // Deshalb zuerst kleine Proxy-Abrufe, direkter Stooq-Abruf nur als letzter Versuch.
   const urls = [
-    url,
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(url)
+    { name: 'AllOrigins', url: 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url) },
+    { name: 'CorsProxy', url: 'https://corsproxy.io/?' + encodeURIComponent(url) },
+    { name: 'CodeTabs', url: 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url) },
+    { name: 'Direkt', url }
   ];
   let lastError = null;
-  for (const u of urls) {
+  for (const item of urls) {
     try {
-      const res = await fetchWithTimeout(u);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const res = await fetchWithTimeout(item.url);
+      if (!res.ok) throw new Error(item.name + ' HTTP ' + res.status);
       const text = await res.text();
-      if (text && !/no data/i.test(text)) return text;
-      lastError = new Error('Keine Kursdaten');
+      if (text && !/no data/i.test(text) && /date/i.test(text)) return { text, source: item.name };
+      lastError = new Error(item.name + ': Keine Kursdaten');
     } catch (e) {
       lastError = e;
     }
@@ -143,9 +156,11 @@ async function fetchTextWithFallback(url) {
 async function fetchStooqQuote(stock) {
   const symbol = stooqSymbol(stock.symbol);
   if (!symbol) throw new Error('Kein Symbol');
-  const url = 'https://stooq.com/q/d/l/?s=' + encodeURIComponent(symbol) + '&i=d';
-  const text = await fetchTextWithFallback(url);
-  return parseStooqCsv(text);
+  const url = stooqDailyUrl(symbol);
+  const result = await fetchTextWithFallback(url);
+  const quote = parseStooqCsv(result.text);
+  quote.source = 'Stooq via ' + result.source;
+  return quote;
 }
 
 function showPage(id) { if(id!=='detail'&&id!=='newsPage'&&id!=='chartPage') previousPage=id; document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); window.scrollTo(0, 0); }
@@ -234,6 +249,8 @@ async function updateCourses() {
   const quotes = loadLiveQuotes();
   const stocks = allOverviewStocks();
   let ok = 0, fail = 0;
+  const sourceCount = {};
+  let lastErrorText = '';
   if (btn) { btn.disabled = true; btn.textContent = 'Lade Kurse …'; }
   setUpdateStatus('Starte Kursupdate …', 'warn');
   try {
@@ -244,9 +261,11 @@ async function updateCourses() {
         const q = await fetchStooqQuote(stock);
         if (!Number.isFinite(Number(q.close))) throw new Error('Ungültiger Kurs');
         quotes[String(stock.symbol).toUpperCase()] = { ...q, error: '', updatedAt: now.toISOString(), fallbackPrice: stock.price };
+        sourceCount[q.source || 'Stooq'] = (sourceCount[q.source || 'Stooq'] || 0) + 1;
         ok++;
       } catch (e) {
         const prev = quotes[String(stock.symbol).toUpperCase()];
+        lastErrorText = stock.symbol + ': ' + String(e.message || e);
         quotes[String(stock.symbol).toUpperCase()] = { ...(prev || {}), error: String(e.message || e), updatedAt: now.toISOString(), fallbackPrice: stock.price };
         fail++;
       }
@@ -257,7 +276,9 @@ async function updateCourses() {
     localStorage.setItem(courseUpdateKey, now.toISOString());
     renderAll();
     const cls = fail ? (ok ? 'warn' : 'bad') : 'good';
-    setUpdateStatus(`Fertig: ${ok} erfolgreich, ${fail} Fehler · ${now.toLocaleString('de-DE')}`, cls);
+    const sourceText = Object.keys(sourceCount).length ? ' · Quelle: ' + Object.entries(sourceCount).map(([k,v]) => k + ' ' + v).join(', ') : '';
+    const errText = fail ? ' · letzter Fehler: ' + lastErrorText : '';
+    setUpdateStatus(`Fertig: ${ok} erfolgreich, ${fail} Fehler · ${now.toLocaleString('de-DE')}${sourceText}${errText}`, cls);
     if (fail) alert(`Kursupdate abgeschlossen: ${ok} erfolgreich, ${fail} Fehler. Fehlerhafte Werte werden rot als Fallback/Fixdaten markiert.`);
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = 'Update'; }
@@ -265,7 +286,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.13';
+  $('#version').textContent = DATA.version || 'V3.14';
   const el = $('#courseTimestamp');
   if (el) {
     const stored = localStorage.getItem(courseUpdateKey);

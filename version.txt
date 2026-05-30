@@ -1,2 +1,2 @@
-Aktientool V3.13
-Änderungen: robusteres Kursupdate mit sichtbarem Fortschritt/Debug-Status, kürzerem Timeout pro Aktie, roter Markierung bei fehlgeschlagenem Update/Fallback, keine automatische Schein-Aktualisierung beim ersten Öffnen, trading-day-aware Kursfrische auf Werktagsbasis, kompaktere Kauf-/Verkauf-Karten und Cache-Parameter auf 3.13.
+Aktientool V3.14
+Änderungen: robusteres Kursupdate mit sichtbarem Fortschritt/Debug-Status, kürzerem Timeout pro Aktie, roter Markierung bei fehlgeschlagenem Update/Fallback, keine automatische Schein-Aktualisierung beim ersten Öffnen, trading-day-aware Kursfrische auf Werktagsbasis, kompaktere Kauf-/Verkauf-Karten und Cache-Parameter auf 3.14.

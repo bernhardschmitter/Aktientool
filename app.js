@@ -244,11 +244,9 @@ function googleNewsUrl(stock) {
   const q = encodeURIComponent((stock.name || stock.symbol) + ' ' + stock.symbol + ' Aktie Börse News');
   return 'https://news.google.com/search?q=' + q + '&hl=de&gl=DE&ceid=DE:de';
 }
-function tradingViewUrl(stock) {
-  const sym = String(stock.symbol || '').toUpperCase();
-  let tv = sym.replace('.', ':');
-  if (sym.endsWith('.DE')) tv = 'XETR:' + sym.replace('.DE', '');
-  return 'https://www.investing.com/chart/?symbol=' + encodeURIComponent(tv);
+function investingUrl(stock) {
+  const q = encodeURIComponent((stock.name || stock.symbol) + ' ' + stock.symbol);
+  return 'https://www.investing.com/search/?q=' + q;
 }
 function showNews(sym) {
   const s = allOverviewStocks().find(x => x.symbol === sym);
@@ -263,35 +261,37 @@ function showNews(sym) {
     </div>`;
   showPage('newsPage');
 }
-function showTradingView(sym) {
+function showInvesting(sym) {
   const s = allOverviewStocks().find(x => x.symbol === sym);
   if (!s) return;
   currentDetailSymbol = sym;
-  const url = tradingViewUrl(s);
-  $('#chartContent').innerHTML = `<h2>TradingView <span class="muted">${s.symbol}</span></h2>
+  const url = investingUrl(s);
+  $('#chartContent').innerHTML = `<h2>Investing.com <span class="muted">${s.symbol}</span></h2>
     <div class="card">
       <h3>${s.name}</h3>
-      <p>Öffnet die Aktie direkt in TradingView in einem neuen Tab. Die Detailanalyse bleibt im Aktientool erreichbar.</p>
-      <div class="actions"><a class="buttonLink" href="${url}" target="_blank" rel="noopener">TradingView öffnen</a></div>
+      <p>Öffnet die Aktie auf Investing.com in einem neuen Tab. Dort kannst du Charts und technische Analysen ansehen. Die Detailanalyse bleibt im Aktientool erreichbar.</p>
+      <div class="actions"><a class="buttonLink" href="${url}" target="_blank" rel="noopener">Investing.com öffnen</a></div>
     </div>`;
   showPage('chartPage');
 }
 window.showNews = showNews;
-window.showTradingView = showTradingView;
+window.showInvesting = showInvesting;
 
 function detail(sym) {
   currentDetailSymbol = sym;
   let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
   const sig = s.signals || {};
   $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas>
+    <div class="actions detailActions externalDetailActions">
+      <button onclick="showNews('${s.symbol}')">Google News</button>
+      <button onclick="showInvesting('${s.symbol}')">Investing.com</button>
+    </div>
     <div class="grid"><div class="metric">Kurs<br><b>${fmt(s.price)}</b></div><div class="metric">Kauf gesamt<br><b class="good">${buyCount(s)}</b></div><div class="metric">Verkauf gesamt<br><b class="bad">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
     <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot übernehmen'}</button>
-      <button onclick="showNews('${s.symbol}')">Google News</button>
-      <button onclick="showTradingView('${s.symbol}')">TradingView</button>
     </div>`;
   showPage('detail'); drawChart(s.history || []);
 }

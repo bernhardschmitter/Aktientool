@@ -1,2 +1,2 @@
 Aktientool V3.10
-Änderungen: Google-News-Seite und TradingView-Seite aus der Detailanalyse mit Zurück-Button, Version und Cache-Parameter auf 3.9 aktualisiert.
+Änderungen: Buttons für Google News und Investing.com direkt unter dem Kursdiagramm in der Detailansicht. Chartanalyse-Absprung auf Investing.com umgestellt. Cache-Parameter auf 3.10.

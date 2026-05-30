@@ -3,7 +3,7 @@ const $ = s => document.querySelector(s);
 const fmt = n => n == null || n === '' || !Number.isFinite(Number(n)) ? '–' : Number(n).toLocaleString('de-DE', { maximumFractionDigits: 2 });
 const eur = n => n == null || !Number.isFinite(Number(n)) ? '–' : Number(n).toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
 const pct = n => n == null || n === '' || !Number.isFinite(Number(n)) ? '–' : (Number(n) * 100).toLocaleString('de-DE', { maximumFractionDigits: 2 }) + ' %';
-const depotKey = 'aktientool_v34_depot';
+const depotKey = 'aktientool_v34_depot'; // bewusst beibehalten, damit V3.4-Depotdaten erhalten bleiben
 const startCash = 10000;
 let depotState = JSON.parse(localStorage.getItem(depotKey) || `{"cash":${startCash},"positions":{}}`);
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
@@ -19,29 +19,21 @@ document.querySelectorAll('nav button').forEach(b => b.onclick = () => showPage(
 $('#backBtn').onclick = () => showPage('overview');
 
 function initFilters() {
-  let groups = [...new Set(DATA.stocks.map(s => s.group).filter(Boolean))].sort();
-  $('#groupFilter').innerHTML = '<option value="">Alle Gruppen</option>' + groups.map(g => `<option>${g}</option>`).join('');
   $('#search').oninput = renderOverview;
-  $('#groupFilter').onchange = renderOverview;
 }
 
 function renderOverview() {
-  const q = $('#search').value.toLowerCase(), g = $('#groupFilter').value;
+  const q = $('#search').value.toLowerCase();
   const body = $('#stockTable tbody');
-  let rows = DATA.stocks.filter(s => (!g || s.group === g) && ((s.symbol + s.name + s.group).toLowerCase().includes(q)));
-  body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepot' : ''}" onclick="detail('${s.symbol}')">
-    <td>${isDepot(s) ? '📌' : ''}</td><td><b>${s.symbol}</b></td><td>${s.name}</td><td>${s.group}</td><td>${fmt(s.price)}</td>
+  let rows = DATA.stocks.filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
+  body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
+    <td class="${isDepot(s) ? 'depotText' : ''}"><b>${s.symbol}</b></td><td class="${isDepot(s) ? 'depotText' : ''}">${s.name}</td><td>${fmt(s.price)}</td>
     <td class="${signalClass(s.percent)}">${pct(s.percent)}</td><td class="good">${buyCount(s) || ''}</td><td class="bad">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
   </tr>`).join('');
 }
 
 function renderStats() {
-  let st = DATA.stocks;
-  $('#version').textContent = DATA.version || 'V3.4';
-  $('#countAll').textContent = st.length;
-  $('#countBuy').textContent = st.filter(buyCount).length;
-  $('#countSell').textContent = st.filter(sellCount).length;
-  $('#countDepot').textContent = Object.keys(depotState.positions).length;
+  $('#version').textContent = DATA.version || 'V3.5';
 }
 
 function card(s, mode = 'normal') {
@@ -114,14 +106,37 @@ function renderDepot() {
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }
 
-function combinedIndicators(sig) {
-  const pairs = [['GD', 'GD+', 'GD-'], ['RSI', 'RSI+', 'RSI-'], ['MACD', 'MACD+', 'MACD-'], ['Momentum', 'Mom+', 'Mom-'], ['CCI', 'CCI+', 'CCI-'], ['Pivot', 'Piv+', 'Piv-'], ['Trend', 'Trend+', 'Trend-']];
-  return pairs.map(([name, plus, minus]) => {
-    const p = Number(sig[plus] || 0), m = Number(sig[minus] || 0);
-    const val = p > 0 ? '+' : (m > 0 ? '−' : '');
-    const cls = p > 0 ? 'good' : (m > 0 ? 'bad' : '');
-    return `<div class="metric">${name}<br><b class="${cls}">${val || '–'}</b></div>`;
+const indicatorDefs = [
+  ['GD', 'GD+', 'GD-', 'Kaufsignal durch gleitende Durchschnitte', 'Verkaufssignal durch gleitende Durchschnitte'],
+  ['RSI', 'RSI+', 'RSI-', 'RSI zeigt überverkaufte Lage', 'RSI zeigt überkaufte Lage'],
+  ['MACD', 'MACD+', 'MACD-', 'MACD bullisch', 'MACD bärisch'],
+  ['Momentum', 'Mom+', 'Mom-', 'Momentum positiv', 'Momentum negativ'],
+  ['CCI', 'CCI+', 'CCI-', 'CCI bullisch', 'CCI bärisch'],
+  ['Pivot', 'Piv+', 'Piv-', 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
+  ['Trend', 'Trend+', 'Trend-', 'Trend positiv', 'Trend negativ']
+];
+function indicatorState(sig, def, stock) {
+  const [name, plus, minus, plusText, minusText] = def;
+  const p = Number(sig[plus] || 0), m = Number(sig[minus] || 0);
+  if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: 'buy' };
+  if (m > p) return { name, sign: '−', cls: 'bad', text: minusText, type: 'sell' };
+  if (p > 0 && m > 0 && name === 'Trend') {
+    const t = Number(stock?.trendScore || 0);
+    if (t > 0) return { name, sign: '+', cls: 'good', text: plusText, type: 'buy' };
+    if (t < 0) return { name, sign: '−', cls: 'bad', text: minusText, type: 'sell' };
+  }
+  return { name, sign: '–', cls: '', text: 'neutral', type: 'neutral' };
+}
+function combinedIndicators(sig, stock) {
+  return indicatorDefs.map(def => {
+    const x = indicatorState(sig, def, stock);
+    return `<div class="metric"><b>${x.name}</b><br><b class="${x.cls}">${x.sign}</b><br><span class="muted">${x.text}</span></div>`;
   }).join('');
+}
+function activeSignalList(sig, stock, type) {
+  const items = indicatorDefs.map(def => indicatorState(sig, def, stock)).filter(x => x.type === type);
+  if (!items.length) return '<p class="muted">Keine aktiven Einzelsignale.</p>';
+  return `<div class="signalList">${items.map(x => `<div><b class="${x.cls}">${x.name} ${x.sign}</b><span>${x.text}</span></div>`).join('')}</div>`;
 }
 
 function detail(sym) {
@@ -129,7 +144,9 @@ function detail(sym) {
   const sig = s.signals || {};
   $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas>
     <div class="grid"><div class="metric">Kurs<br><b>${fmt(s.price)}</b></div><div class="metric">Kauf gesamt<br><b class="good">${buyCount(s)}</b></div><div class="metric">Verkauf gesamt<br><b class="bad">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
-    <h3>Indikatoren</h3><div class="grid">${combinedIndicators(sig)}</div>
+    <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
+    <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
+    <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
     <div class="actions"><button onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot'}</button></div>`;
   showPage('detail'); drawChart(s.history || []);
 }

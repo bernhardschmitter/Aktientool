@@ -1,4 +1,5 @@
-Aktientool V3.4
-Build: 2026-05-30
-Daten: fest integriert in data.js
-Cache-Fix: CSS/JS/Daten mit ?v=3.4 eingebunden.
+Aktientool V3.5
+- Übersicht ohne Summenkarten und ohne Gruppe
+- Depot-Aktien in Übersicht blau
+- Detailanalyse mit aktiven Einzelindikatoren
+- Cache-Fix ?v=3.5

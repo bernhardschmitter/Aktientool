@@ -1,0 +1,101 @@
+const fs = require('fs');
+
+function yyyymmdd(d) {
+  return String(d.getFullYear()) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+}
+
+function stooqSymbol(sym) {
+  const raw = String(sym || '').trim().toLowerCase();
+  if (!raw) return '';
+  if (raw.endsWith('.de')) return raw;
+  if (raw.endsWith('.us')) return raw;
+  if (raw.includes('.')) return raw;
+  return raw + '.us';
+}
+
+function parseCsv(text) {
+  const lines = String(text || '').trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length < 2 || /no data/i.test(text)) throw new Error('no data');
+  const rows = lines.slice(1).map(line => line.split(',')).filter(c => c.length >= 5 && c[0]);
+  if (!rows.length) throw new Error('no rows');
+  const last = rows[rows.length - 1];
+  const prev = rows.length > 1 ? rows[rows.length - 2] : null;
+  const close = Number(last[4]);
+  const prevClose = prev ? Number(prev[4]) : null;
+  if (!Number.isFinite(close)) throw new Error('invalid close');
+  return {
+    date: last[0],
+    open: Number(last[1]),
+    high: Number(last[2]),
+    low: Number(last[3]),
+    close,
+    volume: Number(last[5] || 0),
+    prevClose: Number.isFinite(prevClose) ? prevClose : null,
+    source: 'Stooq'
+  };
+}
+
+function extractSymbolsFromDataJs() {
+  const text = fs.readFileSync('data.js', 'utf8');
+  const matches = [...text.matchAll(/symbol\s*:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  if (matches.length) return [...new Set(matches.map(s => String(s).toUpperCase()))];
+
+  // Fallback for minified JSON-like data
+  const jsonMatches = [...text.matchAll(/"symbol"\s*:\s*"([^"]+)"/g)].map(m => m[1]);
+  if (jsonMatches.length) return [...new Set(jsonMatches.map(s => String(s).toUpperCase()))];
+
+  throw new Error('No symbols found in data.js');
+}
+
+async function fetchQuote(symbol) {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - 21);
+  const stooq = stooqSymbol(symbol);
+  const url = `https://stooq.com/q/d/l/?s=${encodeURIComponent(stooq)}&d1=${yyyymmdd(start)}&d2=${yyyymmdd(end)}&i=d`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    return parseCsv(text);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function main() {
+  const symbols = extractSymbolsFromDataJs();
+  const quotes = {};
+  const errors = {};
+
+  for (const symbol of symbols) {
+    try {
+      quotes[symbol] = await fetchQuote(symbol);
+      console.log(`OK ${symbol} ${quotes[symbol].date} ${quotes[symbol].close}`);
+    } catch (err) {
+      errors[symbol] = String(err && err.message ? err.message : err);
+      console.log(`ERROR ${symbol}: ${errors[symbol]}`);
+    }
+    await new Promise(resolve => setTimeout(resolve, 250));
+  }
+
+  const out = {
+    generatedAt: new Date().toISOString(),
+    source: 'GitHub Actions · Stooq EOD',
+    symbolsTotal: symbols.length,
+    quoteCount: Object.keys(quotes).length,
+    errorCount: Object.keys(errors).length,
+    quotes,
+    errors
+  };
+
+  fs.writeFileSync('prices.json', JSON.stringify(out, null, 2) + '\n', 'utf8');
+  console.log(`Written prices.json: ${out.quoteCount}/${out.symbolsTotal} quotes, ${out.errorCount} errors`);
+}
+
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

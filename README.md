@@ -1,5 +1,10 @@
-# Aktientool V3.16
+# Aktientool V3.17
 
-Automatisches EOD-Kursupdate über GitHub Actions. Die Webseite lädt `prices.json`; der manuelle Browser-Update-Button wurde entfernt.
+Automatisches EOD-Kursupdate ueber GitHub Actions.
 
-Die Kurs-Farblogik bleibt erhalten: aktuell, ein Handelstag alt, mehrere Handelstage alt/Fehler.
+V3.17 verbessert den Kursimport:
+- Yahoo Finance als primaere Quelle fuer Symbole wie ADS.DE, BMW.DE, ALV.DE usw.
+- Stooq bleibt als Fallback erhalten.
+- `prices.json` wird automatisch durch den Workflow `Update EOD prices` erzeugt.
+
+Nach dem Upload in GitHub unter **Actions → Update EOD prices → Run workflow** starten.

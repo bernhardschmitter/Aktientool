@@ -1,4 +1,5 @@
-Aktientool V3.16
+Aktientool V3.17
 
-Automatisches EOD-Kursupdate über GitHub Actions.
-Wichtig: Nach dem Hochladen muss unter GitHub > Actions ggf. die Workflow-Ausführung erlaubt werden. Danach kann der Workflow "Update EOD prices" manuell gestartet werden. Anschließend erzeugt er prices.json automatisch.
+Automatisches EOD-Kursupdate ueber GitHub Actions.
+V3.17 nutzt Yahoo Finance zuerst und Stooq als Fallback.
+Nach dem Upload in GitHub: Actions -> Update EOD prices -> Run workflow.

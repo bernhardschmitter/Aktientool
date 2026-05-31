@@ -1,0 +1,51 @@
+name: Update EOD prices
+
+on:
+
+  workflow_dispatch:
+
+  schedule:
+
+    - cron: "30 21 * * 1-5"
+
+permissions:
+
+  contents: write
+
+jobs:
+
+  update-prices:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+
+        uses: actions/setup-node@v4
+
+        with:
+
+          node-version: 20
+
+      - name: Run price update
+
+        run: node scripts/update-prices.mjs
+
+      - name: Commit updated prices
+
+        run: |
+
+          git config user.name "github-actions"
+
+          git config user.email "github-actions@github.com"
+
+          git add prices.json
+
+          git commit -m "Update EOD prices" || echo "No price changes"
+
+          git pus

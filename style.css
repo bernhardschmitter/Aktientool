@@ -26,7 +26,7 @@
 @media(max-width:700px){.indicatorTable th,.indicatorTable td{padding:6px 6px;font-size:.78rem}.indicatorMark{font-size:1.05rem}}
 
 
-/* V3.21 fixierte Indikatoren-Tabelle */
+/* V3.22 fixierte Indikatoren-Tabelle */
 .indicatorTableWrap{max-height:calc(100vh - 235px);overflow:auto;position:relative;}
 .indicatorTable thead th{position:sticky;top:0;z-index:3;background:#111827;}
 .indicatorTable th:first-child,.indicatorTable td:first-child{position:sticky;left:0;z-index:2;background:#111827;box-shadow:1px 0 0 #263244;}

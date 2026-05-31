@@ -266,13 +266,13 @@ function addOverviewStock() {
 window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
-  // V3.21: Manuelles Browser-Update wurde bewusst entfernt.
+  // V3.22: Manuelles Browser-Update wurde bewusst entfernt.
   // Die Kurse werden automatisch per GitHub Action in prices.json aktualisiert.
   setUpdateStatus('Automatisches EOD-Update aktiv · kein manuelles Update nötig', 'good');
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.21';
+  $('#version').textContent = DATA.version || 'V3.22';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;

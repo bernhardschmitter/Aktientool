@@ -205,7 +205,7 @@ function renderOverview() {
   const body = $('#stockTable tbody');
   let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
-    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td><td>${priceHtml(s)}</td>
+    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td><td>${priceHtml(s, true)}</td>
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td><td class="good signalCount">${buyCount(s) || ''}</td><td class="bad signalCount">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
@@ -263,13 +263,13 @@ function addOverviewStock() {
 window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
-  // V3.17: Manuelles Browser-Update wurde bewusst entfernt.
+  // V3.18: Manuelles Browser-Update wurde bewusst entfernt.
   // Die Kurse werden automatisch per GitHub Action in prices.json aktualisiert.
   setUpdateStatus('Automatisches EOD-Update aktiv · kein manuelles Update nötig', 'good');
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.17';
+  $('#version').textContent = DATA.version || 'V3.18';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -284,10 +284,9 @@ function renderStats() {
 }
 
 function card(s, mode = 'normal') {
-  const showBuy = mode !== 'sell';
-  return `<div class="card signalCard ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name} <span class="muted">${s.symbol}</span></h3>
-    <div class="grid"><div class="metric">Kurs<br><b>${priceHtml(s)}</b></div><div class="metric">Änderung<br><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
-    ${showBuy ? `<div class="metric">Kauf<br><b class="good signalCount">${buyCount(s)}</b></div>` : ''}<div class="metric">Verkauf<br><b class="bad signalCount">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
+  return `<div class="card signalCard compactSignalCard ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name}<br><span class="muted">${s.symbol}</span></h3>
+    <div class="compactLine priceChangeLine"><b>${priceHtml(s, true)}</b><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
+    <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(s.trendScore)}">${trendText(s)}</b></span></div>
     <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot'}</button></div></div>`;
 }
 
@@ -445,7 +444,11 @@ function detail(sym) {
       <button onclick="showNews('${s.symbol}')">Google News</button>
       <button onclick="showTradingView('${s.symbol}')">TradingView</button>
     </div>
-    <div class="grid"><div class="metric">Kurs<br><b>${priceHtml(s)}</b></div><div class="metric">Kauf gesamt<br><b class="good signalCount">${buyCount(s)}</b></div><div class="metric">Verkauf gesamt<br><b class="bad signalCount">${sellCount(s)}</b></div><div class="metric">Trend<br><b class="${signalClass(s.trendScore)}">${trendText(s)}</b></div></div>
+    <div class="detailCompactBox">
+      <div class="compactLine priceChangeLine"><span>Kurs: <b>${priceHtml(s, true)}</b></span><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
+      <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(s.trendScore)}">${trendText(s)}</b></span></div>
+      <div class="muted priceDate">${quoteDate(s) ? quoteDate(s) + ' · ' + priceStatus(s).text + ' · ' + ((liveQuoteFor(s.symbol) || {}).source || autoPriceData.source || 'Automatisches EOD-Update') : priceStatus(s).text}</div>
+    </div>
     <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>

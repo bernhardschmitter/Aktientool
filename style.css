@@ -14,3 +14,7 @@
 .updateStatus{font-size:.9rem;color:var(--muted)}.updateStatus.good{color:var(--good)}.updateStatus.warn{color:var(--warn)}.updateStatus.bad{color:var(--bad)}
 .signalCard{padding:11px}.signalCard h3{font-size:1rem;margin:0 0 .25rem}.signalCard .grid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:7px;margin-top:7px}.signalCard .metric{padding:8px}.signalCard .actions{margin-top:8px}.signalCard button{padding:8px 10px}
 @media(max-width:700px){.signalCard .grid{grid-template-columns:repeat(3,minmax(80px,1fr));gap:6px}.signalCard .metric{font-size:.85rem;padding:7px}.signalCard h3{font-size:.95rem}.priceDate{font-size:.72rem}}
+
+/* V3.18 kompakte Kurs-/Signalzeilen */
+.compactSignalCard h3{line-height:1.2;margin-bottom:8px}.compactLine{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.priceChangeLine{margin:6px 0 4px}.signalLine{margin:6px 0;color:var(--muted)}.signalLine span{white-space:nowrap}.detailCompactBox{background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0 14px}.detailCompactBox .priceDate{margin-top:6px}.compactSignalCard .signalCount{display:inline;text-align:inherit}.compactSignalCard .actions{margin-top:10px}
+@media(max-width:700px){.compactLine{gap:10px}.signalLine{font-size:.9rem}.priceChangeLine{font-size:.95rem}}

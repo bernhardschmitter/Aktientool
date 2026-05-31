@@ -18,3 +18,5 @@
 /* V3.18 kompakte Kurs-/Signalzeilen */
 .compactSignalCard h3{line-height:1.2;margin-bottom:8px}.compactLine{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.priceChangeLine{margin:6px 0 4px}.signalLine{margin:6px 0;color:var(--muted)}.signalLine span{white-space:nowrap}.detailCompactBox{background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0 14px}.detailCompactBox .priceDate{margin-top:6px}.compactSignalCard .signalCount{display:inline;text-align:inherit}.compactSignalCard .actions{margin-top:10px}
 @media(max-width:700px){.compactLine{gap:10px}.signalLine{font-size:.9rem}.priceChangeLine{font-size:.95rem}}
+/* V3.19 Depot-Verkauf */
+.lockedQty{display:inline-block;min-width:3.5rem;text-align:center;font-weight:700;}

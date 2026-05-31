@@ -263,13 +263,13 @@ function addOverviewStock() {
 window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
-  // V3.18: Manuelles Browser-Update wurde bewusst entfernt.
+  // V3.19: Manuelles Browser-Update wurde bewusst entfernt.
   // Die Kurse werden automatisch per GitHub Action in prices.json aktualisiert.
   setUpdateStatus('Automatisches EOD-Update aktiv · kein manuelles Update nötig', 'good');
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.18';
+  $('#version').textContent = DATA.version || 'V3.19';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -287,7 +287,7 @@ function card(s, mode = 'normal') {
   return `<div class="card signalCard compactSignalCard ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name}<br><span class="muted">${s.symbol}</span></h3>
     <div class="compactLine priceChangeLine"><b>${priceHtml(s, true)}</b><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
     <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(s.trendScore)}">${trendText(s)}</b></span></div>
-    <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot'}</button></div></div>`;
+    <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); ${isDepot(s) ? "showPage('depot')" : "addOrRemoveDepot('" + s.symbol + "')"}">${isDepot(s) ? 'Im Depot' : 'Ins Depot'}</button></div></div>`;
 }
 
 function renderLists() {
@@ -315,6 +315,29 @@ function removeDepot(sym) {
   const s = DATA.stocks.find(x => x.symbol === sym);
   if (p && s) depotState.cash = Number(depotState.cash || 0) + Number(p.qty || 0) * Number(effectivePrice(s) || 0);
   delete depotState.positions[sym];
+  saveDepot();
+}
+function sellDepot(sym) {
+  const p = depotState.positions[sym];
+  const s = DATA.stocks.find(x => x.symbol === sym);
+  if (!p || !s) { alert('Position nicht gefunden.'); return; }
+  const currentQty = Number(p.qty || 0);
+  if (!Number.isFinite(currentQty) || currentQty <= 0) { alert('Keine Stückzahl im Depot vorhanden.'); return; }
+  const qtyRaw = prompt(`Stückzahl für Verkauf ${sym} eingeben:`, String(currentQty));
+  if (qtyRaw === null) return;
+  const sellQty = Number(String(qtyRaw).replace(',', '.'));
+  if (!Number.isFinite(sellQty) || sellQty <= 0) { alert('Bitte eine gültige Stückzahl eingeben.'); return; }
+  if (sellQty > currentQty) { alert(`Maximal verfügbar: ${fmt(currentQty)} Stück.`); return; }
+  const price = Number(effectivePrice(s) || 0);
+  if (!Number.isFinite(price) || price <= 0) { alert('Kein gültiger Tageskurs für den Verkauf vorhanden.'); return; }
+  const proceeds = sellQty * price;
+  depotState.cash = Number(depotState.cash || 0) + proceeds;
+  const remaining = currentQty - sellQty;
+  if (remaining <= 0.0000001) {
+    delete depotState.positions[sym];
+  } else {
+    depotState.positions[sym].qty = remaining;
+  }
   saveDepot();
 }
 function setDepot(sym, k, v) {
@@ -348,8 +371,8 @@ function renderDepot() {
   $('#depotList').innerHTML = `<div class="depotSummary">
     <div class="metric">Cash<br><b>${eur(depotState.cash)}</b></div><div class="metric">Aktienwert<br><b>${eur(stockValue)}</b></div><div class="metric">Gesamtwert<br><b>${eur(total)}</b></div><div class="metric">Gewinn/Verlust<br><b class="${signalClass(gainTotal)}">${eur(gainTotal)}</b></div>
   </div><div class="actions"><button onclick="resetDepot()">Depot zurücksetzen</button></div>` +
-  (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Verkauf</th><th>Trend</th><th></th></tr></thead><tbody>` +
-    positions.map(x => `<tr><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><input class="miniInput" type="number" step="1" value="${x.qty}" onchange="setDepot('${x.s.symbol}','qty',this.value)"></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td><button onclick="removeDepot('${x.s.symbol}')">Entfernen</button></td></tr>`).join('') +
+  (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Verkauf</th><th>Trend</th><th>Aktion</th></tr></thead><tbody>` +
+    positions.map(x => `<tr><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td><button onclick="sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }
 
@@ -453,7 +476,7 @@ function detail(sym) {
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
     <div class="actions detailActions">
-      <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">${isDepot(s) ? 'Depot entfernen' : 'Ins Depot übernehmen'}</button>
+      <button class="depotBigBtn" onclick="${isDepot(s) ? "showPage('depot')" : "addOrRemoveDepot('" + s.symbol + "')"}">${isDepot(s) ? 'Im Depot anzeigen' : 'Ins Depot übernehmen'}</button>
     </div>`;
   showPage('detail'); drawChart(s.history || []);
 }

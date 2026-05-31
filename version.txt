@@ -1,2 +1,1 @@
-Aktientool V3.15
-Automatisches EOD-Kursupdate über GitHub Action und prices.json. Browser-Update-Button entfernt. Kurs-Farblogik bleibt aktiv.
+V3.17 workflow-fix

@@ -184,7 +184,7 @@ async function fetchStooqQuote(stock) {
   return quote;
 }
 
-function showPage(id) { if(id!=='detail'&&id!=='newsPage'&&id!=='chartPage') previousPage=id; document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); window.scrollTo(0, 0); }
+function showPage(id) { if(id!=='detail'&&id!=='newsPage'&&id!=='chartPage') previousPage=id; document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('#' + id).classList.add('active'); document.querySelectorAll('nav button').forEach(b => b.classList.toggle('activeBtn', b.dataset.page === id)); if (id === 'indicators') renderIndicators(); window.scrollTo(0, 0); }
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => showPage(b.dataset.page));
 $('#backBtn').onclick = () => showPage(previousPage || 'overview');
 if ($('#newsBackBtn')) $('#newsBackBtn').onclick = () => currentDetailSymbol ? detail(currentDetailSymbol) : showPage('overview');
@@ -198,10 +198,7 @@ function initFilters() {
   if (removeBtn) removeBtn.onclick = removeSelectedOverviewStocks;
   const symbolInput = $('#addOverviewSymbol');
   if (symbolInput) symbolInput.onkeydown = e => { if (e.key === 'Enter') addOverviewStock(); };
-  const indicatorSearch = $('#indicatorSearch');
-  if (indicatorSearch) indicatorSearch.oninput = renderIndicators;
 }
-
 
 function renderOverview() {
   const q = $('#search').value.toLowerCase();
@@ -266,13 +263,13 @@ function addOverviewStock() {
 window.addOverviewStock = addOverviewStock;
 
 async function updateCourses() {
-  // V3.22: Manuelles Browser-Update wurde bewusst entfernt.
+  // V3.19: Manuelles Browser-Update wurde bewusst entfernt.
   // Die Kurse werden automatisch per GitHub Action in prices.json aktualisiert.
   setUpdateStatus('Automatisches EOD-Update aktiv · kein manuelles Update nötig', 'good');
 }
 
 function renderStats() {
-  $('#version').textContent = DATA.version || 'V3.22';
+  $('#version').textContent = 'V3.22+';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -375,7 +372,7 @@ function renderDepot() {
     <div class="metric">Cash<br><b>${eur(depotState.cash)}</b></div><div class="metric">Aktienwert<br><b>${eur(stockValue)}</b></div><div class="metric">Gesamtwert<br><b>${eur(total)}</b></div><div class="metric">Gewinn/Verlust<br><b class="${signalClass(gainTotal)}">${eur(gainTotal)}</b></div>
   </div><div class="actions"><button onclick="resetDepot()">Depot zurücksetzen</button></div>` +
   (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Verkauf</th><th>Trend</th><th>Aktion</th></tr></thead><tbody>` +
-    positions.map(x => `<tr class="depotClickable" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onclick="event.stopPropagation()" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td><button onclick="event.stopPropagation(); sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
+    positions.map(x => `<tr class="clickableRow" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td onclick="event.stopPropagation()"><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td onclick="event.stopPropagation()"><button onclick="sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }
 
@@ -392,11 +389,11 @@ function indicatorState(sig, def, stock) {
   const [name, plus, minus, plusText, minusText] = def;
   const p = Number(sig[plus] || 0), m = Number(sig[minus] || 0);
   if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: 'buy' };
-  if (m > p) return { name, sign: '-', cls: 'bad', text: minusText, type: 'sell' };
+  if (m > p) return { name, sign: '−', cls: 'bad', text: minusText, type: 'sell' };
   if (p > 0 && m > 0 && name === 'Trend') {
     const t = Number(stock?.trendScore || 0);
     if (t > 0) return { name, sign: '+', cls: 'good', text: plusText, type: 'buy' };
-    if (t < 0) return { name, sign: '-', cls: 'bad', text: minusText, type: 'sell' };
+    if (t < 0) return { name, sign: '−', cls: 'bad', text: minusText, type: 'sell' };
   }
   return { name, sign: '–', cls: '', text: 'neutral', type: 'neutral' };
 }
@@ -413,27 +410,26 @@ function activeSignalList(sig, stock, type) {
 }
 
 function indicatorCell(stock, def) {
-  const x = indicatorState(stock.signals || {}, def, stock);
-  if (x.type === 'buy') return `<td class="indicatorMark good">+</td>`;
-  if (x.type === 'sell') return `<td class="indicatorMark bad">-</td>`;
-  return '<td class="indicatorMark"></td>';
+  const sig = stock.signals || {};
+  const st = indicatorState(sig, def, stock);
+  if (st.type === 'buy') return '<span class="indPlus">+</span>';
+  if (st.type === 'sell') return '<span class="indMinus">−</span>';
+  return '';
 }
-
 function renderIndicators() {
-  const body = $('#indicatorTable tbody');
-  if (!body) return;
-  const q = String($('#indicatorSearch')?.value || '').toLowerCase();
-  const rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
-  body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
-    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
+  const el = $('#indicatorsTable');
+  if (!el) return;
+  const headers = indicatorDefs.map(d => `<th class="indCol">${d[0]}</th>`).join('');
+  const rows = allOverviewStocks().map(s => `<tr onclick="detail('${s.symbol}')">
+    <td class="stickyStock nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
     <td>${priceHtml(s, true)}</td>
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
-    ${indicatorDefs.map(def => indicatorCell(s, def)).join('')}
+    ${indicatorDefs.map(def => `<td class="indicatorCell">${indicatorCell(s, def)}</td>`).join('')}
     <td class="good signalCount">${buyCount(s) || ''}</td>
     <td class="bad signalCount">${sellCount(s) || ''}</td>
   </tr>`).join('');
+  el.innerHTML = `<table class="indicatorTable"><thead><tr><th class="stickyStock">Aktie</th><th>Kurs</th><th>%</th>${headers}<th class="signalCount">Kauf</th><th class="signalCount">Verkauf</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
-
 
 function externalSymbol(sym) {
   return String(sym || '').replace('.DE', '').replace('.F', '').replace('.AS', '').replace('.PA', '').replace('.MI', '').replace('.SW', '');
@@ -519,5 +515,5 @@ function drawChart(points) {
   ctx.fillStyle = '#cbd5e1'; [0, Math.floor(points.length / 2), points.length - 1].forEach(i => { let label = points[i].x === 0 ? 'heute' : points[i].x + ' T'; ctx.fillText(label, xFor(i) - 15, h - 18); });
   ctx.fillText('Zeitachse: Handelstage bis heute', w / 2 - 80, h - 4);
 }
-function renderAll() { renderStats(); renderOverview(); renderLists(); }
+function renderAll() { renderStats(); renderOverview(); renderLists(); renderIndicators(); }
 initFilters(); renderAll(); loadAutoPrices();

@@ -1,9 +1,3 @@
-# Aktientool V3.22
+# Aktientool V3.22+
 
-Basis: V3.21.
-
-Änderung in V3.22:
-- Auf der Seite **Indikatoren** wurde die komplette Erklärung/Legende entfernt.
-- Die fixierte Überschriftenzeile bleibt erhalten.
-- Die erste Spalte **Aktie** bleibt links fixiert.
-- Kursupdate-Workflow und `scripts/update-prices.mjs` bleiben unverändert.
+Kompletter sauberer Stand auf Basis V3.19 mit Indikatorenübersicht, sticky Tabellenkopf, fixierter Aktienspalte, Depot-Verkauf und automatischem EOD-Kursupdate.

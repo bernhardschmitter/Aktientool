@@ -21,6 +21,20 @@
 /* V3.19 Depot-Verkauf */
 .lockedQty{display:inline-block;min-width:3.5rem;text-align:center;font-weight:700;}
 
-/* V3.22+ Indikatoren-Übersicht */
-.indicatorWrap{max-height:70vh;overflow:auto;position:relative}.indicatorTable{min-width:980px}.indicatorTable th{position:sticky;top:0;z-index:4}.indicatorTable th.stickyStock,.indicatorTable td.stickyStock{position:sticky;left:0;z-index:3;background:#111827}.indicatorTable th.stickyStock{z-index:6}.indicatorTable td.stickyStock{background:#0b1220}.indicatorCell{text-align:center!important;font-weight:800;font-size:1.05rem}.indPlus{color:var(--good)}.indMinus{color:var(--bad)}.clickableRow{cursor:pointer}.clickableRow:hover{background:#172033}
-@media(max-width:700px){.indicatorTable th,.indicatorTable td{padding:7px 6px;font-size:.8rem}.indicatorWrap{max-height:72vh}.indicatorTable{min-width:860px}.indicatorCell{font-size:1rem}}
+/* V3.20 */
+.indicatorTable th,.indicatorTable td{text-align:center}.indicatorTable th:first-child,.indicatorTable td:first-child{text-align:left}.indicatorMark{font-size:1.25rem;font-weight:800;min-width:34px}.indicatorTable tr{cursor:pointer}.depotClickable{cursor:pointer}.compactSignalCard.inDepot h3{color:var(--accent)}
+@media(max-width:700px){.indicatorTable th,.indicatorTable td{padding:6px 6px;font-size:.78rem}.indicatorMark{font-size:1.05rem}}
+
+
+/* V3.22 fixierte Indikatoren-Tabelle */
+.indicatorTableWrap{max-height:calc(100vh - 235px);overflow:auto;position:relative;}
+.indicatorTable thead th{position:sticky;top:0;z-index:3;background:#111827;}
+.indicatorTable th:first-child,.indicatorTable td:first-child{position:sticky;left:0;z-index:2;background:#111827;box-shadow:1px 0 0 #263244;}
+.indicatorTable thead th:first-child{z-index:4;}
+.indicatorTable tbody tr:hover td:first-child{background:#172033;}
+.indicatorTable tbody tr.inDepotRow td:first-child{background:#10283a;}
+@media(max-width:700px){.indicatorTableWrap{max-height:calc(100vh - 220px);}}
+
+
+.chartLegend{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;font-size:12px}
+.chartLegend span{padding:2px 6px;border-radius:4px;background:#1f2937}

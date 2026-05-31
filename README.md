@@ -1,3 +1,9 @@
-# Aktientool V3.22+
+# Aktientool V4.0
 
-Kompletter sauberer Stand auf Basis V3.19 mit Indikatorenübersicht, sticky Tabellenkopf, fixierter Aktienspalte, Depot-Verkauf und automatischem EOD-Kursupdate.
+Basis: V4.0.
+
+Änderung in V4.0:
+- Auf der Seite **Indikatoren** wurde die komplette Erklärung/Legende entfernt.
+- Die fixierte Überschriftenzeile bleibt erhalten.
+- Die erste Spalte **Aktie** bleibt links fixiert.
+- Kursupdate-Workflow und `scripts/update-prices.mjs` bleiben unverändert.

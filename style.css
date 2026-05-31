@@ -20,3 +20,7 @@
 @media(max-width:700px){.compactLine{gap:10px}.signalLine{font-size:.9rem}.priceChangeLine{font-size:.95rem}}
 /* V3.19 Depot-Verkauf */
 .lockedQty{display:inline-block;min-width:3.5rem;text-align:center;font-weight:700;}
+
+/* V3.20 */
+.indicatorTable th,.indicatorTable td{text-align:center}.indicatorTable th:first-child,.indicatorTable td:first-child{text-align:left}.indicatorMark{font-size:1.25rem;font-weight:800;min-width:34px}.indicatorTable tr{cursor:pointer}.depotClickable{cursor:pointer}.compactSignalCard.inDepot h3{color:var(--accent)}
+@media(max-width:700px){.indicatorTable th,.indicatorTable td{padding:6px 6px;font-size:.78rem}.indicatorMark{font-size:1.05rem}}

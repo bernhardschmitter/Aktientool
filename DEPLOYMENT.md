@@ -1,4 +1,4 @@
-# Deployment V3.19
+# Deployment V3.20
 
 1. ZIP entpacken.
 2. Alle Dateien inklusive `.github/workflows/update-prices.yml` hochladen.

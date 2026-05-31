@@ -48,4 +48,4 @@ jobs:
 
           git commit -m "Update EOD prices" || echo "No price changes"
 
-          git pus
+          git push

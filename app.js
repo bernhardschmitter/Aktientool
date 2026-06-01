@@ -208,7 +208,7 @@ function renderOverview() {
   const body = $('#stockTable tbody');
   let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
-    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td><td>${priceHtml(s, true)}</td>
+    <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td><td class="good signalCount">${buyCount(s) || ''}</td><td class="bad signalCount">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
@@ -383,7 +383,7 @@ const indicatorDefs = [
   ['GD', 'GD+', 'GD-', 'Kaufsignal durch gleitende Durchschnitte', 'Verkaufssignal durch gleitende Durchschnitte'],
   ['RSI', 'RSI+', 'RSI-', 'RSI zeigt überverkaufte Lage', 'RSI zeigt überkaufte Lage'],
   ['MACD', 'MACD+', 'MACD-', 'MACD bullisch', 'MACD bärisch'],
-  ['Momentum', 'Mom+', 'Mom-', 'Momentum positiv', 'Momentum negativ'],
+  ['Mom.', 'Mom+', 'Mom-', 'Mom. positiv', 'Mom. negativ'],
   ['CCI', 'CCI+', 'CCI-', 'CCI bullisch', 'CCI bärisch'],
   ['Pivot', 'Piv+', 'Piv-', 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
   ['Trend', 'Trend+', 'Trend-', 'Trend positiv', 'Trend negativ']
@@ -426,11 +426,10 @@ function renderIndicators() {
   const rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
     <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
-    <td>${priceHtml(s, true)}</td>
+    
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
     ${indicatorDefs.map(def => indicatorCell(s, def)).join('')}
-    <td class="good signalCount">${buyCount(s) || ''}</td>
-    <td class="bad signalCount">${sellCount(s) || ''}</td>
+    
   </tr>`).join('');
 }
 
@@ -503,7 +502,7 @@ function detail(sym) {
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="${isDepot(s) ? "showPage('depot')" : "addOrRemoveDepot('" + s.symbol + "')"}">${isDepot(s) ? 'Im Depot anzeigen' : 'Ins Depot übernehmen'}</button>
     </div>`;
-  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>T=Trend</span><span>Mo=Momentum</span>'; } drawChart(s.history || [], s);
+  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>T=Trend</span><span>Mo=Mom.</span>'; } drawChart(s.history || [], s);
 }
 
 function drawChart(points, stock) {

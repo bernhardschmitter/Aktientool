@@ -33,7 +33,10 @@ function allOverviewStocks() {
   const existing = new Set(DATA.stocks.map(s => String(s.symbol).toUpperCase()));
   return DATA.stocks.concat(extras.filter(x => !existing.has(String(x.symbol).toUpperCase()))).filter(s => !hidden.has(String(s.symbol).toUpperCase()));
 }
-function isDepot(s) { return !!depotState.positions[s.symbol]; }
+function isDepot(s) {
+  const p = depotState.positions[s.symbol];
+  return Array.isArray(p) ? p.length > 0 : !!p;
+}
 function signalClass(v) { return Number(v) > 0 ? 'good' : Number(v) < 0 ? 'bad' : ''; }
 function sellCount(s) { let n = Number(s.sell || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('-') && Number(sig[k]) > 0) n++; }); return n; }
 function buyCount(s) { let n = Number(s.buy || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('+') && Number(sig[k]) > 0) n++; }); return n; }
@@ -209,7 +212,12 @@ function renderOverview() {
   let rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
     <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
-    <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td><td class="good signalCount">${buyCount(s) || ''}</td><td class="bad signalCount">${sellCount(s) || ''}</td><td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
+    <td>${priceHtml(s, true)}</td>
+    <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
+    <td class="good signalCount">${buyCount(s) || ''}</td>
+    <td class="bad signalCount">${sellCount(s) || ''}</td>
+    <td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
+    <td><span class="pill">${s.group || '–'}</span></td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
 }
@@ -272,7 +280,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V3.22+';
+  $('#version').textContent = 'V4.0.3';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -290,7 +298,7 @@ function card(s, mode = 'normal') {
   return `<div class="card signalCard compactSignalCard ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name}<br><span class="muted">${s.symbol}</span></h3>
     <div class="compactLine priceChangeLine"><b>${priceHtml(s, true)}</b><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
     <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(s.trendScore)}">${trendText(s)}</b></span></div>
-    <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); ${isDepot(s) ? "showPage('depot')" : "addOrRemoveDepot('" + s.symbol + "')"}">${isDepot(s) ? 'Im Depot' : 'Ins Depot'}</button></div></div>`;
+    <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); addOrRemoveDepot('${s.symbol}')">Ins Depot</button></div></div>`;
 }
 
 function renderLists() {
@@ -300,7 +308,6 @@ function renderLists() {
 }
 
 function addOrRemoveDepot(sym) {
-  if (depotState.positions[sym]) { removeDepot(sym); return; }
   const s = allOverviewStocks().find(x => x.symbol === sym);
   if (!s) { alert('Symbol nicht gefunden.'); return; }
   const qtyRaw = prompt(`Stückzahl für ${sym} eingeben:`, '1');
@@ -309,7 +316,11 @@ function addOrRemoveDepot(sym) {
   if (!Number.isFinite(qty) || qty <= 0) { alert('Bitte eine gültige Stückzahl eingeben.'); return; }
   const buyPrice = Number(effectivePrice(s) || 0);
   const cost = qty * buyPrice;
-  depotState.positions[sym] = { qty, buyPrice };
+  const pos = { qty, buyPrice, buyDate: new Date().toISOString().slice(0, 10) };
+  const existing = depotState.positions[sym];
+  if (Array.isArray(existing)) existing.push(pos);
+  else if (existing) depotState.positions[sym] = [existing, pos];
+  else depotState.positions[sym] = [pos];
   depotState.cash = Number(depotState.cash || 0) - cost;
   saveDepot();
 }
@@ -343,9 +354,12 @@ function sellDepot(sym) {
   }
   saveDepot();
 }
-function setDepot(sym, k, v) {
-  if (!depotState.positions[sym]) depotState.positions[sym] = { qty: 0, buyPrice: 0 };
-  depotState.positions[sym][k] = Number(String(v).replace(',', '.')) || 0;
+function setDepot(sym, index, k, v) {
+  const list = Array.isArray(depotState.positions[sym]) ? depotState.positions[sym] : (depotState.positions[sym] ? [depotState.positions[sym]] : []);
+  const p = list[Number(index) || 0];
+  if (!p) return;
+  p[k] = Number(String(v).replace(',', '.')) || 0;
+  depotState.positions[sym] = list;
   saveDepot();
 }
 function resetDepot() {
@@ -356,13 +370,17 @@ function resetDepot() {
 window.resetDepot = resetDepot;
 
 function portfolioTotals() {
-  const positions = Object.entries(depotState.positions).map(([sym, p]) => {
-    const s = DATA.stocks.find(x => x.symbol === sym);
-    if (!s) return null;
-    const qty = Number(p.qty || 0), buyPrice = Number(p.buyPrice || 0), price = Number(effectivePrice(s) || 0);
-    const value = qty * price, cost = qty * buyPrice, gain = value - cost;
-    return { s, p, qty, buyPrice, price, value, cost, gain };
-  }).filter(Boolean);
+  const positions = [];
+  Object.entries(depotState.positions).forEach(([sym, raw]) => {
+    const s = DATA.stocks.find(x => x.symbol === sym) || allOverviewStocks().find(x => x.symbol === sym);
+    if (!s) return;
+    const list = Array.isArray(raw) ? raw : [raw];
+    list.forEach((p, index) => {
+      const qty = Number(p.qty || 0), buyPrice = Number(p.buyPrice || 0), price = Number(effectivePrice(s) || 0);
+      const value = qty * price, cost = qty * buyPrice, gain = value - cost;
+      positions.push({ s, p, index, qty, buyPrice, price, value, cost, gain });
+    });
+  });
   const stockValue = positions.reduce((a, x) => a + x.value, 0);
   const total = Number(depotState.cash || 0) + stockValue;
   const gainTotal = total - startCash;
@@ -374,8 +392,8 @@ function renderDepot() {
   $('#depotList').innerHTML = `<div class="depotSummary">
     <div class="metric">Cash<br><b>${eur(depotState.cash)}</b></div><div class="metric">Aktienwert<br><b>${eur(stockValue)}</b></div><div class="metric">Gesamtwert<br><b>${eur(total)}</b></div><div class="metric">Gewinn/Verlust<br><b class="${signalClass(gainTotal)}">${eur(gainTotal)}</b></div>
   </div><div class="actions"><button onclick="resetDepot()">Depot zurücksetzen</button></div>` +
-  (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Verkauf</th><th>Trend</th><th>Aktion</th></tr></thead><tbody>` +
-    positions.map(x => `<tr class="depotClickable" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onclick="event.stopPropagation()" onchange="setDepot('${x.s.symbol}','buyPrice',this.value)"></td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td><button onclick="event.stopPropagation(); sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
+  (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Kaufdatum</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Trend</th></tr></thead><tbody>` +
+    positions.map(x => `<tr class="depotClickable" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onclick="event.stopPropagation()" onchange="setDepot('${x.s.symbol}',${x.index},'buyPrice',this.value)"></td><td>${x.p.buyDate || '–'}</td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td></tr>`).join('') +
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }
 
@@ -426,10 +444,8 @@ function renderIndicators() {
   const rows = allOverviewStocks().filter(s => ((s.symbol + s.name).toLowerCase().includes(q)));
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
     <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
-    
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
     ${indicatorDefs.map(def => indicatorCell(s, def)).join('')}
-    
   </tr>`).join('');
 }
 
@@ -500,7 +516,7 @@ function detail(sym) {
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
     <div class="actions detailActions">
-      <button class="depotBigBtn" onclick="${isDepot(s) ? "showPage('depot')" : "addOrRemoveDepot('" + s.symbol + "')"}">${isDepot(s) ? 'Im Depot anzeigen' : 'Ins Depot übernehmen'}</button>
+      <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
     </div>`;
   showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>T=Trend</span><span>Mo=Mom.</span>'; } drawChart(s.history || [], s);
 }
@@ -531,5 +547,21 @@ function drawChart(points, stock) {
     sigs.forEach((sg,i)=>{let x=pad+40+i*40; let y=40; ctx.fillStyle=i%2?'#ef4444':'#22c55e'; ctx.fillText((i%2?'🔴':'🟢')+sg,x,y);});
   }
 }
-function renderAll() { renderStats(); renderOverview(); renderLists(); }
+
+function renderMovers() {
+  const box = $('#moversContent');
+  if (!box) return;
+  const rows = allOverviewStocks()
+    .map(s => ({ s, price: effectivePrice(s), percent: effectivePercent(s) }))
+    .filter(x => Number.isFinite(Number(x.percent)))
+    .sort((a, b) => Number(b.percent) - Number(a.percent));
+  const top = rows.slice(0, 5);
+  const flop = rows.slice(-5).reverse();
+  const table = (title, list) => `<div class="card moverCard"><h3>${title}</h3><table class="moverTable"><thead><tr><th>Aktie</th><th>Kurs</th><th>%</th><th>News</th></tr></thead><tbody>` +
+    list.map(x => `<tr onclick="detail('${x.s.symbol}')"><td class="nameCell">${x.s.name}<div class="muted">${x.s.symbol}</div></td><td>${priceHtml(x.s, true)}</td><td class="${signalClass(x.percent)}">${pct(x.percent)}</td><td onclick="event.stopPropagation()"><a class="buttonLink newsMini" href="${googleNewsUrl(x.s)}" target="_blank" rel="noopener">📰</a></td></tr>`).join('') +
+    `</tbody></table></div>`;
+  box.innerHTML = rows.length ? table('📈 Top 5 Gewinner', top) + table('📉 Top 5 Verlierer', flop) : '<p class="muted">Keine Kursänderungen vorhanden.</p>';
+}
+
+function renderAll() { renderStats(); renderOverview(); renderLists(); renderMovers(); }
 initFilters(); renderAll(); loadAutoPrices();

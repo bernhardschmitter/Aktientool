@@ -15,6 +15,20 @@ let previousPage='overview';
 let autoPriceData = { generatedAt: null, source: 'prices.json', quotes: {} };
 
 if (!depotState.positions) depotState = { cash: startCash, positions: {} };
+function normalizeDepotState() {
+  if (!depotState.positions) depotState.positions = {};
+  Object.keys(depotState.positions).forEach(sym => {
+    const raw = depotState.positions[sym];
+    const list = Array.isArray(raw) ? raw : [raw];
+    depotState.positions[sym] = list.filter(Boolean).map(p => ({
+      qty: Number(p.qty || 0),
+      buyPrice: Number(p.buyPrice || p.price || 0),
+      buyDate: p.buyDate || p.date || new Date().toISOString().slice(0, 10)
+    })).filter(p => p.qty > 0);
+    if (!depotState.positions[sym].length) delete depotState.positions[sym];
+  });
+}
+normalizeDepotState();
 
 function saveDepot() { localStorage.setItem(depotKey, JSON.stringify(depotState)); renderAll(); }
 function getExtraOverviewStocks() {
@@ -280,7 +294,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.3';
+  $('#version').textContent = 'V4.0.4';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -319,7 +333,7 @@ function addOrRemoveDepot(sym) {
   const pos = { qty, buyPrice, buyDate: new Date().toISOString().slice(0, 10) };
   const existing = depotState.positions[sym];
   if (Array.isArray(existing)) existing.push(pos);
-  else if (existing) depotState.positions[sym] = [existing, pos];
+  else if (existing) depotState.positions[sym] = [{ qty: Number(existing.qty || 0), buyPrice: Number(existing.buyPrice || existing.price || 0), buyDate: existing.buyDate || existing.date || new Date().toISOString().slice(0, 10) }, pos];
   else depotState.positions[sym] = [pos];
   depotState.cash = Number(depotState.cash || 0) - cost;
   saveDepot();
@@ -331,29 +345,7 @@ function removeDepot(sym) {
   delete depotState.positions[sym];
   saveDepot();
 }
-function sellDepot(sym) {
-  const p = depotState.positions[sym];
-  const s = DATA.stocks.find(x => x.symbol === sym);
-  if (!p || !s) { alert('Position nicht gefunden.'); return; }
-  const currentQty = Number(p.qty || 0);
-  if (!Number.isFinite(currentQty) || currentQty <= 0) { alert('Keine Stückzahl im Depot vorhanden.'); return; }
-  const qtyRaw = prompt(`Stückzahl für Verkauf ${sym} eingeben:`, String(currentQty));
-  if (qtyRaw === null) return;
-  const sellQty = Number(String(qtyRaw).replace(',', '.'));
-  if (!Number.isFinite(sellQty) || sellQty <= 0) { alert('Bitte eine gültige Stückzahl eingeben.'); return; }
-  if (sellQty > currentQty) { alert(`Maximal verfügbar: ${fmt(currentQty)} Stück.`); return; }
-  const price = Number(effectivePrice(s) || 0);
-  if (!Number.isFinite(price) || price <= 0) { alert('Kein gültiger Tageskurs für den Verkauf vorhanden.'); return; }
-  const proceeds = sellQty * price;
-  depotState.cash = Number(depotState.cash || 0) + proceeds;
-  const remaining = currentQty - sellQty;
-  if (remaining <= 0.0000001) {
-    delete depotState.positions[sym];
-  } else {
-    depotState.positions[sym].qty = remaining;
-  }
-  saveDepot();
-}
+function sellDepot(sym) { alert('Verkauf ist in dieser Version ausgeblendet.'); }
 function setDepot(sym, index, k, v) {
   const list = Array.isArray(depotState.positions[sym]) ? depotState.positions[sym] : (depotState.positions[sym] ? [depotState.positions[sym]] : []);
   const p = list[Number(index) || 0];
@@ -516,7 +508,7 @@ function detail(sym) {
     <h3>Aktive Verkaufsindikatoren</h3>${activeSignalList(sig, s, 'sell')}
     <h3>Alle Indikatoren</h3><div class="grid">${combinedIndicators(sig, s)}</div>
     <div class="actions detailActions">
-      <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
+      <button class="depotBigBtn" onclick="addOrRemoveDepot(\'${s.symbol}\')">In Depot aufnehmen</button>
     </div>`;
   showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>T=Trend</span><span>Mo=Mom.</span>'; } drawChart(s.history || [], s);
 }

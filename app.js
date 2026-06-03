@@ -335,7 +335,8 @@ function sellDepot(sym) {
   const p = depotState.positions[sym];
   const s = DATA.stocks.find(x => x.symbol === sym);
   if (!p || !s) { alert('Position nicht gefunden.'); return; }
-  const currentQty = Number(p.qty || 0);
+  const list = Array.isArray(p) ? p : [p];
+  const currentQty = list.reduce((a,x)=>a+Number(x.qty||0),0);
   if (!Number.isFinite(currentQty) || currentQty <= 0) { alert('Keine Stückzahl im Depot vorhanden.'); return; }
   const qtyRaw = prompt(`Stückzahl für Verkauf ${sym} eingeben:`, String(currentQty));
   if (qtyRaw === null) return;
@@ -350,7 +351,9 @@ function sellDepot(sym) {
   if (remaining <= 0.0000001) {
     delete depotState.positions[sym];
   } else {
-    depotState.positions[sym].qty = remaining;
+    const first = list[0];
+    first.qty = remaining;
+    depotState.positions[sym] = [first];
   }
   saveDepot();
 }
@@ -392,7 +395,7 @@ function renderDepot() {
   $('#depotList').innerHTML = `<div class="depotSummary">
     <div class="metric">Cash<br><b>${eur(depotState.cash)}</b></div><div class="metric">Aktienwert<br><b>${eur(stockValue)}</b></div><div class="metric">Gesamtwert<br><b>${eur(total)}</b></div><div class="metric">Gewinn/Verlust<br><b class="${signalClass(gainTotal)}">${eur(gainTotal)}</b></div>
   </div><div class="actions"><button onclick="resetDepot()">Depot zurücksetzen</button></div>` +
-  (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Kaufdatum</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Trend</th><th>Summe Verkaufssignale</th><th>Aktion</th></tr></thead><tbody>` +
+  (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Kaufdatum</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Trend</th><th>VK</th><th>Aktion</th></tr></thead><tbody>` +
     positions.map(x => `<tr class="depotClickable" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onclick="event.stopPropagation()" onchange="setDepot('${x.s.symbol}',${x.index},'buyPrice',this.value)"></td><td>${x.p.buyDate || '–'}</td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td><button class="sellBtn" onclick="event.stopPropagation(); sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }

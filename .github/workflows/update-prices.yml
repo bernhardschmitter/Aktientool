@@ -38,23 +38,26 @@ jobs:
 
       - name: Commit updated prices
 
-        run: |
-           git config user.name "github-actions"
+            run: |
 
-           git config user.email "github-actions@github.com"
+                git config user.name "github-actions"
 
-           git add prices.json
+                git config user.email "github-actions@github.com"
 
-           if git diff --staged --quiet; then. 
+                git add prices.json
 
-              echo "No changes to commit"
+                if git diff --staged --quiet
 
-              exit 0
+                then
 
-           fi
+                  echo "No changes to commit"
 
-           git commit -m "Update EOD prices"
+                  exit 0
 
-           git pull --rebase origin main
+                fi
 
-           git push origin main
+                git commit -m "Update EOD prices"
+
+                git pull --rebase origin main
+
+                git push origin main

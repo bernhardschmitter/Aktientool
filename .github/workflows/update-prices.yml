@@ -37,27 +37,25 @@ jobs:
         run: node scripts/update-prices.mjs
 
       - name: Commit updated prices
-
         run: |
+            git config user.name "github-actions"
 
-                git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
 
-                git config user.email "github-actions@github.com"
+            git add prices.json
 
-                git add prices.json
+            if git diff --staged --quiet
 
-                if git diff --staged --quiet
+               then
 
-                then
+               echo "No changes to commit"
 
-                  echo "No changes to commit"
+             exit 0
 
-                  exit 0
+             fi
 
-                fi
+             git commit -m "Update EOD prices"
 
-                git commit -m "Update EOD prices"
+             git pull --rebase origin main
 
-                git pull --rebase origin main
-
-                git push origin main
+             git push origin main

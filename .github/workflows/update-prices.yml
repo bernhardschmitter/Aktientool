@@ -53,8 +53,8 @@ jobs:
 
            fi
 
-        git commit -m "Update EOD prices"
+           git commit -m "Update EOD prices"
 
-        git pull --rebase origin main
+           git pull --rebase origin main
 
-        git push origin main
+           git push origin main

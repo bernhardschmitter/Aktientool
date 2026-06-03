@@ -51,7 +51,7 @@ jobs:
 
           exit 0
 
-        fi
+         fi
 
         git commit -m "Update EOD prices"
 

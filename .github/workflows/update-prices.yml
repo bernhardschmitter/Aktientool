@@ -1,16 +1,13 @@
-  name: Update EOD prices
-
+name: Update EOD prices
 on:
-
-  workflow_dispatch:
-
-  schedule:
+workflow_dispatch:
+schedule:
 
     - cron: "30 21 * * 1-5"
 
 permissions:
 
-  contents: write
+contents: write
 
 jobs:
 

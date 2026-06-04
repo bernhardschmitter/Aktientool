@@ -1,4 +1,5 @@
-# Deployment V4.0.3
+# Deployment V4.0.5
 
-Beim iPad-Upload kann der Ordner `scripts` weggelassen werden, sofern er im Repository bereits korrekt vorhanden ist.
-Wichtig sind die Hauptdateien wie `index.html`, `app.js`, `style.css`, `data.js`, `manifest.webmanifest`, `README.md`, `version.txt`.
+Upload aller Dateien in das GitHub-Pages-Repository.
+
+Wichtig: Die Cache-Buster in `index.html` stehen auf `v=4.0.5`, damit Safari/GitHub Pages die neuen Dateien lädt.

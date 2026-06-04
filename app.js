@@ -280,7 +280,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.4';
+  $('#version').textContent = 'V4.0.5';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -409,6 +409,7 @@ const indicatorDefs = [
   ['Pivot', 'Piv+', 'Piv-', 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
   ['Trend', 'Trend+', 'Trend-', 'Trend positiv', 'Trend negativ']
 ];
+const indicatorTableDefs = indicatorDefs.filter(def => def[0] !== 'Trend');
 function indicatorState(sig, def, stock) {
   const [name, plus, minus, plusText, minusText] = def;
   const p = Number(sig[plus] || 0), m = Number(sig[minus] || 0);
@@ -448,7 +449,7 @@ function renderIndicators() {
   body.innerHTML = rows.map(s => `<tr class="${isDepot(s) ? 'inDepotRow' : ''}" onclick="detail('${s.symbol}')">
     <td class="nameCell ${isDepot(s) ? 'depotText' : ''}">${s.name}<div class="muted">${s.symbol}</div></td>
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
-    ${indicatorDefs.map(def => indicatorCell(s, def)).join('')}
+    ${indicatorTableDefs.map(def => indicatorCell(s, def)).join('')}
   </tr>`).join('');
 }
 
@@ -471,32 +472,19 @@ function tradingViewSymbol(stock) {
 function tradingViewUrl(stock) {
   return 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(tradingViewSymbol(stock));
 }
+function openExternalUrl(url) {
+  const win = window.open(url, '_blank', 'noopener');
+  if (!win) window.location.href = url;
+}
 function showNews(sym) {
   const s = allOverviewStocks().find(x => x.symbol === sym);
   if (!s) return;
-  currentDetailSymbol = sym;
-  const url = googleNewsUrl(s);
-  $('#newsContent').innerHTML = `<h2>Google News <span class="muted">${s.symbol}</span></h2>
-    <div class="card">
-      <h3>${s.name}</h3>
-      <p>Öffnet die aktuellen Google-News zur Aktie in einem neuen Tab. Danach kannst du hier wieder zur Detailanalyse zurückspringen.</p>
-      <div class="actions"><a class="buttonLink" href="${url}" target="_blank" rel="noopener">Google News öffnen</a></div>
-    </div>`;
-  showPage('newsPage');
+  openExternalUrl(googleNewsUrl(s));
 }
 function showTradingView(sym) {
   const s = allOverviewStocks().find(x => x.symbol === sym);
   if (!s) return;
-  currentDetailSymbol = sym;
-  const tvSymbol = tradingViewSymbol(s);
-  const url = tradingViewUrl(s);
-  $('#chartContent').innerHTML = `<h2>TradingView <span class="muted">${s.symbol}</span></h2>
-    <div class="card">
-      <h3>${s.name}</h3>
-      <p>Öffnet den Chart der ausgewählten Aktie direkt in TradingView. Verwendetes Symbol: <b>${tvSymbol}</b>.</p>
-      <div class="actions"><a class="buttonLink" href="${url}" target="_blank" rel="noopener">TradingView öffnen</a></div>
-    </div>`;
-  showPage('chartPage');
+  openExternalUrl(tradingViewUrl(s));
 }
 window.showNews = showNews;
 window.showTradingView = showTradingView;
@@ -507,8 +495,8 @@ function detail(sym) {
   const sig = s.signals || {};
   $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas>
     <div class="actions detailActions externalDetailActions">
-      <button onclick="showNews('${s.symbol}')">Google News</button>
-      <button onclick="showTradingView('${s.symbol}')">TradingView</button>
+      <a class="buttonLink" href="${googleNewsUrl(s)}" target="_blank" rel="noopener">Google News</a>
+      <a class="buttonLink" href="${tradingViewUrl(s)}" target="_blank" rel="noopener">TradingView</a>
     </div>
     <div class="detailCompactBox">
       <div class="compactLine priceChangeLine"><span>Kurs: <b>${priceHtml(s, true)}</b></span><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>

@@ -1,14 +1,10 @@
-# Aktientool V4.0.4
+# Aktientool V4.0.5
 
 Basis: V4.0.4.
 
-Änderung in V4.0.4:
-- Auf der Seite **Indikatoren** wurde die komplette Erklärung/Legende entfernt.
-- Die fixierte Überschriftenzeile bleibt erhalten.
-- Die erste Spalte **Aktie** bleibt links fixiert.
-- Kursupdate-Workflow und `scripts/update-prices.mjs` bleiben unverändert.
-
-
-Änderung in V4.0.4:
-- Depotseite: Verkaufsbutton je Position wieder ergänzt.
-- Depotseite: Spalte „Summe Verkaufssignale“ ergänzt.
+Änderung in V4.0.5:
+- Detailansicht: Google News öffnet direkt im neuen Tab, ohne Zwischenseite.
+- Detailansicht: TradingView öffnet direkt im neuen Tab, ohne Zwischenseite.
+- Indikatorseite: Spalte Trend entfernt.
+- Indikatorseite: Überschriften CCI und Pivot blau hervorgehoben.
+- Cache-Buster für CSS/JS/Icons/Manifest auf v=4.0.5 aktualisiert.

@@ -407,9 +407,9 @@ const indicatorDefs = [
   ['Mom.', 'Mom+', 'Mom-', 'Mom. positiv', 'Mom. negativ'],
   ['CCI', 'CCI+', 'CCI-', 'CCI bullisch', 'CCI bärisch'],
   ['Pivot', 'Piv+', 'Piv-', 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
-  ['Mom>0', 'Trend+', 'Trend-', 'Momentum > 0', 'Momentum < 0']
+  ['Trend', 'Trend+', 'Trend-', 'Trend positiv', 'Trend negativ']
 ];
-const indicatorTableDefs = indicatorDefs;
+const indicatorTableDefs = indicatorDefs.filter(def => def[0] !== 'Trend');
 function indicatorState(sig, def, stock) {
   const [name, plus, minus, plusText, minusText] = def;
   const p = Number(sig[plus] || 0), m = Number(sig[minus] || 0);
@@ -423,7 +423,7 @@ function indicatorState(sig, def, stock) {
   return { name, sign: '–', cls: '', text: 'neutral', type: 'neutral' };
 }
 function combinedIndicators(sig, stock) {
-  return indicatorDefs.filter(def => def[0] !== 'Mom>0').map(def => {
+  return indicatorDefs.map(def => {
     const x = indicatorState(sig, def, stock);
     return `<div class="metric"><b>${x.name}</b><br><b class="${x.cls}">${x.sign}</b><br><span class="muted">${x.text}</span></div>`;
   }).join('');

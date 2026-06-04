@@ -45,3 +45,6 @@
 @media(max-width:700px){.moversGrid{grid-template-columns:1fr}.moverTable th,.moverTable td{font-size:.82rem;padding:7px 5px}.depotTable th,.depotTable td{font-size:.78rem;padding:6px 5px}}
 
 .indicatorHeadBlue{color:var(--accent)!important;}
+
+.trendMetric{border-color:rgba(56,189,248,.5);}
+.trendIndicatorCell{background:rgba(56,189,248,.04);}

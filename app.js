@@ -38,9 +38,30 @@ function isDepot(s) {
   return Array.isArray(p) ? p.length > 0 : !!p;
 }
 function signalClass(v) { return Number(v) > 0 ? 'good' : Number(v) < 0 ? 'bad' : ''; }
-function sellCount(s) { let n = Number(s.sell || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('-') && Number(sig[k]) > 0) n++; }); return n; }
-function buyCount(s) { let n = Number(s.buy || 0); const sig = s.signals || {}; Object.keys(sig).forEach(k => { if (k.includes('+') && Number(sig[k]) > 0) n++; }); return n; }
-function trendText(s) { const v = Number(s.trendScore); return Number.isFinite(v) ? (v > 0 ? '+' + fmt(v) : fmt(v)) : '–'; }
+function sigVal(sig, keys) {
+  for (const k of keys) {
+    if (sig && sig[k] != null && sig[k] !== '') return Number(sig[k]) || 0;
+  }
+  return 0;
+}
+function buyCount(s) {
+  const sig = s.signals || {};
+  return ['GD+', 'RSI+', 'MACD+', 'Mom+'].reduce((n, k) => n + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+}
+function sellCount(s) {
+  const sig = s.signals || {};
+  return ['GD-', 'RSI-', 'MACD-', 'Mom-'].reduce((n, k) => n + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+}
+function trendScoreCalc(s) {
+  const sig = s.signals || {};
+  const cci = (Number(sig['CCI+'] || 0) > Number(sig['CCI-'] || 0)) ? 1 : (Number(sig['CCI-'] || 0) > Number(sig['CCI+'] || 0) ? -1 : 0);
+  const piv = (Number(sig['Piv+'] || 0) > Number(sig['Piv-'] || 0)) ? 1 : (Number(sig['Piv-'] || 0) > Number(sig['Piv+'] || 0) ? -1 : 0);
+  const momPlus = sigVal(sig, ['MOM>1', 'Mom>0', 'MomPos', 'Trend+']);
+  const momMinus = sigVal(sig, ['Mom<1', 'Mom<0', 'MomNeg', 'Trend-']);
+  const mom = momPlus > momMinus ? 1 : (momMinus > momPlus ? -1 : 0);
+  return cci + piv + mom;
+}
+function trendText(s) { const v = trendScoreCalc(s); return Number.isFinite(v) ? (v > 0 ? '+' + fmt(v) : fmt(v)) : '–'; }
 function loadLiveQuotes() {
   return autoPriceData && autoPriceData.quotes ? autoPriceData.quotes : {};
 }
@@ -216,7 +237,7 @@ function renderOverview() {
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
     <td class="good signalCount">${buyCount(s) || ''}</td>
     <td class="bad signalCount">${sellCount(s) || ''}</td>
-    <td class="${signalClass(s.trendScore)}">${trendText(s)}</td>
+    <td class="${signalClass(trendScoreCalc(s))}">${trendText(s)}</td>
     <td><span class="pill">${s.group || '–'}</span></td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
@@ -297,7 +318,7 @@ function renderStats() {
 function card(s, mode = 'normal') {
   return `<div class="card signalCard compactSignalCard ${isDepot(s) ? 'inDepot' : ''}"><h3>${s.name}<br><span class="muted">${s.symbol}</span></h3>
     <div class="compactLine priceChangeLine"><b>${priceHtml(s, true)}</b><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
-    <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(s.trendScore)}">${trendText(s)}</b></span></div>
+    <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(trendScoreCalc(s))}">${trendText(s)}</b></span></div>
     <div class="actions"><button onclick="event.stopPropagation(); detail('${s.symbol}')">Detailanalyse</button><button onclick="event.stopPropagation(); addOrRemoveDepot('${s.symbol}')">Ins Depot</button></div></div>`;
 }
 
@@ -396,49 +417,52 @@ function renderDepot() {
     <div class="metric">Cash<br><b>${eur(depotState.cash)}</b></div><div class="metric">Aktienwert<br><b>${eur(stockValue)}</b></div><div class="metric">Gesamtwert<br><b>${eur(total)}</b></div><div class="metric">Gewinn/Verlust<br><b class="${signalClass(gainTotal)}">${eur(gainTotal)}</b></div>
   </div><div class="actions"><button onclick="resetDepot()">Depot zurücksetzen</button></div>` +
   (positions.length ? `<div class="tablewrap"><table class="depotTable"><thead><tr><th>Symbol</th><th>Aktie</th><th>Stück</th><th>Kaufkurs</th><th>Kaufdatum</th><th>Aktuell</th><th>Wert</th><th>G/V €</th><th>G/V %</th><th>Trend</th><th>VK</th><th>Aktion</th></tr></thead><tbody>` +
-    positions.map(x => `<tr class="depotClickable" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onclick="event.stopPropagation()" onchange="setDepot('${x.s.symbol}',${x.index},'buyPrice',this.value)"></td><td>${x.p.buyDate || '–'}</td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="${signalClass(x.s.trendScore)}">${trendText(x.s)}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td><button class="sellBtn" onclick="event.stopPropagation(); sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
+    positions.map(x => `<tr class="depotClickable" onclick="detail('${x.s.symbol}')"><td><b>${x.s.symbol}</b></td><td>${x.s.name}</td><td><span class="lockedQty">${fmt(x.qty)}</span></td><td><input class="miniInput" type="number" step="0.01" value="${x.buyPrice}" onclick="event.stopPropagation()" onchange="setDepot('${x.s.symbol}',${x.index},'buyPrice',this.value)"></td><td>${x.p.buyDate || '–'}</td><td>${priceHtml(x.s)}</td><td>${eur(x.value)}</td><td class="${signalClass(x.gain)}">${eur(x.gain)}</td><td class="${signalClass(x.gain)}">${x.cost ? fmt(x.gain / x.cost * 100) + ' %' : '–'}</td><td class="${signalClass(trendScoreCalc(x.s))}">${trendText(x.s)}</td><td class="bad signalCount">${sellCount(x.s) || ''}</td><td><button class="sellBtn" onclick="event.stopPropagation(); sellDepot('${x.s.symbol}')">Verkaufen</button></td></tr>`).join('') +
     `</tbody></table></div>` : '<p class="muted">Noch keine Aktien im Depot.</p>');
 }
 
-const indicatorDefs = [
-  ['GD', 'GD+', 'GD-', 'Kaufsignal durch gleitende Durchschnitte', 'Verkaufssignal durch gleitende Durchschnitte'],
-  ['RSI', 'RSI+', 'RSI-', 'RSI zeigt überverkaufte Lage', 'RSI zeigt überkaufte Lage'],
-  ['MACD', 'MACD+', 'MACD-', 'MACD bullisch', 'MACD bärisch'],
-  ['Mom.', 'Mom+', 'Mom-', 'Mom. positiv', 'Mom. negativ'],
-  ['CCI', 'CCI+', 'CCI-', 'CCI bullisch', 'CCI bärisch'],
-  ['Pivot', 'Piv+', 'Piv-', 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
-  ['Mom>0', 'Trend+', 'Trend-', 'Momentum > 0', 'Momentum < 0']
+const signalIndicatorDefs = [
+  ['GD', ['GD+'], ['GD-'], 'Kaufsignal durch gleitende Durchschnitte', 'Verkaufssignal durch gleitende Durchschnitte'],
+  ['RSI', ['RSI+'], ['RSI-'], 'RSI zeigt überverkaufte Lage', 'RSI zeigt überkaufte Lage'],
+  ['MACD', ['MACD+'], ['MACD-'], 'MACD bullisch', 'MACD bärisch'],
+  ['Mom.', ['Mom+'], ['Mom-'], 'Momentum-Signal positiv', 'Momentum-Signal negativ']
 ];
+const trendIndicatorDefs = [
+  ['CCI', ['CCI+'], ['CCI-'], 'CCI bullisch', 'CCI bärisch'],
+  ['Pivot', ['Piv+'], ['Piv-'], 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
+  ['Mom>0', ['MOM>1', 'Mom>0', 'MomPos', 'Trend+'], ['Mom<1', 'Mom<0', 'MomNeg', 'Trend-'], 'Momentum größer 0', 'Momentum kleiner 0']
+];
+const indicatorDefs = signalIndicatorDefs.concat(trendIndicatorDefs);
 const indicatorTableDefs = indicatorDefs;
+function isTrendIndicatorName(name) { return ['CCI', 'Pivot', 'Mom>0'].includes(name); }
 function indicatorState(sig, def, stock) {
-  const [name, plus, minus, plusText, minusText] = def;
-  const p = Number(sig[plus] || 0), m = Number(sig[minus] || 0);
-  if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: 'buy' };
-  if (m > p) return { name, sign: '-', cls: 'bad', text: minusText, type: 'sell' };
-  if (p > 0 && m > 0 && name === 'Trend') {
-    const t = Number(stock?.trendScore || 0);
-    if (t > 0) return { name, sign: '+', cls: 'good', text: plusText, type: 'buy' };
-    if (t < 0) return { name, sign: '-', cls: 'bad', text: minusText, type: 'sell' };
-  }
-  return { name, sign: '–', cls: '', text: 'neutral', type: 'neutral' };
+  const [name, plusKeys, minusKeys, plusText, minusText] = def;
+  const p = sigVal(sig, Array.isArray(plusKeys) ? plusKeys : [plusKeys]);
+  const m = sigVal(sig, Array.isArray(minusKeys) ? minusKeys : [minusKeys]);
+  const trend = isTrendIndicatorName(name);
+  if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: trend ? 'trend' : 'buy', trend };
+  if (m > p) return { name, sign: '-', cls: 'bad', text: minusText, type: trend ? 'trend' : 'sell', trend };
+  return { name, sign: '–', cls: '', text: 'neutral', type: 'neutral', trend };
 }
 function combinedIndicators(sig, stock) {
-  return indicatorDefs.filter(def => def[0] !== 'Mom>0').map(def => {
+  return indicatorDefs.map(def => {
     const x = indicatorState(sig, def, stock);
-    return `<div class="metric"><b>${x.name}</b><br><b class="${x.cls}">${x.sign}</b><br><span class="muted">${x.text}</span></div>`;
+    const nameCls = x.trend ? 'indicatorHeadBlue' : '';
+    return `<div class="metric ${x.trend ? 'trendMetric' : ''}"><b class="${nameCls}">${x.name}</b><br><b class="${x.cls}">${x.sign}</b><br><span class="muted">${x.text}</span></div>`;
   }).join('');
 }
 function activeSignalList(sig, stock, type) {
-  const items = indicatorDefs.map(def => indicatorState(sig, def, stock)).filter(x => x.type === type);
+  const items = signalIndicatorDefs.map(def => indicatorState(sig, def, stock)).filter(x => x.type === type);
   if (!items.length) return '<p class="muted">Keine aktiven Einzelsignale.</p>';
   return `<div class="signalList">${items.map(x => `<div><b class="${x.cls}">${x.name} ${x.sign}</b><span>${x.text}</span></div>`).join('')}</div>`;
 }
 
 function indicatorCell(stock, def) {
   const x = indicatorState(stock.signals || {}, def, stock);
-  if (x.type === 'buy') return `<td class="indicatorMark good">+</td>`;
-  if (x.type === 'sell') return `<td class="indicatorMark bad">-</td>`;
-  return '<td class="indicatorMark"></td>';
+  const extra = x.trend ? ' trendIndicatorCell' : '';
+  if (x.sign === '+') return `<td class="indicatorMark good${extra}">+</td>`;
+  if (x.sign === '-') return `<td class="indicatorMark bad${extra}">-</td>`;
+  return `<td class="indicatorMark${extra}"></td>`;
 }
 
 function renderIndicators() {
@@ -500,7 +524,7 @@ function detail(sym) {
     </div>
     <div class="detailCompactBox">
       <div class="compactLine priceChangeLine"><span>Kurs: <b>${priceHtml(s, true)}</b></span><b class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</b></div>
-      <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(s.trendScore)}">${trendText(s)}</b></span></div>
+      <div class="compactLine signalLine"><span>Kauf: <b class="good signalCount">${buyCount(s)}</b></span><span>Verkauf: <b class="bad signalCount">${sellCount(s)}</b></span><span>Trend: <b class="${signalClass(trendScoreCalc(s))}">${trendText(s)}</b></span></div>
       <div class="muted priceDate">${quoteDate(s) ? quoteDate(s) + ' · ' + priceStatus(s).text + ' · ' + ((liveQuoteFor(s.symbol) || {}).source || autoPriceData.source || 'Automatisches EOD-Update') : priceStatus(s).text}</div>
     </div>
     <h3>Aktive Kaufindikatoren</h3>${activeSignalList(sig, s, 'buy')}
@@ -509,7 +533,7 @@ function detail(sym) {
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
     </div>`;
-  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>T=Trend</span><span>Mo=Mom.</span>'; } drawChart(s.history || [], s);
+  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } drawChart(s.history || [], s);
 }
 
 function drawChart(points, stock) {

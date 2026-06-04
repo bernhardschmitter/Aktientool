@@ -40,7 +40,7 @@
 .chartLegend span{padding:2px 6px;border-radius:4px;background:#1f2937}
 
 
-/* V4.0.5 UI-Aufräumarbeiten */
+/* V4.0.7 UI-Aufräumarbeiten */
 .moversGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}.moverCard{overflow:auto}.moverTable th,.moverTable td{padding:8px}.newsMini{padding:6px 8px;border-radius:9px}.depotTable th,.depotTable td{font-size:.9rem}.indicatorTable th,.indicatorTable td{white-space:nowrap}
 @media(max-width:700px){.moversGrid{grid-template-columns:1fr}.moverTable th,.moverTable td{font-size:.82rem;padding:7px 5px}.depotTable th,.depotTable td{font-size:.78rem;padding:6px 5px}}
 

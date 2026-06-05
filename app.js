@@ -60,13 +60,55 @@ function gdCrossSignal(stock){
   return 0;
 }
 
+function rsiSeriesFromPoints(points, period = 14) {
+  const closes = (points || []).map(p => Number(p.y ?? p.close)).filter(Number.isFinite);
+  const out = new Array(closes.length).fill(null);
+  if (closes.length <= period) return out;
+  let gain = 0, loss = 0;
+  for (let i = 1; i <= period; i++) {
+    const diff = closes[i] - closes[i - 1];
+    if (diff >= 0) gain += diff; else loss -= diff;
+  }
+  let avgGain = gain / period, avgLoss = loss / period;
+  out[period] = avgLoss === 0 ? 100 : 100 - (100 / (1 + avgGain / avgLoss));
+  for (let i = period + 1; i < closes.length; i++) {
+    const diff = closes[i] - closes[i - 1];
+    const g = diff > 0 ? diff : 0;
+    const l = diff < 0 ? -diff : 0;
+    avgGain = (avgGain * (period - 1) + g) / period;
+    avgLoss = (avgLoss * (period - 1) + l) / period;
+    out[i] = avgLoss === 0 ? 100 : 100 - (100 / (1 + avgGain / avgLoss));
+  }
+  return out;
+}
+
+function rsiCrossSignal(stock) {
+  try {
+    const pts = chartHistoryFor(stock, 250);
+    const rsi = rsiSeriesFromPoints(pts, 14);
+    let i = rsi.length - 1;
+    while (i > 0 && rsi[i] == null) i--;
+    if (i <= 0 || rsi[i - 1] == null) return 0;
+    const prev = Number(rsi[i - 1]), now = Number(rsi[i]);
+    if (prev < 30 && now >= 30) return 1;
+    if (prev > 70 && now <= 70) return -1;
+  } catch (e) {}
+  return 0;
+}
+
 function buyCount(s) {
   const sig = s.signals || {};
-  return ['GD+', 'RSI+', 'MACD+', 'Mom+'].reduce((n, k) => n + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  let n = ['MACD+', 'Mom+'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  if (gdCrossSignal(s) > 0) n++;
+  if (rsiCrossSignal(s) > 0) n++;
+  return n;
 }
 function sellCount(s) {
   const sig = s.signals || {};
-  return ['GD-', 'RSI-', 'MACD-', 'Mom-'].reduce((n, k) => n + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  let n = ['MACD-', 'Mom-'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  if (gdCrossSignal(s) < 0) n++;
+  if (rsiCrossSignal(s) < 0) n++;
+  return n;
 }
 function trendScoreCalc(s) {
   const sig = s.signals || {};
@@ -317,7 +359,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.9';
+  $('#version').textContent = 'V4.0.11';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -456,11 +498,12 @@ function indicatorState(sig, def, stock) {
   let p = sigVal(sig, Array.isArray(plusKeys) ? plusKeys : [plusKeys]);
   let m = sigVal(sig, Array.isArray(minusKeys) ? minusKeys : [minusKeys]);
   if(name==='GD'){ const g=gdCrossSignal(stock); p=g>0?1:0; m=g<0?1:0; }
+  if(name==='RSI'){ const r=rsiCrossSignal(stock); p=r>0?1:0; m=r<0?1:0; }
   
   const trend = isTrendIndicatorName(name);
   if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: trend ? 'trend' : 'buy', trend };
   if (m > p) return { name, sign: '-', cls: 'bad', text: minusText, type: trend ? 'trend' : 'sell', trend };
-  return { name, sign: '–', cls: '', text: 'neutral', type: 'neutral', trend };
+  return { name, sign: '0', cls: '', text: 'neutral', type: 'neutral', trend };
 }
 function combinedIndicators(sig, stock) {
   return indicatorDefs.map(def => {
@@ -480,7 +523,7 @@ function indicatorCell(stock, def) {
   const extra = x.trend ? ' trendIndicatorCell' : '';
   if (x.sign === '+') return `<td class="indicatorMark good${extra}">+</td>`;
   if (x.sign === '-') return `<td class="indicatorMark bad${extra}">-</td>`;
-  return `<td class="indicatorMark${extra}"></td>`;
+  return `<td class="indicatorMark${extra}">0</td>`;
 }
 
 function renderIndicators() {
@@ -563,7 +606,7 @@ function detail(sym) {
   currentDetailSymbol = sym;
   let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
   const sig = s.signals || {};
-  $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas>
+  $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas><canvas id="rsiChart" width="900" height="190"></canvas>
     <div class="actions detailActions externalDetailActions">
       <a class="buttonLink" href="${googleNewsUrl(s)}" target="_blank" rel="noopener">Google News</a>
       <a class="buttonLink" href="${tradingViewUrl(s)}" target="_blank" rel="noopener">TradingView</a>
@@ -579,7 +622,7 @@ function detail(sym) {
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
     </div>`;
-  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } drawChart(chartHistoryFor(s, 250), s);
+  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 GD=GD20/GD50</span><span>RSI=RSI 30/70</span><span>M=MACD</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } const detailPoints = chartHistoryFor(s, 250); drawChart(detailPoints, s); drawRsiChart(detailPoints, s);
 }
 
 function drawChart(points, stock) {
@@ -620,6 +663,50 @@ function drawChart(points, stock) {
     const sigs=['M','R','C','P','T'];
     sigs.forEach((sg,i)=>{let x=pad+40+i*40; let y=40; ctx.fillStyle=i%2?'#ef4444':'#22c55e'; ctx.fillText((i%2?'🔴':'🟢')+sg,x,y);});
   }
+}
+
+
+function drawRsiChart(points, stock) {
+  const c = $('#rsiChart');
+  if (!c) return;
+  const ctx = c.getContext('2d'), w = c.width, h = c.height, pad = 46;
+  ctx.clearRect(0, 0, w, h);
+  if (!points.length) { ctx.fillStyle = '#94a3b8'; ctx.fillText('Keine RSI-Daten', pad, 40); return; }
+  const rsi = rsiSeriesFromPoints(points, 14);
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, h - pad); ctx.lineTo(w - pad, h - pad); ctx.stroke();
+  const xFor = i => pad + i * (w - 2 * pad) / (points.length - 1);
+  const yFor = v => h - pad - (v / 100) * (h - 2 * pad);
+  ctx.fillStyle = '#94a3b8'; ctx.font = '12px system-ui';
+  [0, 30, 50, 70, 100].forEach(v => {
+    const y = yFor(v);
+    ctx.strokeStyle = (v === 30 || v === 70) ? '#64748b' : '#1f2937';
+    ctx.setLineDash(v === 30 || v === 70 ? [5, 5] : []);
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillText(String(v), 16, y + 4);
+  });
+  ctx.strokeStyle = '#a78bfa'; ctx.lineWidth = 2; ctx.beginPath();
+  let started = false;
+  rsi.forEach((v, i) => {
+    if (v == null) return;
+    const x = xFor(i), y = yFor(v);
+    if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  for (let i = 1; i < rsi.length; i++) {
+    const prev = rsi[i - 1], now = rsi[i];
+    if (prev == null || now == null) continue;
+    const x = xFor(i), y = yFor(now);
+    if (prev < 30 && now >= 30) { ctx.fillStyle = '#22c55e'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+    else if (prev > 70 && now <= 70) { ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+  }
+  ctx.fillStyle = '#cbd5e1';
+  [0, Math.floor(points.length / 2), points.length - 1].forEach(i => {
+    const label = points[i].x === 0 ? 'heute' : (points[i].x != null ? points[i].x + ' T' : (points[i].date || ''));
+    ctx.fillText(label, xFor(i) - 15, h - 18);
+  });
+  ctx.fillStyle = '#a78bfa'; ctx.fillText('RSI 14', pad + 10, 18);
+  ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 RSI verlässt <30', w - 190, 18);
+  ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 RSI verlässt >70', w - 190, 36);
 }
 
 function renderMovers() {

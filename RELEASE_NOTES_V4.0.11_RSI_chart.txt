@@ -1,0 +1,8 @@
+Aktientool V4.0.11
+
+Änderungen:
+- RSI-Chart unter dem Kurs/GD-Chart in der Detailansicht ergänzt.
+- RSI-Signallogik als Ereignislogik: RSI gestern < 30 und heute >= 30 = +1; RSI gestern > 70 und heute <= 70 = -1; sonst 0.
+- RSI-Marker im RSI-Chart ergänzt: grün für Kaufsignal, rot für Verkaufssignal.
+- Neutrale Indikatoren werden in der Detailansicht und Indikatorenübersicht als 0 statt weißem Minus angezeigt.
+- Version auf V4.0.11 aktualisiert.

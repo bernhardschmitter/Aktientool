@@ -48,3 +48,5 @@
 
 .trendMetric{border-color:rgba(56,189,248,.5);}
 .trendIndicatorCell{background:rgba(56,189,248,.04);}
+
+#rsiChart{height:190px}

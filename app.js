@@ -301,7 +301,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.7';
+  $('#version').textContent = 'V4.0.8';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -513,6 +513,34 @@ function showTradingView(sym) {
 window.showNews = showNews;
 window.showTradingView = showTradingView;
 
+
+function liveHistoryFor(sym) {
+  const q = liveQuoteFor(sym);
+  if (!q || !Array.isArray(q.history) || !q.history.length) return [];
+  return q.history
+    .map((p, i) => {
+      const close = Number(p.close ?? p.y ?? p.Close);
+      const date = p.date || p.x || p.Date || '';
+      return { date, close, y: close, _i: i };
+    })
+    .filter(p => Number.isFinite(p.close));
+}
+
+function chartHistoryFor(stock, maxDays = 250) {
+  const live = liveHistoryFor(stock.symbol);
+  if (live.length) {
+    const sliced = live.slice(-maxDays);
+    const lastIndex = sliced.length - 1;
+    return sliced.map((p, i) => ({
+      x: i === lastIndex ? 0 : i - lastIndex,
+      y: p.close,
+      date: p.date
+    }));
+  }
+  const fallback = Array.isArray(stock.history) ? stock.history : [];
+  return fallback.slice(-maxDays);
+}
+
 function detail(sym) {
   currentDetailSymbol = sym;
   let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
@@ -533,7 +561,7 @@ function detail(sym) {
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
     </div>`;
-  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } drawChart(s.history || [], s);
+  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 M=MACD</span><span>R=RSI</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } drawChart(chartHistoryFor(s, 250), s);
 }
 
 function drawChart(points, stock) {
@@ -546,7 +574,7 @@ function drawChart(points, stock) {
   for (let i = 0; i <= 5; i++) { let y = h - pad - i * (h - 2 * pad) / 5, val = min + i * span / 5; ctx.fillText(fmt(val), 6, y + 4); ctx.strokeStyle = '#1f2937'; ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke(); }
   let xFor = i => pad + i * (w - 2 * pad) / (points.length - 1), yFor = v => h - pad - (v - min) * (h - 2 * pad) / span;
   ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.beginPath(); points.forEach((p, i) => { let x = xFor(i), y = yFor(p.y); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke();
-  ctx.fillStyle = '#cbd5e1'; [0, Math.floor(points.length / 2), points.length - 1].forEach(i => { let label = points[i].x === 0 ? 'heute' : points[i].x + ' T'; ctx.fillText(label, xFor(i) - 15, h - 18); });
+  ctx.fillStyle = '#cbd5e1'; [0, Math.floor(points.length / 2), points.length - 1].forEach(i => { let label = points[i].x === 0 ? 'heute' : (points[i].x != null ? points[i].x + ' T' : (points[i].date || '')); ctx.fillText(label, xFor(i) - 15, h - 18); });
   ctx.fillText('Zeitachse: Handelstage bis heute', w / 2 - 80, h - 4);
   if(stock){
     const gd50=ys.reduce((a,b)=>a+b,0)/ys.length;

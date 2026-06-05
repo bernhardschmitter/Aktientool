@@ -1,0 +1,6 @@
+V4.0.8 Chart-History-Test
+
+- Detailchart nutzt jetzt bevorzugt history aus prices.json.
+- Fallback bleibt stock.history aus data.js.
+- Anzeige ist auf die letzten 250 Handelstage begrenzt.
+- Signal-Logik wurde noch nicht geändert.

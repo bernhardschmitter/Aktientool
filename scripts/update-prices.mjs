@@ -3,7 +3,7 @@ import vm from 'node:vm';
 
 const DATA_FILE = new URL('../data.js', import.meta.url);
 const OUT_FILE = new URL('../prices.json', import.meta.url);
-const VERSION = 'V3.17';
+const VERSION = 'V4.0.8-history';
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 function yyyymmdd(d) {
@@ -27,27 +27,42 @@ function stooqUrl(symbol) {
 }
 function yahooUrl(symbol) {
   // Yahoo Chart API liefert fuer viele deutsche Werte direkt Symbole wie ADS.DE, BMW.DE usw.
-  return `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d`;
+  return `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=2y&interval=1d`;
 }
 function parseCsv(text) {
   const clean = String(text || '').trim();
   if (!clean || /no data/i.test(clean)) throw new Error('Keine Kursdaten');
   const lines = clean.split(/\r?\n/).filter(Boolean);
   if (lines.length < 2) throw new Error('Keine Kurszeilen');
-  const rows = lines.slice(1).map(line => line.split(',')).filter(c => c.length >= 5 && c[0] && c[4] !== 'N/D');
+  const rows = lines.slice(1)
+    .map(line => line.split(','))
+    .filter(c => c.length >= 5 && c[0] && c[4] !== 'N/D');
   if (!rows.length) throw new Error('Keine gueltigen Kurszeilen');
-  const last = rows[rows.length - 1];
-  const prev = rows.length > 1 ? rows[rows.length - 2] : null;
-  const close = Number(last[4]);
-  if (!Number.isFinite(close)) throw new Error('Ungueltiger Schlusskurs');
+
+  const history = rows.map(c => ({
+    date: c[0],
+    open: Number(c[1]),
+    high: Number(c[2]),
+    low: Number(c[3]),
+    close: Number(c[4]),
+    volume: Number(c[5] || 0)
+  })).filter(r => Number.isFinite(r.close));
+
+  if (!history.length) throw new Error('Keine gueltigen historischen Kursdaten');
+
+  const last = history[history.length - 1];
+  const prev = history.length > 1 ? history[history.length - 2] : null;
+
   return {
-    date: last[0],
-    open: Number(last[1]),
-    high: Number(last[2]),
-    low: Number(last[3]),
-    close,
-    volume: Number(last[5] || 0),
-    prevClose: prev ? Number(prev[4]) : null,
+    date: last.date,
+    open: last.open,
+    high: last.high,
+    low: last.low,
+    close: last.close,
+    volume: last.volume,
+    prevClose: prev ? prev.close : null,
+    history,
+    historyCount: history.length,
     source: 'Stooq EOD'
   };
 }
@@ -66,24 +81,35 @@ function parseYahooJson(text, symbol) {
   const lows = quote.low || [];
   const volumes = quote.volume || [];
 
-  const valid = [];
+  const history = [];
   for (let i = 0; i < timestamps.length; i++) {
     const close = Number(closes[i]);
-    if (Number.isFinite(close)) valid.push(i);
+    if (!Number.isFinite(close)) continue;
+    history.push({
+      date: new Date(timestamps[i] * 1000).toISOString().slice(0, 10),
+      open: Number(opens[i]),
+      high: Number(highs[i]),
+      low: Number(lows[i]),
+      close,
+      volume: Number(volumes[i] || 0)
+    });
   }
-  if (!valid.length) throw new Error('Keine gueltigen Yahoo-Kurse');
 
-  const lastIdx = valid[valid.length - 1];
-  const prevIdx = valid.length > 1 ? valid[valid.length - 2] : null;
-  const date = new Date(timestamps[lastIdx] * 1000).toISOString().slice(0, 10);
+  if (!history.length) throw new Error('Keine gueltigen Yahoo-Kurse');
+
+  const last = history[history.length - 1];
+  const prev = history.length > 1 ? history[history.length - 2] : null;
+
   return {
-    date,
-    open: Number(opens[lastIdx]),
-    high: Number(highs[lastIdx]),
-    low: Number(lows[lastIdx]),
-    close: Number(closes[lastIdx]),
-    volume: Number(volumes[lastIdx] || 0),
-    prevClose: prevIdx !== null ? Number(closes[prevIdx]) : null,
+    date: last.date,
+    open: last.open,
+    high: last.high,
+    low: last.low,
+    close: last.close,
+    volume: last.volume,
+    prevClose: prev ? prev.close : null,
+    history,
+    historyCount: history.length,
     source: 'Yahoo Finance EOD',
     symbolUsed: symbol
   };

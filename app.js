@@ -301,7 +301,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.8';
+  $('#version').textContent = 'V4.0.9';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -577,12 +577,18 @@ function drawChart(points, stock) {
   ctx.fillStyle = '#cbd5e1'; [0, Math.floor(points.length / 2), points.length - 1].forEach(i => { let label = points[i].x === 0 ? 'heute' : (points[i].x != null ? points[i].x + ' T' : (points[i].date || '')); ctx.fillText(label, xFor(i) - 15, h - 18); });
   ctx.fillText('Zeitachse: Handelstage bis heute', w / 2 - 80, h - 4);
   if(stock){
-    const gd50=ys.reduce((a,b)=>a+b,0)/ys.length;
-    const gd200=gd50*0.97;
+    const calcMA=(arr,n)=>arr.map((_,i)=>{if(i<n-1)return null; let s=0; for(let j=i-n+1;j<=i;j++) s+=arr[j]; return s/n;});
+    const gd20=calcMA(ys,20);
+    const gd50=calcMA(ys,50);
+    const drawMA=(ma,color)=>{ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();let started=false; ma.forEach((v,i)=>{if(v==null)return; let x=xFor(i), y=yFor(v); if(!started){ctx.moveTo(x,y); started=true;} else ctx.lineTo(x,y);}); ctx.stroke();};
+    drawMA(gd20,'#22c55e');
+    drawMA(gd50,'#f59e0b');
     const resistance=max*0.98;
     const support=min*1.02;
     const line=(v,color)=>{ctx.strokeStyle=color;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(pad,yFor(v));ctx.lineTo(w-pad,yFor(v));ctx.stroke();ctx.setLineDash([]);}
-    line(gd50,'#22c55e'); line(gd200,'#f59e0b'); line(resistance,'#ef4444'); line(support,'#10b981');
+    line(resistance,'#ef4444'); line(support,'#10b981');
+    ctx.fillStyle='#22c55e'; ctx.fillText('GD20', w-120, 20);
+    ctx.fillStyle='#f59e0b'; ctx.fillText('GD50', w-70, 20);
     const buy=buyCount(stock), sell=sellCount(stock);
     const amp=buy>sell?'🟢 Aufwärtstrend':sell>buy?'🔴 Abwärtstrend':'🟡 Neutral';
     ctx.fillStyle='#fff'; ctx.fillText('Trendampel: '+amp, pad+10, 18);

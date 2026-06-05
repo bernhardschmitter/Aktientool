@@ -22,7 +22,7 @@ function symbolCandidates(sym) {
 function stooqUrl(symbol) {
   const end = new Date();
   const start = new Date();
-  start.setDate(start.getDate() - 35);
+  start.setDate(start.getDate() - 700);
   return `https://stooq.com/q/d/l/?s=${encodeURIComponent(symbol)}&d1=${yyyymmdd(start)}&d2=${yyyymmdd(end)}&i=d`;
 }
 function yahooUrl(symbol) {

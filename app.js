@@ -44,6 +44,22 @@ function sigVal(sig, keys) {
   }
   return 0;
 }
+
+function gdCrossSignal(stock){
+  try{
+    const pts=chartHistoryFor(stock,250);
+    const ys=pts.map(p=>Number(p.y)).filter(Number.isFinite);
+    if(ys.length<51) return 0;
+    const ma=(arr,n,i)=>{let s=0; for(let j=i-n+1;j<=i;j++) s+=arr[j]; return s/n;};
+    const i=ys.length-1;
+    const gd20_now=ma(ys,20,i), gd50_now=ma(ys,50,i);
+    const gd20_prev=ma(ys,20,i-1), gd50_prev=ma(ys,50,i-1);
+    if(gd20_prev<=gd50_prev && gd20_now>gd50_now) return 1;
+    if(gd20_prev>=gd50_prev && gd20_now<gd50_now) return -1;
+  }catch(e){}
+  return 0;
+}
+
 function buyCount(s) {
   const sig = s.signals || {};
   return ['GD+', 'RSI+', 'MACD+', 'Mom+'].reduce((n, k) => n + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
@@ -437,8 +453,10 @@ const indicatorTableDefs = indicatorDefs;
 function isTrendIndicatorName(name) { return ['CCI', 'Pivot', 'Mom>0'].includes(name); }
 function indicatorState(sig, def, stock) {
   const [name, plusKeys, minusKeys, plusText, minusText] = def;
-  const p = sigVal(sig, Array.isArray(plusKeys) ? plusKeys : [plusKeys]);
-  const m = sigVal(sig, Array.isArray(minusKeys) ? minusKeys : [minusKeys]);
+  let p = sigVal(sig, Array.isArray(plusKeys) ? plusKeys : [plusKeys]);
+  let m = sigVal(sig, Array.isArray(minusKeys) ? minusKeys : [minusKeys]);
+  if(name==='GD'){ const g=gdCrossSignal(stock); p=g>0?1:0; m=g<0?1:0; }
+  
   const trend = isTrendIndicatorName(name);
   if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: trend ? 'trend' : 'buy', trend };
   if (m > p) return { name, sign: '-', cls: 'bad', text: minusText, type: trend ? 'trend' : 'sell', trend };
@@ -583,6 +601,13 @@ function drawChart(points, stock) {
     const drawMA=(ma,color)=>{ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();let started=false; ma.forEach((v,i)=>{if(v==null)return; let x=xFor(i), y=yFor(v); if(!started){ctx.moveTo(x,y); started=true;} else ctx.lineTo(x,y);}); ctx.stroke();};
     drawMA(gd20,'#22c55e');
     drawMA(gd50,'#f59e0b');
+    for(let i=50;i<ys.length;i++){
+      const gd20_now=gd20[i], gd50_now=gd50[i], gd20_prev=gd20[i-1], gd50_prev=gd50[i-1];
+      if(gd20_now==null||gd50_now==null||gd20_prev==null||gd50_prev==null) continue;
+      const x=xFor(i), y=yFor(ys[i]);
+      if(gd20_prev<=gd50_prev && gd20_now>gd50_now){ctx.fillStyle='#22c55e'; ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fill();}
+      else if(gd20_prev>=gd50_prev && gd20_now<gd50_now){ctx.fillStyle='#ef4444'; ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fill();}
+    }
     const resistance=max*0.98;
     const support=min*1.02;
     const line=(v,color)=>{ctx.strokeStyle=color;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(pad,yFor(v));ctx.lineTo(w-pad,yFor(v));ctx.stroke();ctx.setLineDash([]);}

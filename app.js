@@ -118,18 +118,67 @@ function momentumCrossSignal(stock) {
   return 0;
 }
 
+
+function emaSeries(values, period) {
+  const out = new Array(values.length).fill(null);
+  if (!values.length || values.length < period) return out;
+  let sum = 0;
+  for (let i = 0; i < period; i++) sum += values[i];
+  let ema = sum / period;
+  out[period - 1] = ema;
+  const k = 2 / (period + 1);
+  for (let i = period; i < values.length; i++) {
+    ema = values[i] * k + ema * (1 - k);
+    out[i] = ema;
+  }
+  return out;
+}
+
+function macdSeriesFromPoints(points) {
+  const closes = (points || []).map(p => Number(p.y ?? p.close)).filter(Number.isFinite);
+  const ema12 = emaSeries(closes, 12);
+  const ema26 = emaSeries(closes, 26);
+  const macd = closes.map((_, i) => (ema12[i] == null || ema26[i] == null) ? null : ema12[i] - ema26[i]);
+  const signal = new Array(closes.length).fill(null);
+  const start = macd.findIndex(v => v != null);
+  if (start >= 0) {
+    const macdVals = macd.slice(start).filter(v => v != null);
+    const sigVals = emaSeries(macdVals, 9);
+    sigVals.forEach((v, i) => { signal[start + i] = v; });
+  }
+  const histogram = macd.map((v, i) => (v == null || signal[i] == null) ? null : v - signal[i]);
+  return { macd, signal, histogram };
+}
+
+function macdCrossSignal(stock) {
+  try {
+    const pts = chartHistoryFor(stock, 250);
+    const { macd, signal } = macdSeriesFromPoints(pts);
+    let i = macd.length - 1;
+    while (i > 0 && (macd[i] == null || signal[i] == null)) i--;
+    if (i <= 0 || macd[i - 1] == null || signal[i - 1] == null) return 0;
+    const prevDiff = Number(macd[i - 1]) - Number(signal[i - 1]);
+    const nowDiff = Number(macd[i]) - Number(signal[i]);
+    if (prevDiff <= 0 && nowDiff > 0) return 1;
+    if (prevDiff >= 0 && nowDiff < 0) return -1;
+  } catch (e) {}
+  return 0;
+}
+
 function buyCount(s) {
   const sig = s.signals || {};
-  let n = ['MACD+'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  let n = 0;
   if (gdCrossSignal(s) > 0) n++;
+  if (macdCrossSignal(s) > 0) n++;
   if (rsiCrossSignal(s) > 0) n++;
   if (momentumCrossSignal(s) > 0) n++;
   return n;
 }
 function sellCount(s) {
   const sig = s.signals || {};
-  let n = ['MACD-'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  let n = 0;
   if (gdCrossSignal(s) < 0) n++;
+  if (macdCrossSignal(s) < 0) n++;
   if (rsiCrossSignal(s) < 0) n++;
   if (momentumCrossSignal(s) < 0) n++;
   return n;
@@ -383,7 +432,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.13';
+  $('#version').textContent = 'V4.0.14';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -523,6 +572,7 @@ function indicatorState(sig, def, stock) {
   let m = sigVal(sig, Array.isArray(minusKeys) ? minusKeys : [minusKeys]);
   if(name==='GD'){ const g=gdCrossSignal(stock); p=g>0?1:0; m=g<0?1:0; }
   if(name==='RSI'){ const r=rsiCrossSignal(stock); p=r>0?1:0; m=r<0?1:0; }
+  if(name==='MACD'){ const mc=macdCrossSignal(stock); p=mc>0?1:0; m=mc<0?1:0; }
   if(name==='Mom.'){ const mo=momentumCrossSignal(stock); p=mo>0?1:0; m=mo<0?1:0; }
   
   const trend = isTrendIndicatorName(name);
@@ -631,7 +681,7 @@ function detail(sym) {
   currentDetailSymbol = sym;
   let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
   const sig = s.signals || {};
-  $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas><canvas id="rsiChart" width="900" height="190"></canvas><canvas id="momentumChart" width="900" height="190"></canvas>
+  $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas><canvas id="rsiChart" width="900" height="190"></canvas><canvas id="momentumChart" width="900" height="190"></canvas><canvas id="macdChart" width="900" height="190"></canvas>
     <div class="actions detailActions externalDetailActions">
       <a class="buttonLink" href="${googleNewsUrl(s)}" target="_blank" rel="noopener">Google News</a>
       <a class="buttonLink" href="${tradingViewUrl(s)}" target="_blank" rel="noopener">TradingView</a>
@@ -647,7 +697,7 @@ function detail(sym) {
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
     </div>`;
-  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 GD=GD20/GD50</span><span>RSI=RSI 30/70</span><span>M=MACD</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } const detailPoints = chartHistoryFor(s, 250); drawChart(detailPoints, s); drawRsiChart(detailPoints, s); drawMomentumChart(detailPoints, s);
+  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 GD=GD20/GD50</span><span>RSI=RSI 30/70</span><span>M=MACD</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } const detailPoints = chartHistoryFor(s, 250); drawChart(detailPoints, s); drawRsiChart(detailPoints, s); drawMomentumChart(detailPoints, s); drawMacdChart(detailPoints, s);
 }
 
 function drawChart(points, stock) {
@@ -784,6 +834,64 @@ function drawMomentumChart(points, stock) {
   ctx.fillStyle = '#38bdf8'; ctx.fillText('Momentum', pad + 10, 18);
   ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 Wechsel <0 → >0', w - 190, 18);
   ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 Wechsel >0 → <0', w - 190, 36);
+}
+
+
+function drawMacdChart(points, stock) {
+  const c = $('#macdChart');
+  if (!c) return;
+  const ctx = c.getContext('2d'), w = c.width, h = c.height, pad = 46;
+  ctx.clearRect(0, 0, w, h);
+  if (!points.length) { ctx.fillStyle = '#94a3b8'; ctx.fillText('Keine MACD-Daten', pad, 40); return; }
+  const { macd, signal, histogram } = macdSeriesFromPoints(points);
+  const vals = macd.concat(signal, histogram).filter(v => v != null && Number.isFinite(Number(v)));
+  if (!vals.length) { ctx.fillStyle = '#94a3b8'; ctx.fillText('Keine MACD-Daten', pad, 40); return; }
+  const absMax = Math.max(1e-9, ...vals.map(v => Math.abs(v)));
+  const min = -absMax, max = absMax, span = max - min || 1;
+  const xFor = i => pad + i * (w - 2 * pad) / (points.length - 1);
+  const yFor = v => h - pad - (v - min) * (h - 2 * pad) / span;
+
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, h - pad); ctx.lineTo(w - pad, h - pad); ctx.stroke();
+  ctx.fillStyle = '#94a3b8'; ctx.font = '12px system-ui';
+  [min, 0, max].forEach(v => {
+    const y = yFor(v);
+    ctx.strokeStyle = v === 0 ? '#64748b' : '#1f2937';
+    ctx.setLineDash(v === 0 ? [5, 5] : []);
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillText(fmt(v), 8, y + 4);
+  });
+
+  const drawLine = (arr, color) => {
+    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
+    let started = false;
+    arr.forEach((v, i) => {
+      if (v == null) return;
+      const x = xFor(i), y = yFor(v);
+      if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  };
+  drawLine(macd, '#38bdf8');
+  drawLine(signal, '#f59e0b');
+
+  for (let i = 1; i < macd.length; i++) {
+    if (macd[i] == null || signal[i] == null || macd[i - 1] == null || signal[i - 1] == null) continue;
+    const prevDiff = macd[i - 1] - signal[i - 1];
+    const nowDiff = macd[i] - signal[i];
+    const x = xFor(i), y = yFor(macd[i]);
+    if (prevDiff <= 0 && nowDiff > 0) { ctx.fillStyle = '#22c55e'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+    else if (prevDiff >= 0 && nowDiff < 0) { ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+  }
+
+  ctx.fillStyle = '#cbd5e1';
+  [0, Math.floor(points.length / 2), points.length - 1].forEach(i => {
+    const label = points[i].x === 0 ? 'heute' : (points[i].x != null ? points[i].x + ' T' : (points[i].date || ''));
+    ctx.fillText(label, xFor(i) - 15, h - 18);
+  });
+  ctx.fillStyle = '#38bdf8'; ctx.fillText('MACD', pad + 10, 18);
+  ctx.fillStyle = '#f59e0b'; ctx.fillText('Signallinie', pad + 70, 18);
+  ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 MACD kreuzt nach oben', w - 220, 18);
+  ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 MACD kreuzt nach unten', w - 220, 36);
 }
 
 function renderMovers() {

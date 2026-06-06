@@ -1,0 +1,10 @@
+Aktientool V4.0.14 – MACD-Signale
+
+Änderungen:
+- MACD aus historischen Kursdaten berechnet: EMA12, EMA26, MACD-Linie und 9-Tage-Signallinie.
+- MACD-Chart in der Detailansicht direkt unter Momentum ergänzt.
+- Grüne Marker: MACD kreuzt Signallinie nach oben.
+- Rote Marker: MACD kreuzt Signallinie nach unten.
+- MACD in der Indikatorenübersicht als + / - / dezente 0 nach Schaltpunktlogik ausgewiesen.
+- MACD-Schaltpunkt in Kauf-/Verkaufszählung integriert.
+- Version auf V4.0.14 erhöht.

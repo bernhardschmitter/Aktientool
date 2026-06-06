@@ -135,8 +135,8 @@ function momentumCrossSignal(stock) {
     while (i > 0 && mom[i] == null) i--;
     if (i <= 0 || mom[i - 1] == null) return 0;
     const prev = Number(mom[i - 1]), now = Number(mom[i]);
-    if (prev < 0 && now > 1) return 1;
-    if (prev > 0 && now < -1) return -1;
+    if (prev < 0 && now > 0) return 1;
+    if (prev > 0 && now < 0) return -1;
   } catch (e) {}
   return 0;
 }
@@ -506,7 +506,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.16';
+  $('#version').textContent = 'V4.0.17';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;

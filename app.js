@@ -295,7 +295,7 @@ function renderOverview() {
     <td class="${signalClass(effectivePercent(s))}">${pct(effectivePercent(s))}</td>
     <td class="good signalCount">${buyCount(s) || ''}</td>
     <td class="bad signalCount">${sellCount(s) || ''}</td>
-    <td class="${signalClass(trendScoreCalc(s))}">${trendText(s)}</td>
+    <td class="trendCell ${signalClass(trendScoreCalc(s))}">${trendText(s)}</td>
     <td><span class="pill">${s.group || '–'}</span></td>
     <td onclick="event.stopPropagation()"><input class="removeOverviewCheck" type="checkbox" value="${s.symbol}" aria-label="${s.symbol} entfernen"></td>
   </tr>`).join('');
@@ -359,16 +359,16 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.11';
+  $('#version').textContent = 'V4.0.12';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
     const errCount = (autoPriceData && autoPriceData.errorCount) || 0;
     if (autoPriceData && autoPriceData.generatedAt && count) {
       const ts = new Date(autoPriceData.generatedAt);
-      el.innerHTML = '<b>Kursstand: ' + ts.toLocaleString('de-DE') + '</b><span class="muted"> · Quelle: Automatisches EOD-Update · Werte: ' + count + ' · Fehler: ' + errCount + ' · Fehler/alte Daten = farbig markiert</span>';
+      el.innerHTML = '<b>Kursstand: ' + ts.toLocaleString('de-DE') + '</b>';
     } else {
-      el.innerHTML = '<b>Noch kein automatisches Kursupdate vorhanden</b><span class="muted"> · Fixdaten aus Datei · GitHub Action muss prices.json noch erzeugen</span>';
+      el.innerHTML = '<b>Noch kein automatisches Kursupdate vorhanden</b>';
     }
   }
 }
@@ -412,12 +412,12 @@ function removeDepot(sym) {
 }
 function sellDepot(sym) {
   const p = depotState.positions[sym];
-  const s = DATA.stocks.find(x => x.symbol === sym);
+  const s = allOverviewStocks().find(x => x.symbol === sym);
   if (!p || !s) { alert('Position nicht gefunden.'); return; }
   const list = Array.isArray(p) ? p : [p];
   const currentQty = list.reduce((a,x)=>a+Number(x.qty||0),0);
   if (!Number.isFinite(currentQty) || currentQty <= 0) { alert('Keine Stückzahl im Depot vorhanden.'); return; }
-  const qtyRaw = prompt(`Stückzahl für Verkauf ${sym} eingeben:`, String(currentQty));
+  const qtyRaw = prompt(`Stückzahl für Verkauf ${sym} eingeben:`, fmt(currentQty));
   if (qtyRaw === null) return;
   const sellQty = Number(String(qtyRaw).replace(',', '.'));
   if (!Number.isFinite(sellQty) || sellQty <= 0) { alert('Bitte eine gültige Stückzahl eingeben.'); return; }
@@ -523,7 +523,7 @@ function indicatorCell(stock, def) {
   const extra = x.trend ? ' trendIndicatorCell' : '';
   if (x.sign === '+') return `<td class="indicatorMark good${extra}">+</td>`;
   if (x.sign === '-') return `<td class="indicatorMark bad${extra}">-</td>`;
-  return `<td class="indicatorMark${extra}">0</td>`;
+  return `<td class="indicatorMark indicatorZero${extra}">0</td>`;
 }
 
 function renderIndicators() {

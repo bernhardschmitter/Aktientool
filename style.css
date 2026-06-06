@@ -50,3 +50,12 @@
 .trendIndicatorCell{background:rgba(56,189,248,.04);}
 
 #rsiChart{height:190px}
+
+
+/* V4.0.12 UI-Clean-Point */
+.overviewTableWrap{max-height:calc(100vh - 245px);overflow:auto;position:relative;}
+#stockTable thead th{position:sticky;top:0;z-index:3;background:#111827;}
+#stockTable th:nth-child(6),#stockTable td:nth-child(6),#stockTable .trendCol,#stockTable .trendCell{text-align:center!important;}
+.colorLegend{font-size:.86rem;margin-top:10px;margin-bottom:8px;}
+.indicatorZero{font-size:.82rem!important;font-weight:500!important;color:#64748b!important;}
+@media(max-width:700px){.overviewTableWrap{max-height:calc(100vh - 230px)}.colorLegend{font-size:.78rem}}

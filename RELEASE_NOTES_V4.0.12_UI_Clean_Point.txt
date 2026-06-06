@@ -1,0 +1,11 @@
+Aktientool V4.0.12 – UI-Clean-Point
+
+Änderungen:
+- Übersicht: oben nur noch Kursdatum/Uhrzeit.
+- Farberklärung auf der Übersicht unter die Aktientabelle verschoben.
+- Überschriftenzeile der Übersicht fixiert.
+- Trend-Spalte in der Übersicht mittig ausgerichtet.
+- Zurück-Button auf Kauf-, Depot- und Indikatorenseite ergänzt.
+- Verkauf aus Depot: komplette vorhandene Stückzahl bleibt als Standardwert vorbelegt.
+- 0-Werte in der Indikatorenübersicht dezenter dargestellt.
+- GitHub Actions: zwei tägliche Kursupdates, 17:15 und 23:15 deutsche Sommerzeit.

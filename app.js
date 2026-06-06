@@ -97,34 +97,11 @@ function rsiCrossSignal(stock) {
 }
 
 
-function rawMomentumPercentSeriesFromPoints(points) {
+function momentumSeriesFromPoints(points) {
   const closes = (points || []).map(p => Number(p.y ?? p.close)).filter(Number.isFinite);
   const out = new Array(closes.length).fill(null);
-  for (let i = 1; i < closes.length; i++) {
-    const prev = closes[i - 1], now = closes[i];
-    out[i] = prev ? ((now - prev) / prev) * 100 : null;
-  }
+  for (let i = 1; i < closes.length; i++) out[i] = closes[i] - closes[i - 1];
   return out;
-}
-
-function smoothSeries(values, period = 3) {
-  const out = new Array(values.length).fill(null);
-  for (let i = period - 1; i < values.length; i++) {
-    let sum = 0, count = 0;
-    for (let j = i - period + 1; j <= i; j++) {
-      const v = values[j];
-      if (v == null || !Number.isFinite(Number(v))) continue;
-      sum += Number(v);
-      count++;
-    }
-    if (count === period) out[i] = sum / period;
-  }
-  return out;
-}
-
-function momentumSeriesFromPoints(points) {
-  // Geglättetes Momentum in Prozent: 3-Tage-Durchschnitt der Tagesveränderung.
-  return smoothSeries(rawMomentumPercentSeriesFromPoints(points), 3);
 }
 
 function momentumCrossSignal(stock) {
@@ -506,7 +483,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.17';
+  $('#version').textContent = 'V4.0.15';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -900,8 +877,8 @@ function drawMomentumChart(points, stock) {
     const prev = mom[i - 1], now = mom[i];
     if (prev == null || now == null) continue;
     const x = xFor(i), y = yFor(now);
-    if (prev < 0 && now > 1) { ctx.fillStyle = '#22c55e'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
-    else if (prev > 0 && now < -1) { ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+    if (prev < 0 && now > 0) { ctx.fillStyle = '#22c55e'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+    else if (prev > 0 && now < 0) { ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
   }
 
   ctx.fillStyle = '#cbd5e1';
@@ -909,9 +886,9 @@ function drawMomentumChart(points, stock) {
     const label = points[i].x === 0 ? 'heute' : (points[i].x != null ? points[i].x + ' T' : (points[i].date || ''));
     ctx.fillText(label, xFor(i) - 15, h - 18);
   });
-  ctx.fillStyle = '#38bdf8'; ctx.fillText('Momentum 3T geglättet (%)', pad + 10, 18);
-  ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 <0 → >+1%', w - 190, 18);
-  ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 >0 → <-1%', w - 190, 36);
+  ctx.fillStyle = '#38bdf8'; ctx.fillText('Momentum', pad + 10, 18);
+  ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 Wechsel <0 → >0', w - 190, 18);
+  ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 Wechsel >0 → <0', w - 190, 36);
 }
 
 

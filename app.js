@@ -165,6 +165,57 @@ function macdCrossSignal(stock) {
   return 0;
 }
 
+
+function ohlcHistoryFor(stock, maxDays = 250) {
+  const q = liveQuoteFor(stock.symbol);
+  if (q && Array.isArray(q.history) && q.history.length) {
+    return q.history.slice(-maxDays).map((p, i) => {
+      const close = Number(p.close ?? p.y ?? p.Close);
+      const high = Number(p.high ?? p.High ?? close);
+      const low = Number(p.low ?? p.Low ?? close);
+      const open = Number(p.open ?? p.Open ?? close);
+      const date = p.date || p.x || p.Date || '';
+      return { date, open, high, low, close, y: close, _i: i };
+    }).filter(p => Number.isFinite(p.close) && Number.isFinite(p.high) && Number.isFinite(p.low));
+  }
+  const fallback = Array.isArray(stock.history) ? stock.history : [];
+  return fallback.slice(-maxDays).map((p, i) => {
+    const close = Number(p.close ?? p.y ?? p.Close ?? p.price);
+    const high = Number(p.high ?? p.High ?? close);
+    const low = Number(p.low ?? p.Low ?? close);
+    const open = Number(p.open ?? p.Open ?? close);
+    const date = p.date || p.x || p.Date || '';
+    return { date, open, high, low, close, y: close, _i: i };
+  }).filter(p => Number.isFinite(p.close) && Number.isFinite(p.high) && Number.isFinite(p.low));
+}
+
+function cciSeriesFromOhlc(points, period = 20) {
+  const pts = (points || []).filter(p => Number.isFinite(Number(p.high)) && Number.isFinite(Number(p.low)) && Number.isFinite(Number(p.close ?? p.y)));
+  const typical = pts.map(p => (Number(p.high) + Number(p.low) + Number(p.close ?? p.y)) / 3);
+  const out = new Array(typical.length).fill(null);
+  for (let i = period - 1; i < typical.length; i++) {
+    const window = typical.slice(i - period + 1, i + 1);
+    const sma = window.reduce((a, v) => a + v, 0) / period;
+    const meanDev = window.reduce((a, v) => a + Math.abs(v - sma), 0) / period;
+    out[i] = meanDev === 0 ? 0 : (typical[i] - sma) / (0.015 * meanDev);
+  }
+  return out;
+}
+
+function cciTrendSignal(stock) {
+  try {
+    const pts = ohlcHistoryFor(stock, 250);
+    const cci = cciSeriesFromOhlc(pts, 20);
+    let i = cci.length - 1;
+    while (i >= 0 && cci[i] == null) i--;
+    if (i < 0) return 0;
+    const now = Number(cci[i]);
+    if (now > 100) return 1;
+    if (now < -100) return -1;
+  } catch (e) {}
+  return 0;
+}
+
 function buyCount(s) {
   const sig = s.signals || {};
   let n = 0;
@@ -185,7 +236,7 @@ function sellCount(s) {
 }
 function trendScoreCalc(s) {
   const sig = s.signals || {};
-  const cci = (Number(sig['CCI+'] || 0) > Number(sig['CCI-'] || 0)) ? 1 : (Number(sig['CCI-'] || 0) > Number(sig['CCI+'] || 0) ? -1 : 0);
+  const cci = cciTrendSignal(s);
   const piv = (Number(sig['Piv+'] || 0) > Number(sig['Piv-'] || 0)) ? 1 : (Number(sig['Piv-'] || 0) > Number(sig['Piv+'] || 0) ? -1 : 0);
   const momPlus = sigVal(sig, ['MOM>1', 'Mom>0', 'MomPos', 'Trend+']);
   const momMinus = sigVal(sig, ['Mom<1', 'Mom<0', 'MomNeg', 'Trend-']);
@@ -432,7 +483,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.14';
+  $('#version').textContent = 'V4.0.15';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -559,7 +610,7 @@ const signalIndicatorDefs = [
   ['Mom.', ['Mom+'], ['Mom-'], 'Momentum-Signal positiv', 'Momentum-Signal negativ']
 ];
 const trendIndicatorDefs = [
-  ['CCI', ['CCI+'], ['CCI-'], 'CCI bullisch', 'CCI bärisch'],
+  ['CCI', ['CCI+'], ['CCI-'], 'CCI > +100 bullisch', 'CCI < -100 bärisch'],
   ['Pivot', ['Piv+'], ['Piv-'], 'Kurs über Pivotpunkt', 'Kurs unter Pivotpunkt'],
   ['Mom>0', ['MOM>1', 'Mom>0', 'MomPos', 'Trend+'], ['Mom<1', 'Mom<0', 'MomNeg', 'Trend-'], 'Momentum größer 0', 'Momentum kleiner 0']
 ];
@@ -574,6 +625,7 @@ function indicatorState(sig, def, stock) {
   if(name==='RSI'){ const r=rsiCrossSignal(stock); p=r>0?1:0; m=r<0?1:0; }
   if(name==='MACD'){ const mc=macdCrossSignal(stock); p=mc>0?1:0; m=mc<0?1:0; }
   if(name==='Mom.'){ const mo=momentumCrossSignal(stock); p=mo>0?1:0; m=mo<0?1:0; }
+  if(name==='CCI'){ const c=cciTrendSignal(stock); p=c>0?1:0; m=c<0?1:0; }
   
   const trend = isTrendIndicatorName(name);
   if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: trend ? 'trend' : 'buy', trend };
@@ -656,8 +708,11 @@ function liveHistoryFor(sym) {
   return q.history
     .map((p, i) => {
       const close = Number(p.close ?? p.y ?? p.Close);
+      const high = Number(p.high ?? p.High ?? close);
+      const low = Number(p.low ?? p.Low ?? close);
+      const open = Number(p.open ?? p.Open ?? close);
       const date = p.date || p.x || p.Date || '';
-      return { date, close, y: close, _i: i };
+      return { date, open, high, low, close, y: close, _i: i };
     })
     .filter(p => Number.isFinite(p.close));
 }

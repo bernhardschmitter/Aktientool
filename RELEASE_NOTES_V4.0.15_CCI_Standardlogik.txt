@@ -1,0 +1,12 @@
+Aktientool V4.0.15 – CCI Standardlogik
+
+Änderungen:
+- CCI wird nun aus den historischen OHLC-Kursdaten berechnet.
+- Standardformel: Typical Price = (High + Low + Close) / 3.
+- CCI-Periode: 20 Handelstage.
+- Bullisch: CCI > +100 => +.
+- Bärisch: CCI < -100 => -.
+- Neutral: -100 bis +100 => 0.
+- CCI fließt damit als live berechneter Trend-/Zustandsindikator in Trendwert und Indikatorenübersicht ein.
+
+Basis: V4.0.14 MACD-Signale.

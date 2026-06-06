@@ -1,0 +1,13 @@
+Aktientool V4.0.16 – Momentum-Glättung
+
+Änderungen:
+- Momentum wird jetzt als prozentuale Tagesveränderung berechnet.
+- Momentum-Signal basiert auf einem 3-Tage-Durchschnitt.
+- Kaufsignal: geglättetes Momentum wechselt von < 0 auf > +1 %.
+- Verkaufssignal: geglättetes Momentum wechselt von > 0 auf < -1 %.
+- Momentum-Chart-Beschriftung und Markerlogik angepasst.
+- Indikatorenübersicht nutzt die neue gedämpfte Momentum-Logik.
+
+Ziel:
+- Weniger Flackern/OsziIlieren des Momentum-Signals.
+- Robustere Basis für die spätere Mustererkennung ab V4.1.0.

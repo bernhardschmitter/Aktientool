@@ -96,18 +96,42 @@ function rsiCrossSignal(stock) {
   return 0;
 }
 
+
+function momentumSeriesFromPoints(points) {
+  const closes = (points || []).map(p => Number(p.y ?? p.close)).filter(Number.isFinite);
+  const out = new Array(closes.length).fill(null);
+  for (let i = 1; i < closes.length; i++) out[i] = closes[i] - closes[i - 1];
+  return out;
+}
+
+function momentumCrossSignal(stock) {
+  try {
+    const pts = chartHistoryFor(stock, 250);
+    const mom = momentumSeriesFromPoints(pts);
+    let i = mom.length - 1;
+    while (i > 0 && mom[i] == null) i--;
+    if (i <= 0 || mom[i - 1] == null) return 0;
+    const prev = Number(mom[i - 1]), now = Number(mom[i]);
+    if (prev < 0 && now > 0) return 1;
+    if (prev > 0 && now < 0) return -1;
+  } catch (e) {}
+  return 0;
+}
+
 function buyCount(s) {
   const sig = s.signals || {};
-  let n = ['MACD+', 'Mom+'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  let n = ['MACD+'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
   if (gdCrossSignal(s) > 0) n++;
   if (rsiCrossSignal(s) > 0) n++;
+  if (momentumCrossSignal(s) > 0) n++;
   return n;
 }
 function sellCount(s) {
   const sig = s.signals || {};
-  let n = ['MACD-', 'Mom-'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
+  let n = ['MACD-'].reduce((sum, k) => sum + (Number(sig[k] || 0) > 0 ? 1 : 0), 0);
   if (gdCrossSignal(s) < 0) n++;
   if (rsiCrossSignal(s) < 0) n++;
+  if (momentumCrossSignal(s) < 0) n++;
   return n;
 }
 function trendScoreCalc(s) {
@@ -359,7 +383,7 @@ async function updateCourses() {
 }
 
 function renderStats() {
-  $('#version').textContent = 'V4.0.12';
+  $('#version').textContent = 'V4.0.13';
   const el = $('#courseTimestamp');
   if (el) {
     const count = Object.keys((autoPriceData && autoPriceData.quotes) || {}).length;
@@ -499,6 +523,7 @@ function indicatorState(sig, def, stock) {
   let m = sigVal(sig, Array.isArray(minusKeys) ? minusKeys : [minusKeys]);
   if(name==='GD'){ const g=gdCrossSignal(stock); p=g>0?1:0; m=g<0?1:0; }
   if(name==='RSI'){ const r=rsiCrossSignal(stock); p=r>0?1:0; m=r<0?1:0; }
+  if(name==='Mom.'){ const mo=momentumCrossSignal(stock); p=mo>0?1:0; m=mo<0?1:0; }
   
   const trend = isTrendIndicatorName(name);
   if (p > m) return { name, sign: '+', cls: 'good', text: plusText, type: trend ? 'trend' : 'buy', trend };
@@ -606,7 +631,7 @@ function detail(sym) {
   currentDetailSymbol = sym;
   let s = allOverviewStocks().find(x => x.symbol === sym); if (!s) return;
   const sig = s.signals || {};
-  $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas><canvas id="rsiChart" width="900" height="190"></canvas>
+  $('#detailContent').innerHTML = `<h2>${s.name} <span class="muted">${s.symbol}</span></h2><canvas id="chart" width="900" height="320"></canvas><canvas id="rsiChart" width="900" height="190"></canvas><canvas id="momentumChart" width="900" height="190"></canvas>
     <div class="actions detailActions externalDetailActions">
       <a class="buttonLink" href="${googleNewsUrl(s)}" target="_blank" rel="noopener">Google News</a>
       <a class="buttonLink" href="${tradingViewUrl(s)}" target="_blank" rel="noopener">TradingView</a>
@@ -622,7 +647,7 @@ function detail(sym) {
     <div class="actions detailActions">
       <button class="depotBigBtn" onclick="addOrRemoveDepot('${s.symbol}')">In Depot aufnehmen</button>
     </div>`;
-  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 GD=GD20/GD50</span><span>RSI=RSI 30/70</span><span>M=MACD</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } const detailPoints = chartHistoryFor(s, 250); drawChart(detailPoints, s); drawRsiChart(detailPoints, s);
+  showPage('detail'); const lg=document.getElementById('chartLegend'); if(lg){lg.innerHTML='<span>🟢/🔴 GD=GD20/GD50</span><span>RSI=RSI 30/70</span><span>M=MACD</span><span>C=CCI</span><span>P=Pivot</span><span>Mo=Mom.</span><span>Mom&gt;0=Trendmomentum</span>'; } const detailPoints = chartHistoryFor(s, 250); drawChart(detailPoints, s); drawRsiChart(detailPoints, s); drawMomentumChart(detailPoints, s);
 }
 
 function drawChart(points, stock) {
@@ -707,6 +732,58 @@ function drawRsiChart(points, stock) {
   ctx.fillStyle = '#a78bfa'; ctx.fillText('RSI 14', pad + 10, 18);
   ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 RSI verlässt <30', w - 190, 18);
   ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 RSI verlässt >70', w - 190, 36);
+}
+
+
+function drawMomentumChart(points, stock) {
+  const c = $('#momentumChart');
+  if (!c) return;
+  const ctx = c.getContext('2d'), w = c.width, h = c.height, pad = 46;
+  ctx.clearRect(0, 0, w, h);
+  if (!points.length) { ctx.fillStyle = '#94a3b8'; ctx.fillText('Keine Momentum-Daten', pad, 40); return; }
+  const mom = momentumSeriesFromPoints(points);
+  const vals = mom.filter(v => v != null && Number.isFinite(Number(v)));
+  if (!vals.length) { ctx.fillStyle = '#94a3b8'; ctx.fillText('Keine Momentum-Daten', pad, 40); return; }
+  const absMax = Math.max(1e-9, ...vals.map(v => Math.abs(v)));
+  const min = -absMax, max = absMax, span = max - min || 1;
+  const xFor = i => pad + i * (w - 2 * pad) / (points.length - 1);
+  const yFor = v => h - pad - (v - min) * (h - 2 * pad) / span;
+
+  ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, h - pad); ctx.lineTo(w - pad, h - pad); ctx.stroke();
+  ctx.fillStyle = '#94a3b8'; ctx.font = '12px system-ui';
+  [min, 0, max].forEach(v => {
+    const y = yFor(v);
+    ctx.strokeStyle = v === 0 ? '#64748b' : '#1f2937';
+    ctx.setLineDash(v === 0 ? [5, 5] : []);
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillText(fmt(v), 8, y + 4);
+  });
+
+  ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2; ctx.beginPath();
+  let started = false;
+  mom.forEach((v, i) => {
+    if (v == null) return;
+    const x = xFor(i), y = yFor(v);
+    if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  for (let i = 1; i < mom.length; i++) {
+    const prev = mom[i - 1], now = mom[i];
+    if (prev == null || now == null) continue;
+    const x = xFor(i), y = yFor(now);
+    if (prev < 0 && now > 0) { ctx.fillStyle = '#22c55e'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+    else if (prev > 0 && now < 0) { ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
+  }
+
+  ctx.fillStyle = '#cbd5e1';
+  [0, Math.floor(points.length / 2), points.length - 1].forEach(i => {
+    const label = points[i].x === 0 ? 'heute' : (points[i].x != null ? points[i].x + ' T' : (points[i].date || ''));
+    ctx.fillText(label, xFor(i) - 15, h - 18);
+  });
+  ctx.fillStyle = '#38bdf8'; ctx.fillText('Momentum', pad + 10, 18);
+  ctx.fillStyle = '#22c55e'; ctx.fillText('🟢 Wechsel <0 → >0', w - 190, 18);
+  ctx.fillStyle = '#ef4444'; ctx.fillText('🔴 Wechsel >0 → <0', w - 190, 36);
 }
 
 function renderMovers() {

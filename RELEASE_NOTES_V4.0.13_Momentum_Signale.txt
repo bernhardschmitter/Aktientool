@@ -1,0 +1,18 @@
+Aktientool V4.0.13 – Momentum-Signale
+
+Basis: V4.0.12 UI Clean Point
+
+Änderungen:
+- Momentum-Signal aus Kursverlauf berechnet:
+  - Vortag < 0 und heute > 0 = +1
+  - Vortag > 0 und heute < 0 = -1
+  - sonst 0
+- Detailansicht erweitert:
+  - Momentum-Chart direkt unter RSI
+  - grüne Marker bei Wechsel von negativ auf positiv
+  - rote Marker bei Wechsel von positiv auf negativ
+- Indikatorenübersicht angepasst:
+  - Momentum zeigt + bei +1
+  - Momentum zeigt - bei -1
+  - sonst dezente 0
+- Kauf-/Verkaufszählung nutzt das neue Momentum-Schaltpunkt-Signal.

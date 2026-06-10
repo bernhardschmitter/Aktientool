@@ -53,6 +53,10 @@ function parseCsv(text) {
   const last = history[history.length - 1];
   const prev = history.length > 1 ? history[history.length - 2] : null;
 
+  if (!Number.isFinite(last.close) || last.close <= 0) {
+    throw new Error('Yahoo Schlusskurs ungueltig: ' + last.close);
+  }
+
   return {
     date: last.date,
     open: last.open,
@@ -99,6 +103,10 @@ function parseYahooJson(text, symbol) {
 
   const last = history[history.length - 1];
   const prev = history.length > 1 ? history[history.length - 2] : null;
+
+  if (!Number.isFinite(last.close) || last.close <= 0) {
+    throw new Error('Yahoo Schlusskurs ungueltig: ' + last.close);
+  }
 
   return {
     date: last.date,

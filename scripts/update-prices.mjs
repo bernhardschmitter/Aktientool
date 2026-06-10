@@ -80,6 +80,7 @@ function parseYahooJson(text, symbol) {
   const timestamps = result.timestamp || [];
   const quote = result.indicators?.quote?.[0] || {};
   const closes = quote.close || [];
+  const adjCloses = result.indicators?.adjclose?.[0]?.adjclose || [];
   const opens = quote.open || [];
   const highs = quote.high || [];
   const lows = quote.low || [];
@@ -87,8 +88,10 @@ function parseYahooJson(text, symbol) {
 
   const history = [];
   for (let i = 0; i < timestamps.length; i++) {
-    const close = Number(closes[i]);
-    if (!Number.isFinite(close)) continue;
+    let close = Number(closes[i]);
+    const adjClose = Number(adjCloses[i]);
+    if (!Number.isFinite(close) || close <= 0) close = adjClose;
+    if (!Number.isFinite(close) || close <= 0) continue;
     history.push({
       date: new Date(timestamps[i] * 1000).toISOString().slice(0, 10),
       open: Number(opens[i]),
@@ -99,7 +102,30 @@ function parseYahooJson(text, symbol) {
     });
   }
 
-  if (!history.length) throw new Error('Keine gueltigen Yahoo-Kurse');
+  if (!history.length) {
+    const metaPrice = Number(result.meta?.regularMarketPrice);
+    const metaPrev = Number(result.meta?.chartPreviousClose || result.meta?.previousClose);
+    if (!Number.isFinite(metaPrice) || metaPrice <= 0) throw new Error('Keine gueltigen Yahoo-Kurse');
+    const ts = timestamps.length ? timestamps[timestamps.length - 1] : Math.floor(Date.now() / 1000);
+    history.push({
+      date: new Date(ts * 1000).toISOString().slice(0, 10),
+      open: metaPrice,
+      high: metaPrice,
+      low: metaPrice,
+      close: metaPrice,
+      volume: 0
+    });
+    if (Number.isFinite(metaPrev) && metaPrev > 0 && metaPrev !== metaPrice) {
+      history.unshift({
+        date: 'previous',
+        open: metaPrev,
+        high: metaPrev,
+        low: metaPrev,
+        close: metaPrev,
+        volume: 0
+      });
+    }
+  }
 
   const last = history[history.length - 1];
   const prev = history.length > 1 ? history[history.length - 2] : null;
@@ -175,8 +201,16 @@ async function readStocks() {
   vm.runInContext(code, context);
   return context.window.AKTIEN_DATA?.stocks || [];
 }
+async function readPreviousPrices() {
+  try {
+    return JSON.parse(await fs.readFile(OUT_FILE, 'utf8'))?.quotes || {};
+  } catch {
+    return {};
+  }
+}
 async function main() {
   const stocks = await readStocks();
+  const previousQuotes = await readPreviousPrices();
   const quotes = {};
   const errors = {};
   let ok = 0;
@@ -189,7 +223,32 @@ async function main() {
       console.log(`OK ${key} ${q.date} ${q.close} (${q.source}, ${q.symbolUsed})`);
     } catch (e) {
       errors[key] = String(e.message || e);
-      console.log(`ERR ${key}: ${errors[key]}`);
+      const old = previousQuotes[key];
+      if (old && Number.isFinite(Number(old.close)) && Number(old.close) > 0) {
+        quotes[key] = { ...old, error: errors[key], stale: true, updatedAt: new Date().toISOString() };
+        console.log(`STALE ${key} ${old.date} ${old.close} (alter EOD-Wert behalten; ${errors[key]})`);
+      } else if (Number.isFinite(Number(stock.price)) && Number(stock.price) > 0) {
+        quotes[key] = {
+          date: '',
+          open: Number(stock.price),
+          high: Number(stock.price),
+          low: Number(stock.price),
+          close: Number(stock.price),
+          volume: 0,
+          prevClose: null,
+          history: [],
+          historyCount: 0,
+          source: 'Fixdaten/kein EOD-Wert',
+          symbolUsed: key,
+          fallbackPrice: stock.price,
+          error: errors[key],
+          stale: true,
+          updatedAt: new Date().toISOString()
+        };
+        console.log(`FALLBACK ${key} ${stock.price} (kein EOD-Wert; ${errors[key]})`);
+      } else {
+        console.log(`ERR ${key}: ${errors[key]}`);
+      }
     }
     await sleep(120);
   }

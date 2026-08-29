@@ -1,6 +1,6 @@
 {
   "version": "V4.0.8-history",
-  "generatedAt": "2026-08-29T00:02:14.398Z",
+  "generatedAt": "2026-08-29T03:17:57.798Z",
   "source": "Automatisches EOD-Update via GitHub Action / Yahoo Finance mit Stooq-Fallback",
   "symbolsTotal": 144,
   "count": 143,
@@ -4069,7 +4069,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADS.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:45.349Z",
+      "updatedAt": "2026-08-29T03:17:29.088Z",
       "fallbackPrice": 167.15
     },
     "AIR.DE": {
@@ -8134,7 +8134,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AIR.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:45.561Z",
+      "updatedAt": "2026-08-29T03:17:29.309Z",
       "fallbackPrice": 177.76
     },
     "ALV.DE": {
@@ -12199,7 +12199,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ALV.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:45.785Z",
+      "updatedAt": "2026-08-29T03:17:29.524Z",
       "fallbackPrice": 380.9
     },
     "BAS.DE": {
@@ -16264,7 +16264,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BAS.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:45.990Z",
+      "updatedAt": "2026-08-29T03:17:29.730Z",
       "fallbackPrice": 50.72
     },
     "BAYN.DE": {
@@ -20329,7 +20329,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BAYN.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:46.201Z",
+      "updatedAt": "2026-08-29T03:17:29.944Z",
       "fallbackPrice": 37.84
     },
     "BEI.DE": {
@@ -24394,7 +24394,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BEI.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:46.399Z",
+      "updatedAt": "2026-08-29T03:17:30.160Z",
       "fallbackPrice": 71.72
     },
     "BMW.DE": {
@@ -28459,7 +28459,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BMW.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:46.614Z",
+      "updatedAt": "2026-08-29T03:17:30.365Z",
       "fallbackPrice": 75.94
     },
     "BNR": {
@@ -32484,7 +32484,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BNR",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:46.790Z",
+      "updatedAt": "2026-08-29T03:17:30.537Z",
       "fallbackPrice": 10.1
     },
     "CBK.DE": {
@@ -36549,7 +36549,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CBK.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:47.021Z",
+      "updatedAt": "2026-08-29T03:17:30.749Z",
       "fallbackPrice": 36.79
     },
     "CON": {
@@ -40574,7 +40574,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CON",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:47.220Z",
+      "updatedAt": "2026-08-29T03:17:30.943Z",
       "fallbackPrice": 25.36
     },
     "1COV.DE": {
@@ -40599,7 +40599,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "1COV.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:47.402Z",
+      "updatedAt": "2026-08-29T03:17:31.107Z",
       "fallbackPrice": null
     },
     "DTG": {
@@ -44624,7 +44624,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DTG",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:47.581Z",
+      "updatedAt": "2026-08-29T03:17:31.280Z",
       "fallbackPrice": 16.84
     },
     "DBK.DE": {
@@ -48689,7 +48689,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DBK.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:47.811Z",
+      "updatedAt": "2026-08-29T03:17:31.480Z",
       "fallbackPrice": 28.4
     },
     "DB1.DE": {
@@ -52754,7 +52754,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DB1.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:48.028Z",
+      "updatedAt": "2026-08-29T03:17:31.717Z",
       "fallbackPrice": 248.2
     },
     "DHL.DE": {
@@ -56819,7 +56819,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DHL.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:48.252Z",
+      "updatedAt": "2026-08-29T03:17:31.946Z",
       "fallbackPrice": 51.28
     },
     "DTE.DE": {
@@ -60884,7 +60884,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DTE.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:48.467Z",
+      "updatedAt": "2026-08-29T03:17:32.161Z",
       "fallbackPrice": 28.95
     },
     "EOAN.DE": {
@@ -64949,7 +64949,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "EOAN.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:48.671Z",
+      "updatedAt": "2026-08-29T03:17:32.392Z",
       "fallbackPrice": 17.99
     },
     "FME.DE": {
@@ -69014,7 +69014,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FME.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:48.872Z",
+      "updatedAt": "2026-08-29T03:17:32.613Z",
       "fallbackPrice": 37.24
     },
     "FRE.DE": {
@@ -73079,7 +73079,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FRE.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:49.115Z",
+      "updatedAt": "2026-08-29T03:17:32.841Z",
       "fallbackPrice": 36.71
     },
     "HNR1.DE": {
@@ -77144,7 +77144,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HNR1.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:49.313Z",
+      "updatedAt": "2026-08-29T03:17:33.054Z",
       "fallbackPrice": 234.8
     },
     "HFG.DE": {
@@ -81209,7 +81209,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HFG.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:49.492Z",
+      "updatedAt": "2026-08-29T03:17:33.222Z",
       "fallbackPrice": 4.401
     },
     "HEN3.DE": {
@@ -85274,7 +85274,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HEN3.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:49.711Z",
+      "updatedAt": "2026-08-29T03:17:33.426Z",
       "fallbackPrice": 67.2
     },
     "IFX.DE": {
@@ -89339,7 +89339,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "IFX.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:49.920Z",
+      "updatedAt": "2026-08-29T03:17:33.626Z",
       "fallbackPrice": 80.11
     },
     "MBG.DE": {
@@ -93404,7 +93404,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MBG.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:50.132Z",
+      "updatedAt": "2026-08-29T03:17:33.847Z",
       "fallbackPrice": 52.71
     },
     "MRK.DE": {
@@ -97469,7 +97469,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MRK.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:50.331Z",
+      "updatedAt": "2026-08-29T03:17:34.054Z",
       "fallbackPrice": 129.95
     },
     "MTX.DE": {
@@ -101534,7 +101534,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MTX.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:50.527Z",
+      "updatedAt": "2026-08-29T03:17:34.267Z",
       "fallbackPrice": 315.4
     },
     "MUV2.DE": {
@@ -105599,7 +105599,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MUV2.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:50.728Z",
+      "updatedAt": "2026-08-29T03:17:34.481Z",
       "fallbackPrice": 456.8
     },
     "P911.DE": {
@@ -109664,7 +109664,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "P911.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:50.908Z",
+      "updatedAt": "2026-08-29T03:17:34.657Z",
       "fallbackPrice": 47.65
     },
     "PAH3.DE": {
@@ -113729,7 +113729,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PAH3.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:51.105Z",
+      "updatedAt": "2026-08-29T03:17:34.848Z",
       "fallbackPrice": 32.67
     },
     "PUM.DE": {
@@ -117794,7 +117794,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PUM.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:51.319Z",
+      "updatedAt": "2026-08-29T03:17:35.051Z",
       "fallbackPrice": 30
     },
     "QIA.DE": {
@@ -121859,7 +121859,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "QIA.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:51.522Z",
+      "updatedAt": "2026-08-29T03:17:35.268Z",
       "fallbackPrice": 31.51
     },
     "RHM.DE": {
@@ -125924,7 +125924,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "RHM.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:51.723Z",
+      "updatedAt": "2026-08-29T03:17:35.464Z",
       "fallbackPrice": 1284
     },
     "RWE.DE": {
@@ -129989,7 +129989,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "RWE.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:51.924Z",
+      "updatedAt": "2026-08-29T03:17:35.673Z",
       "fallbackPrice": 54.48
     },
     "SAP.DE": {
@@ -134054,7 +134054,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SAP.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:52.188Z",
+      "updatedAt": "2026-08-29T03:17:35.895Z",
       "fallbackPrice": 151.6
     },
     "SRT3.DE": {
@@ -138119,7 +138119,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SRT3.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:52.435Z",
+      "updatedAt": "2026-08-29T03:17:36.095Z",
       "fallbackPrice": 240
     },
     "SIE.DE": {
@@ -142184,7 +142184,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SIE.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:52.631Z",
+      "updatedAt": "2026-08-29T03:17:36.316Z",
       "fallbackPrice": 271.65
     },
     "ENR.DE": {
@@ -146249,7 +146249,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ENR.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:52.809Z",
+      "updatedAt": "2026-08-29T03:17:36.492Z",
       "fallbackPrice": 166.76
     },
     "SHL.DE": {
@@ -150314,7 +150314,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SHL.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:52.987Z",
+      "updatedAt": "2026-08-29T03:17:36.679Z",
       "fallbackPrice": 34.88
     },
     "SY1.DE": {
@@ -154379,7 +154379,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SY1.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:53.194Z",
+      "updatedAt": "2026-08-29T03:17:36.883Z",
       "fallbackPrice": 81.08
     },
     "VOW3.DE": {
@@ -158444,7 +158444,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VOW3.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:53.390Z",
+      "updatedAt": "2026-08-29T03:17:37.108Z",
       "fallbackPrice": 92.56
     },
     "VNA.DE": {
@@ -162509,7 +162509,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VNA.DE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:53.585Z",
+      "updatedAt": "2026-08-29T03:17:37.296Z",
       "fallbackPrice": 21.66
     },
     "TESG.SG": {
@@ -162542,7 +162542,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TESG.SG",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:53.753Z",
+      "updatedAt": "2026-08-29T03:17:37.460Z",
       "fallbackPrice": 65.865
     },
     "ADBE": {
@@ -166567,7 +166567,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADBE",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:53.946Z",
+      "updatedAt": "2026-08-29T03:17:37.648Z",
       "fallbackPrice": 241.44
     },
     "AMD": {
@@ -170592,7 +170592,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMD",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:54.119Z",
+      "updatedAt": "2026-08-29T03:17:37.818Z",
       "fallbackPrice": 518.09
     },
     "ABNB": {
@@ -174617,7 +174617,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ABNB",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:54.343Z",
+      "updatedAt": "2026-08-29T03:17:38.008Z",
       "fallbackPrice": 134.5
     },
     "GOOGL": {
@@ -178642,7 +178642,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GOOGL",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:54.522Z",
+      "updatedAt": "2026-08-29T03:17:38.247Z",
       "fallbackPrice": 390.13
     },
     "GOOG": {
@@ -182667,7 +182667,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GOOG",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:54.713Z",
+      "updatedAt": "2026-08-29T03:17:38.495Z",
       "fallbackPrice": 386.12
     },
     "AMZN": {
@@ -186692,7 +186692,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMZN",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:54.886Z",
+      "updatedAt": "2026-08-29T03:17:38.663Z",
       "fallbackPrice": 274
     },
     "AEP": {
@@ -190717,7 +190717,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AEP",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:55.118Z",
+      "updatedAt": "2026-08-29T03:17:38.917Z",
       "fallbackPrice": 127.76
     },
     "AMGN": {
@@ -194742,7 +194742,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMGN",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:55.305Z",
+      "updatedAt": "2026-08-29T03:17:39.103Z",
       "fallbackPrice": 336.48
     },
     "ADI": {
@@ -198767,7 +198767,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADI",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:55.516Z",
+      "updatedAt": "2026-08-29T03:17:39.295Z",
       "fallbackPrice": 419.01
     },
     "AAPL": {
@@ -202792,7 +202792,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AAPL",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:55.714Z",
+      "updatedAt": "2026-08-29T03:17:39.533Z",
       "fallbackPrice": 312.51
     },
     "AMAT": {
@@ -206817,7 +206817,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMAT",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:55.934Z",
+      "updatedAt": "2026-08-29T03:17:39.801Z",
       "fallbackPrice": 449.68
     },
     "APP": {
@@ -210842,7 +210842,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "APP",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:56.123Z",
+      "updatedAt": "2026-08-29T03:17:39.968Z",
       "fallbackPrice": 599.89
     },
     "ARM": {
@@ -214867,7 +214867,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ARM",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:56.344Z",
+      "updatedAt": "2026-08-29T03:17:40.137Z",
       "fallbackPrice": 335.27
     },
     "ASML": {
@@ -218892,7 +218892,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ASML",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:56.580Z",
+      "updatedAt": "2026-08-29T03:17:40.353Z",
       "fallbackPrice": 1605.77
     },
     "AZN": {
@@ -222917,7 +222917,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AZN",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:56.789Z",
+      "updatedAt": "2026-08-29T03:17:40.550Z",
       "fallbackPrice": 185.33
     },
     "TEAM": {
@@ -226942,7 +226942,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TEAM",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:56.970Z",
+      "updatedAt": "2026-08-29T03:17:40.718Z",
       "fallbackPrice": 93.29
     },
     "ADSK": {
@@ -230967,7 +230967,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADSK",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:57.159Z",
+      "updatedAt": "2026-08-29T03:17:40.904Z",
       "fallbackPrice": 240.95
     },
     "ADP": {
@@ -234992,7 +234992,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADP",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:57.382Z",
+      "updatedAt": "2026-08-29T03:17:41.118Z",
       "fallbackPrice": 219.86
     },
     "AXON": {
@@ -239017,7 +239017,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AXON",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:57.568Z",
+      "updatedAt": "2026-08-29T03:17:41.290Z",
       "fallbackPrice": 439.32
     },
     "BKR": {
@@ -243042,7 +243042,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BKR",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:57.774Z",
+      "updatedAt": "2026-08-29T03:17:41.511Z",
       "fallbackPrice": 64.71
     },
     "BIB": {
@@ -247067,7 +247067,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BIB",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:58.008Z",
+      "updatedAt": "2026-08-29T03:17:41.695Z",
       "fallbackPrice": 84.84
     },
     "BKNG": {
@@ -251092,7 +251092,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BKNG",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:58.233Z",
+      "updatedAt": "2026-08-29T03:17:41.869Z",
       "fallbackPrice": 169.82
     },
     "AVGO": {
@@ -255117,7 +255117,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AVGO",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:58.445Z",
+      "updatedAt": "2026-08-29T03:17:42.061Z",
       "fallbackPrice": 426.58
     },
     "CDNS": {
@@ -259142,7 +259142,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CDNS",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:58.625Z",
+      "updatedAt": "2026-08-29T03:17:42.256Z",
       "fallbackPrice": 373.85
     },
     "CDW": {
@@ -263167,7 +263167,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CDW",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:58.813Z",
+      "updatedAt": "2026-08-29T03:17:42.443Z",
       "fallbackPrice": 116.16
     },
     "CHTR": {
@@ -267192,7 +267192,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CHTR",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:58.988Z",
+      "updatedAt": "2026-08-29T03:17:42.632Z",
       "fallbackPrice": 147.26
     },
     "CTAS": {
@@ -271217,7 +271217,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CTAS",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:59.187Z",
+      "updatedAt": "2026-08-29T03:17:42.850Z",
       "fallbackPrice": 173.06
     },
     "CSCO": {
@@ -275242,7 +275242,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CSCO",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:59.374Z",
+      "updatedAt": "2026-08-29T03:17:43.057Z",
       "fallbackPrice": 118.64
     },
     "CCEP": {
@@ -279267,7 +279267,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CCEP",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:59.607Z",
+      "updatedAt": "2026-08-29T03:17:43.281Z",
       "fallbackPrice": 92.29
     },
     "CTSH": {
@@ -283292,7 +283292,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CTSH",
       "error": "",
-      "updatedAt": "2026-08-29T00:01:59.792Z",
+      "updatedAt": "2026-08-29T03:17:43.480Z",
       "fallbackPrice": 53.85
     },
     "CMCSA": {
@@ -287317,7 +287317,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CMCSA",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:00.015Z",
+      "updatedAt": "2026-08-29T03:17:43.703Z",
       "fallbackPrice": 25.16
     },
     "CEG": {
@@ -291342,7 +291342,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CEG",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:00.241Z",
+      "updatedAt": "2026-08-29T03:17:43.898Z",
       "fallbackPrice": 286.31
     },
     "CPRT": {
@@ -295367,7 +295367,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CPRT",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:00.418Z",
+      "updatedAt": "2026-08-29T03:17:44.088Z",
       "fallbackPrice": 33.28
     },
     "CSGP": {
@@ -299392,7 +299392,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CSGP",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:00.681Z",
+      "updatedAt": "2026-08-29T03:17:44.262Z",
       "fallbackPrice": 32.3
     },
     "COST": {
@@ -303417,7 +303417,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "COST",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:00.933Z",
+      "updatedAt": "2026-08-29T03:17:44.471Z",
       "fallbackPrice": 995.2
     },
     "CRWD": {
@@ -307442,7 +307442,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CRWD",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:01.102Z",
+      "updatedAt": "2026-08-29T03:17:44.648Z",
       "fallbackPrice": 671
     },
     "CSX": {
@@ -311467,7 +311467,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CSX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:01.372Z",
+      "updatedAt": "2026-08-29T03:17:44.980Z",
       "fallbackPrice": 45.81
     },
     "DDOG": {
@@ -315492,7 +315492,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DDOG",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:01.546Z",
+      "updatedAt": "2026-08-29T03:17:45.146Z",
       "fallbackPrice": 225.24
     },
     "DXCM": {
@@ -319517,7 +319517,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DXCM",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:01.722Z",
+      "updatedAt": "2026-08-29T03:17:45.314Z",
       "fallbackPrice": 72.34
     },
     "FANG": {
@@ -323542,7 +323542,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FANG",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:01.934Z",
+      "updatedAt": "2026-08-29T03:17:45.489Z",
       "fallbackPrice": 194.14
     },
     "DASH": {
@@ -327567,7 +327567,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DASH",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:02.137Z",
+      "updatedAt": "2026-08-29T03:17:45.663Z",
       "fallbackPrice": 156.7
     },
     "EA": {
@@ -327632,7 +327632,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "EA",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:02.308Z",
+      "updatedAt": "2026-08-29T03:17:45.835Z",
       "fallbackPrice": 201.15
     },
     "EXC": {
@@ -331657,7 +331657,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "EXC",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:02.535Z",
+      "updatedAt": "2026-08-29T03:17:46.061Z",
       "fallbackPrice": 45.58
     },
     "FAST": {
@@ -335682,14 +335682,14 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FAST",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:02.752Z",
+      "updatedAt": "2026-08-29T03:17:46.268Z",
       "fallbackPrice": 44.76
     },
     "FTNT": {
       "date": "2026-08-28",
       "open": 172.5800018310547,
       "high": 172.8000030517578,
-      "low": 162.7050018310547,
+      "low": 162.67999267578125,
       "close": 166,
       "volume": 5077849,
       "prevClose": 172.77999877929688,
@@ -339698,7 +339698,7 @@
           "date": "2026-08-28",
           "open": 172.5800018310547,
           "high": 172.8000030517578,
-          "low": 162.7050018310547,
+          "low": 162.67999267578125,
           "close": 166,
           "volume": 5077849
         }
@@ -339707,7 +339707,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FTNT",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:02.927Z",
+      "updatedAt": "2026-08-29T03:17:46.435Z",
       "fallbackPrice": 129.7
     },
     "GEHC": {
@@ -343732,7 +343732,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GEHC",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:03.153Z",
+      "updatedAt": "2026-08-29T03:17:46.606Z",
       "fallbackPrice": 62.86
     },
     "GILD": {
@@ -347757,7 +347757,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GILD",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:03.340Z",
+      "updatedAt": "2026-08-29T03:17:46.791Z",
       "fallbackPrice": 136.22
     },
     "GFS": {
@@ -351782,7 +351782,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GFS",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:03.519Z",
+      "updatedAt": "2026-08-29T03:17:46.959Z",
       "fallbackPrice": 80.63
     },
     "HON": {
@@ -355807,7 +355807,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HON",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:03.777Z",
+      "updatedAt": "2026-08-29T03:17:47.218Z",
       "fallbackPrice": 233
     },
     "IDXX": {
@@ -359832,7 +359832,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "IDXX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:03.952Z",
+      "updatedAt": "2026-08-29T03:17:47.388Z",
       "fallbackPrice": 568.03
     },
     "INTC": {
@@ -363857,7 +363857,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "INTC",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:04.659Z",
+      "updatedAt": "2026-08-29T03:17:48.094Z",
       "fallbackPrice": 120.89
     },
     "INTU": {
@@ -367882,7 +367882,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "INTU",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:04.346Z",
+      "updatedAt": "2026-08-29T03:17:47.793Z",
       "fallbackPrice": 313
     },
     "ISRG": {
@@ -371907,7 +371907,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ISRG",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:04.533Z",
+      "updatedAt": "2026-08-29T03:17:47.968Z",
       "fallbackPrice": 423.63
     },
     "KDP": {
@@ -375932,7 +375932,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "KDP",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:04.851Z",
+      "updatedAt": "2026-08-29T03:17:48.278Z",
       "fallbackPrice": 30.04
     },
     "KLAC": {
@@ -379957,7 +379957,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "KLAC",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:05.097Z",
+      "updatedAt": "2026-08-29T03:17:48.488Z",
       "fallbackPrice": 1927.63
     },
     "KHC": {
@@ -383982,7 +383982,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "KHC",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:05.327Z",
+      "updatedAt": "2026-08-29T03:17:48.697Z",
       "fallbackPrice": 24.47
     },
     "LRCX": {
@@ -388007,7 +388007,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "LRCX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:05.524Z",
+      "updatedAt": "2026-08-29T03:17:48.899Z",
       "fallbackPrice": 318
     },
     "LIN": {
@@ -392032,7 +392032,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "LIN",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:05.753Z",
+      "updatedAt": "2026-08-29T03:17:49.172Z",
       "fallbackPrice": 501.98
     },
     "LULU": {
@@ -396057,7 +396057,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "LULU",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:05.929Z",
+      "updatedAt": "2026-08-29T03:17:49.346Z",
       "fallbackPrice": 131.33
     },
     "MAR": {
@@ -400082,7 +400082,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MAR",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:06.127Z",
+      "updatedAt": "2026-08-29T03:17:49.544Z",
       "fallbackPrice": 385.76
     },
     "MRVL": {
@@ -404107,7 +404107,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MRVL",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:06.379Z",
+      "updatedAt": "2026-08-29T03:17:49.726Z",
       "fallbackPrice": 204.83
     },
     "MELI": {
@@ -408132,7 +408132,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MELI",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:06.560Z",
+      "updatedAt": "2026-08-29T03:17:49.924Z",
       "fallbackPrice": 1695.53
     },
     "META": {
@@ -412157,7 +412157,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "META",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:06.738Z",
+      "updatedAt": "2026-08-29T03:17:50.095Z",
       "fallbackPrice": 635.29
     },
     "MCHP": {
@@ -416182,7 +416182,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MCHP",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:06.951Z",
+      "updatedAt": "2026-08-29T03:17:50.294Z",
       "fallbackPrice": 96.04
     },
     "MU": {
@@ -420207,7 +420207,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MU",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:07.203Z",
+      "updatedAt": "2026-08-29T03:17:50.487Z",
       "fallbackPrice": 923.52
     },
     "MSFT": {
@@ -424232,7 +424232,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MSFT",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:07.395Z",
+      "updatedAt": "2026-08-29T03:17:50.680Z",
       "fallbackPrice": 426.99
     },
     "MSTR": {
@@ -428257,7 +428257,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MSTR",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:07.583Z",
+      "updatedAt": "2026-08-29T03:17:50.870Z",
       "fallbackPrice": 151.64
     },
     "MDLZ": {
@@ -432282,7 +432282,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MDLZ",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:07.775Z",
+      "updatedAt": "2026-08-29T03:17:51.063Z",
       "fallbackPrice": 62.39
     },
     "MNST": {
@@ -436299,7 +436299,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MNST",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:07.951Z",
+      "updatedAt": "2026-08-29T03:17:51.286Z",
       "fallbackPrice": 87.99
     },
     "NFLX": {
@@ -440324,14 +440324,14 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "NFLX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:08.125Z",
+      "updatedAt": "2026-08-29T03:17:51.480Z",
       "fallbackPrice": 86.36
     },
     "NVDA": {
       "date": "2026-08-28",
       "open": 227.3300018310547,
       "high": 229.25999450683594,
-      "low": 216.82000732421875,
+      "low": 216.80999755859375,
       "close": 217.5500030517578,
       "volume": 194036188,
       "prevClose": 227.97999572753906,
@@ -444340,7 +444340,7 @@
           "date": "2026-08-28",
           "open": 227.3300018310547,
           "high": 229.25999450683594,
-          "low": 216.82000732421875,
+          "low": 216.80999755859375,
           "close": 217.5500030517578,
           "volume": 194036188
         }
@@ -444349,7 +444349,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "NVDA",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:08.312Z",
+      "updatedAt": "2026-08-29T03:17:51.671Z",
       "fallbackPrice": 214.25
     },
     "NXPI": {
@@ -448374,7 +448374,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "NXPI",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:08.504Z",
+      "updatedAt": "2026-08-29T03:17:51.919Z",
       "fallbackPrice": 330.28
     },
     "ORLY": {
@@ -452399,7 +452399,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ORLY",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:08.679Z",
+      "updatedAt": "2026-08-29T03:17:52.115Z",
       "fallbackPrice": 89.23
     },
     "ODFL": {
@@ -456424,7 +456424,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ODFL",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:08.872Z",
+      "updatedAt": "2026-08-29T03:17:52.317Z",
       "fallbackPrice": 220.86
     },
     "ON": {
@@ -460449,7 +460449,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ON",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:09.047Z",
+      "updatedAt": "2026-08-29T03:17:52.486Z",
       "fallbackPrice": 123.77
     },
     "PCAR": {
@@ -464474,7 +464474,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PCAR",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:09.294Z",
+      "updatedAt": "2026-08-29T03:17:52.718Z",
       "fallbackPrice": 112.22
     },
     "PLTR": {
@@ -468499,7 +468499,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PLTR",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:09.479Z",
+      "updatedAt": "2026-08-29T03:17:52.884Z",
       "fallbackPrice": 143.34
     },
     "PANW": {
@@ -472524,7 +472524,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PANW",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:09.671Z",
+      "updatedAt": "2026-08-29T03:17:53.050Z",
       "fallbackPrice": 257.77
     },
     "PAYX": {
@@ -476549,7 +476549,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PAYX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:09.878Z",
+      "updatedAt": "2026-08-29T03:17:53.278Z",
       "fallbackPrice": 95.51
     },
     "PYPL": {
@@ -480574,7 +480574,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PYPL",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:10.060Z",
+      "updatedAt": "2026-08-29T03:17:53.475Z",
       "fallbackPrice": 44.46
     },
     "PDD": {
@@ -484599,7 +484599,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PDD",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:10.242Z",
+      "updatedAt": "2026-08-29T03:17:53.642Z",
       "fallbackPrice": 83.03
     },
     "PEP": {
@@ -488624,7 +488624,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PEP",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:10.458Z",
+      "updatedAt": "2026-08-29T03:17:53.938Z",
       "fallbackPrice": 146.29
     },
     "QCOM": {
@@ -492649,7 +492649,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "QCOM",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:10.652Z",
+      "updatedAt": "2026-08-29T03:17:54.126Z",
       "fallbackPrice": 243.29
     },
     "REGN": {
@@ -496674,7 +496674,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "REGN",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:10.829Z",
+      "updatedAt": "2026-08-29T03:17:54.318Z",
       "fallbackPrice": 621.52
     },
     "ROP": {
@@ -500699,7 +500699,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ROP",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:11.052Z",
+      "updatedAt": "2026-08-29T03:17:54.554Z",
       "fallbackPrice": 319.75
     },
     "ROST": {
@@ -504724,7 +504724,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ROST",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:11.274Z",
+      "updatedAt": "2026-08-29T03:17:54.766Z",
       "fallbackPrice": 227.2
     },
     "SHOP": {
@@ -508749,7 +508749,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SHOP",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:11.463Z",
+      "updatedAt": "2026-08-29T03:17:54.933Z",
       "fallbackPrice": 115.03
     },
     "SBUX": {
@@ -512774,7 +512774,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SBUX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:11.648Z",
+      "updatedAt": "2026-08-29T03:17:55.128Z",
       "fallbackPrice": 100.75
     },
     "SNPS": {
@@ -516799,13 +516799,13 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SNPS",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:11.827Z",
+      "updatedAt": "2026-08-29T03:17:55.316Z",
       "fallbackPrice": 480.64
     },
     "TMUS": {
       "date": "2026-08-28",
       "open": 178.69000244140625,
-      "high": 181.38999938964844,
+      "high": 181.49000549316406,
       "low": 176.49000549316406,
       "close": 181.3699951171875,
       "volume": 3105620,
@@ -520814,7 +520814,7 @@
         {
           "date": "2026-08-28",
           "open": 178.69000244140625,
-          "high": 181.38999938964844,
+          "high": 181.49000549316406,
           "low": 176.49000549316406,
           "close": 181.3699951171875,
           "volume": 3105620
@@ -520824,7 +520824,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TMUS",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:12.019Z",
+      "updatedAt": "2026-08-29T03:17:55.504Z",
       "fallbackPrice": 189.01
     },
     "TTWO": {
@@ -524849,7 +524849,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TTWO",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:12.206Z",
+      "updatedAt": "2026-08-29T03:17:55.695Z",
       "fallbackPrice": 217.87
     },
     "TSLA": {
@@ -528874,7 +528874,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TSLA",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:12.391Z",
+      "updatedAt": "2026-08-29T03:17:55.863Z",
       "fallbackPrice": 442.1
     },
     "TXN": {
@@ -532899,7 +532899,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TXN",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:12.663Z",
+      "updatedAt": "2026-08-29T03:17:56.111Z",
       "fallbackPrice": 315.95
     },
     "TRI": {
@@ -536924,7 +536924,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TRI",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:12.872Z",
+      "updatedAt": "2026-08-29T03:17:56.304Z",
       "fallbackPrice": 84.49
     },
     "TTD": {
@@ -540949,7 +540949,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TTD",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:13.060Z",
+      "updatedAt": "2026-08-29T03:17:56.480Z",
       "fallbackPrice": 21.15
     },
     "VRSK": {
@@ -544974,7 +544974,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VRSK",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:13.259Z",
+      "updatedAt": "2026-08-29T03:17:56.690Z",
       "fallbackPrice": 172.82
     },
     "VRTX": {
@@ -548999,7 +548999,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VRTX",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:13.441Z",
+      "updatedAt": "2026-08-29T03:17:56.881Z",
       "fallbackPrice": 447.97
     },
     "WBD": {
@@ -553024,7 +553024,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "WBD",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:13.655Z",
+      "updatedAt": "2026-08-29T03:17:57.052Z",
       "fallbackPrice": 27.04
     },
     "WDAY": {
@@ -557049,7 +557049,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "WDAY",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:13.842Z",
+      "updatedAt": "2026-08-29T03:17:57.223Z",
       "fallbackPrice": 130.01
     },
     "XEL": {
@@ -561074,7 +561074,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "XEL",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:14.071Z",
+      "updatedAt": "2026-08-29T03:17:57.454Z",
       "fallbackPrice": 79.26
     },
     "ZS": {
@@ -565099,7 +565099,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ZS",
       "error": "",
-      "updatedAt": "2026-08-29T00:02:14.277Z",
+      "updatedAt": "2026-08-29T03:17:57.677Z",
       "fallbackPrice": 130.04
     }
   }

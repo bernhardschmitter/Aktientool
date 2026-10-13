@@ -1,6 +1,6 @@
 {
   "version": "V4.0.8-history",
-  "generatedAt": "2026-10-12T22:31:25.679Z",
+  "generatedAt": "2026-10-13T02:41:50.298Z",
   "source": "Automatisches EOD-Update via GitHub Action / Yahoo Finance mit Stooq-Fallback",
   "symbolsTotal": 144,
   "count": 143,
@@ -4053,7 +4053,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADS.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:46.464Z",
+      "updatedAt": "2026-10-13T02:41:19.638Z",
       "fallbackPrice": 167.15
     },
     "AIR.DE": {
@@ -8102,7 +8102,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AIR.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:46.757Z",
+      "updatedAt": "2026-10-13T02:41:19.859Z",
       "fallbackPrice": 177.76
     },
     "ALV.DE": {
@@ -12151,7 +12151,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ALV.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:47.044Z",
+      "updatedAt": "2026-10-13T02:41:20.062Z",
       "fallbackPrice": 380.9
     },
     "BAS.DE": {
@@ -16200,7 +16200,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BAS.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:47.379Z",
+      "updatedAt": "2026-10-13T02:41:20.294Z",
       "fallbackPrice": 50.72
     },
     "BAYN.DE": {
@@ -20249,7 +20249,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BAYN.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:47.656Z",
+      "updatedAt": "2026-10-13T02:41:20.565Z",
       "fallbackPrice": 37.84
     },
     "BEI.DE": {
@@ -24298,7 +24298,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BEI.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:47.904Z",
+      "updatedAt": "2026-10-13T02:41:20.783Z",
       "fallbackPrice": 71.72
     },
     "BMW.DE": {
@@ -28347,16 +28347,16 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BMW.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:48.153Z",
+      "updatedAt": "2026-10-13T02:41:20.978Z",
       "fallbackPrice": 75.94
     },
     "BNR": {
       "date": "2026-10-12",
-      "open": 15.590700149536133,
-      "high": 15.590700149536133,
+      "open": 15.590999603271484,
+      "high": 15.590999603271484,
       "low": 15,
       "close": 15,
-      "volume": 3721,
+      "volume": 3900,
       "prevClose": 15.489999771118164,
       "history": [
         {
@@ -32353,18 +32353,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 15.590700149536133,
-          "high": 15.590700149536133,
+          "open": 15.590999603271484,
+          "high": 15.590999603271484,
           "low": 15,
           "close": 15,
-          "volume": 3721
+          "volume": 3900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BNR",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:48.399Z",
+      "updatedAt": "2026-10-13T02:41:21.164Z",
       "fallbackPrice": 10.1
     },
     "CBK.DE": {
@@ -36413,7 +36413,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CBK.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:48.696Z",
+      "updatedAt": "2026-10-13T02:41:21.397Z",
       "fallbackPrice": 36.79
     },
     "CON": {
@@ -36422,7 +36422,7 @@
       "high": 37.7599983215332,
       "low": 37.08000183105469,
       "close": 37.540000915527344,
-      "volume": 1003130,
+      "volume": 1003200,
       "prevClose": 37.189998626708984,
       "history": [
         {
@@ -40423,14 +40423,14 @@
           "high": 37.7599983215332,
           "low": 37.08000183105469,
           "close": 37.540000915527344,
-          "volume": 1003130
+          "volume": 1003200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CON",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:48.967Z",
+      "updatedAt": "2026-10-13T02:41:21.577Z",
       "fallbackPrice": 25.36
     },
     "1COV.DE": {
@@ -40455,7 +40455,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "1COV.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:49.187Z",
+      "updatedAt": "2026-10-13T02:41:21.744Z",
       "fallbackPrice": null
     },
     "DTG": {
@@ -44472,7 +44472,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DTG",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:49.417Z",
+      "updatedAt": "2026-10-13T02:41:21.935Z",
       "fallbackPrice": 16.84
     },
     "DBK.DE": {
@@ -48521,7 +48521,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DBK.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:49.696Z",
+      "updatedAt": "2026-10-13T02:41:22.176Z",
       "fallbackPrice": 28.4
     },
     "DB1.DE": {
@@ -52570,7 +52570,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DB1.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:49.969Z",
+      "updatedAt": "2026-10-13T02:41:22.417Z",
       "fallbackPrice": 248.2
     },
     "DHL.DE": {
@@ -56619,7 +56619,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DHL.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:50.274Z",
+      "updatedAt": "2026-10-13T02:41:22.627Z",
       "fallbackPrice": 51.28
     },
     "DTE.DE": {
@@ -60668,7 +60668,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DTE.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:50.552Z",
+      "updatedAt": "2026-10-13T02:41:22.821Z",
       "fallbackPrice": 28.95
     },
     "EOAN.DE": {
@@ -64717,7 +64717,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "EOAN.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:50.845Z",
+      "updatedAt": "2026-10-13T02:41:23.020Z",
       "fallbackPrice": 17.99
     },
     "FME.DE": {
@@ -68766,7 +68766,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FME.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:51.129Z",
+      "updatedAt": "2026-10-13T02:41:23.240Z",
       "fallbackPrice": 37.24
     },
     "FRE.DE": {
@@ -72815,7 +72815,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FRE.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:51.545Z",
+      "updatedAt": "2026-10-13T02:41:23.470Z",
       "fallbackPrice": 36.71
     },
     "HNR1.DE": {
@@ -76864,7 +76864,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HNR1.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:51.893Z",
+      "updatedAt": "2026-10-13T02:41:23.706Z",
       "fallbackPrice": 234.8
     },
     "HFG.DE": {
@@ -80913,7 +80913,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HFG.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:52.117Z",
+      "updatedAt": "2026-10-13T02:41:23.922Z",
       "fallbackPrice": 4.401
     },
     "HEN3.DE": {
@@ -84962,7 +84962,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HEN3.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:52.366Z",
+      "updatedAt": "2026-10-13T02:41:24.131Z",
       "fallbackPrice": 67.2
     },
     "IFX.DE": {
@@ -89011,7 +89011,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "IFX.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:52.713Z",
+      "updatedAt": "2026-10-13T02:41:24.439Z",
       "fallbackPrice": 80.11
     },
     "MBG.DE": {
@@ -93060,7 +93060,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MBG.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:52.992Z",
+      "updatedAt": "2026-10-13T02:41:24.645Z",
       "fallbackPrice": 52.71
     },
     "MRK.DE": {
@@ -97109,7 +97109,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MRK.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:53.273Z",
+      "updatedAt": "2026-10-13T02:41:24.837Z",
       "fallbackPrice": 129.95
     },
     "MTX.DE": {
@@ -101158,7 +101158,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MTX.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:53.553Z",
+      "updatedAt": "2026-10-13T02:41:25.039Z",
       "fallbackPrice": 315.4
     },
     "MUV2.DE": {
@@ -105207,7 +105207,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MUV2.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:53.831Z",
+      "updatedAt": "2026-10-13T02:41:25.248Z",
       "fallbackPrice": 456.8
     },
     "P911.DE": {
@@ -109256,7 +109256,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "P911.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:54.062Z",
+      "updatedAt": "2026-10-13T02:41:25.509Z",
       "fallbackPrice": 47.65
     },
     "PAH3.DE": {
@@ -113305,7 +113305,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PAH3.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:54.308Z",
+      "updatedAt": "2026-10-13T02:41:25.720Z",
       "fallbackPrice": 32.67
     },
     "PUM.DE": {
@@ -117354,7 +117354,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PUM.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:54.662Z",
+      "updatedAt": "2026-10-13T02:41:25.924Z",
       "fallbackPrice": 30
     },
     "QIA.DE": {
@@ -121403,7 +121403,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "QIA.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:54.895Z",
+      "updatedAt": "2026-10-13T02:41:26.105Z",
       "fallbackPrice": 31.51
     },
     "RHM.DE": {
@@ -125452,7 +125452,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "RHM.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:55.136Z",
+      "updatedAt": "2026-10-13T02:41:26.436Z",
       "fallbackPrice": 1284
     },
     "RWE.DE": {
@@ -129501,7 +129501,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "RWE.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:55.377Z",
+      "updatedAt": "2026-10-13T02:41:26.634Z",
       "fallbackPrice": 54.48
     },
     "SAP.DE": {
@@ -133550,7 +133550,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SAP.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:55.748Z",
+      "updatedAt": "2026-10-13T02:41:26.836Z",
       "fallbackPrice": 151.6
     },
     "SRT3.DE": {
@@ -137599,7 +137599,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SRT3.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:56.025Z",
+      "updatedAt": "2026-10-13T02:41:27.028Z",
       "fallbackPrice": 240
     },
     "SIE.DE": {
@@ -141648,7 +141648,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SIE.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:56.314Z",
+      "updatedAt": "2026-10-13T02:41:27.240Z",
       "fallbackPrice": 271.65
     },
     "ENR.DE": {
@@ -145697,7 +145697,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ENR.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:56.549Z",
+      "updatedAt": "2026-10-13T02:41:27.447Z",
       "fallbackPrice": 166.76
     },
     "SHL.DE": {
@@ -149746,7 +149746,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SHL.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:56.783Z",
+      "updatedAt": "2026-10-13T02:41:27.673Z",
       "fallbackPrice": 34.88
     },
     "SY1.DE": {
@@ -153795,7 +153795,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SY1.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:57.115Z",
+      "updatedAt": "2026-10-13T02:41:27.912Z",
       "fallbackPrice": 81.08
     },
     "VOW3.DE": {
@@ -157844,7 +157844,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VOW3.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:57.381Z",
+      "updatedAt": "2026-10-13T02:41:28.146Z",
       "fallbackPrice": 92.56
     },
     "VNA.DE": {
@@ -161893,11 +161893,11 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VNA.DE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:57.627Z",
+      "updatedAt": "2026-10-13T02:41:28.375Z",
       "fallbackPrice": 21.66
     },
     "TESG.SG": {
-      "date": "2026-10-12",
+      "date": "2026-10-13",
       "open": 71.09,
       "high": 71.09,
       "low": 71.09,
@@ -161914,7 +161914,7 @@
           "volume": 0
         },
         {
-          "date": "2026-10-12",
+          "date": "2026-10-13",
           "open": 71.09,
           "high": 71.09,
           "low": 71.09,
@@ -161926,16 +161926,16 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TESG.SG",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:57.840Z",
+      "updatedAt": "2026-10-13T02:41:28.545Z",
       "fallbackPrice": 65.865
     },
     "ADBE": {
       "date": "2026-10-12",
-      "open": 235,
+      "open": 234.6300048828125,
       "high": 242.4600067138672,
       "low": 232.85000610351562,
       "close": 238.13999938964844,
-      "volume": 4515748,
+      "volume": 4527800,
       "prevClose": 242.27000427246094,
       "history": [
         {
@@ -165932,27 +165932,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 235,
+          "open": 234.6300048828125,
           "high": 242.4600067138672,
           "low": 232.85000610351562,
           "close": 238.13999938964844,
-          "volume": 4515748
+          "volume": 4527800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADBE",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:58.071Z",
+      "updatedAt": "2026-10-13T02:41:28.740Z",
       "fallbackPrice": 241.44
     },
     "AMD": {
       "date": "2026-10-12",
-      "open": 599.8599853515625,
+      "open": 599.9299926757812,
       "high": 601.77001953125,
       "low": 586.5399780273438,
       "close": 594.239990234375,
-      "volume": 15252527,
+      "volume": 15327700,
       "prevClose": 608.0999755859375,
       "history": [
         {
@@ -169945,31 +169945,31 @@
           "high": 627.3699951171875,
           "low": 606,
           "close": 608.0999755859375,
-          "volume": 13694400
+          "volume": 13733300
         },
         {
           "date": "2026-10-12",
-          "open": 599.8599853515625,
+          "open": 599.9299926757812,
           "high": 601.77001953125,
           "low": 586.5399780273438,
           "close": 594.239990234375,
-          "volume": 15252527
+          "volume": 15327700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMD",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:58.411Z",
+      "updatedAt": "2026-10-13T02:41:28.919Z",
       "fallbackPrice": 518.09
     },
     "ABNB": {
       "date": "2026-10-12",
-      "open": 167.21499633789062,
-      "high": 167.42999267578125,
+      "open": 167.2100067138672,
+      "high": 167.4499969482422,
       "low": 162.5500030517578,
       "close": 163.5,
-      "volume": 3424132,
+      "volume": 3424300,
       "prevClose": 165.8699951171875,
       "history": [
         {
@@ -173966,27 +173966,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 167.21499633789062,
-          "high": 167.42999267578125,
+          "open": 167.2100067138672,
+          "high": 167.4499969482422,
           "low": 162.5500030517578,
           "close": 163.5,
-          "volume": 3424132
+          "volume": 3424300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ABNB",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:58.668Z",
+      "updatedAt": "2026-10-13T02:41:29.137Z",
       "fallbackPrice": 134.5
     },
     "GOOGL": {
       "date": "2026-10-12",
-      "open": 351.94000244140625,
+      "open": 351.8599853515625,
       "high": 356.5,
       "low": 350.5,
       "close": 352.7200012207031,
-      "volume": 18116718,
+      "volume": 19038700,
       "prevClose": 351.6600036621094,
       "history": [
         {
@@ -177979,31 +177979,31 @@
           "high": 354.70001220703125,
           "low": 350.30999755859375,
           "close": 351.6600036621094,
-          "volume": 17259800
+          "volume": 17281500
         },
         {
           "date": "2026-10-12",
-          "open": 351.94000244140625,
+          "open": 351.8599853515625,
           "high": 356.5,
           "low": 350.5,
           "close": 352.7200012207031,
-          "volume": 18116718
+          "volume": 19038700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GOOGL",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:58.951Z",
+      "updatedAt": "2026-10-13T02:41:29.417Z",
       "fallbackPrice": 390.13
     },
     "GOOG": {
       "date": "2026-10-12",
-      "open": 348.4100036621094,
+      "open": 348.3399963378906,
       "high": 352.6600036621094,
-      "low": 347.16009521484375,
+      "low": 347.1600036621094,
       "close": 348.9700012207031,
-      "volume": 11454890,
+      "volume": 11833900,
       "prevClose": 347.8599853515625,
       "history": [
         {
@@ -181996,31 +181996,31 @@
           "high": 351.05999755859375,
           "low": 346.8800048828125,
           "close": 347.8599853515625,
-          "volume": 11129700
+          "volume": 11142900
         },
         {
           "date": "2026-10-12",
-          "open": 348.4100036621094,
+          "open": 348.3399963378906,
           "high": 352.6600036621094,
-          "low": 347.16009521484375,
+          "low": 347.1600036621094,
           "close": 348.9700012207031,
-          "volume": 11454890
+          "volume": 11833900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GOOG",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:59.178Z",
+      "updatedAt": "2026-10-13T02:41:29.604Z",
       "fallbackPrice": 386.12
     },
     "AMZN": {
       "date": "2026-10-12",
-      "open": 262.5450134277344,
+      "open": 262.5,
       "high": 263.70001220703125,
       "low": 259.2699890136719,
       "close": 259.5299987792969,
-      "volume": 25322105,
+      "volume": 26524900,
       "prevClose": 262.42999267578125,
       "history": [
         {
@@ -186013,31 +186013,31 @@
           "high": 262.79998779296875,
           "low": 256,
           "close": 262.42999267578125,
-          "volume": 34710500
+          "volume": 34770000
         },
         {
           "date": "2026-10-12",
-          "open": 262.5450134277344,
+          "open": 262.5,
           "high": 263.70001220703125,
           "low": 259.2699890136719,
           "close": 259.5299987792969,
-          "volume": 25322105
+          "volume": 26524900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMZN",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:59.437Z",
+      "updatedAt": "2026-10-13T02:41:29.790Z",
       "fallbackPrice": 274
     },
     "AEP": {
       "date": "2026-10-12",
       "open": 123.19999694824219,
-      "high": 124.27999877929688,
-      "low": 122.38050079345703,
+      "high": 124.30000305175781,
+      "low": 122.37999725341797,
       "close": 124.2300033569336,
-      "volume": 1901407,
+      "volume": 1901500,
       "prevClose": 122.80999755859375,
       "history": [
         {
@@ -190035,17 +190035,17 @@
         {
           "date": "2026-10-12",
           "open": 123.19999694824219,
-          "high": 124.27999877929688,
-          "low": 122.38050079345703,
+          "high": 124.30000305175781,
+          "low": 122.37999725341797,
           "close": 124.2300033569336,
-          "volume": 1901407
+          "volume": 1901500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AEP",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:59.744Z",
+      "updatedAt": "2026-10-13T02:41:30.034Z",
       "fallbackPrice": 127.76
     },
     "AMGN": {
@@ -190054,7 +190054,7 @@
       "high": 417.760009765625,
       "low": 413.44000244140625,
       "close": 417.57000732421875,
-      "volume": 1615833,
+      "volume": 1720000,
       "prevClose": 414.8699951171875,
       "history": [
         {
@@ -194055,23 +194055,23 @@
           "high": 417.760009765625,
           "low": 413.44000244140625,
           "close": 417.57000732421875,
-          "volume": 1615833
+          "volume": 1720000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMGN",
       "error": "",
-      "updatedAt": "2026-10-12T22:30:59.973Z",
+      "updatedAt": "2026-10-13T02:41:30.233Z",
       "fallbackPrice": 336.48
     },
     "ADI": {
       "date": "2026-10-12",
       "open": 403.0799865722656,
       "high": 408.010009765625,
-      "low": 398.9649963378906,
-      "close": 406.2449951171875,
-      "volume": 2609350,
+      "low": 398.9700012207031,
+      "close": 406.25,
+      "volume": 2619600,
       "prevClose": 406.19000244140625,
       "history": [
         {
@@ -198070,25 +198070,25 @@
           "date": "2026-10-12",
           "open": 403.0799865722656,
           "high": 408.010009765625,
-          "low": 398.9649963378906,
-          "close": 406.2449951171875,
-          "volume": 2609350
+          "low": 398.9700012207031,
+          "close": 406.25,
+          "volume": 2619600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADI",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:00.248Z",
+      "updatedAt": "2026-10-13T02:41:30.427Z",
       "fallbackPrice": 419.01
     },
     "AAPL": {
       "date": "2026-10-12",
-      "open": 338.1600036621094,
+      "open": 338.2200012207031,
       "high": 342.6300048828125,
       "low": 337.6000061035156,
       "close": 340.9700012207031,
-      "volume": 25796997,
+      "volume": 25848300,
       "prevClose": 336.6400146484375,
       "history": [
         {
@@ -202081,31 +202081,31 @@
           "high": 338.6099853515625,
           "low": 330.70001220703125,
           "close": 336.6400146484375,
-          "volume": 37855000
+          "volume": 37881200
         },
         {
           "date": "2026-10-12",
-          "open": 338.1600036621094,
+          "open": 338.2200012207031,
           "high": 342.6300048828125,
           "low": 337.6000061035156,
           "close": 340.9700012207031,
-          "volume": 25796997
+          "volume": 25848300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AAPL",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:00.514Z",
+      "updatedAt": "2026-10-13T02:41:30.638Z",
       "fallbackPrice": 312.51
     },
     "AMAT": {
       "date": "2026-10-12",
       "open": 501.0199890136719,
       "high": 501.4599914550781,
-      "low": 491.9800109863281,
+      "low": 491.8299865722656,
       "close": 497.5299987792969,
-      "volume": 4155825,
+      "volume": 4169800,
       "prevClose": 507.0299987792969,
       "history": [
         {
@@ -206104,25 +206104,25 @@
           "date": "2026-10-12",
           "open": 501.0199890136719,
           "high": 501.4599914550781,
-          "low": 491.9800109863281,
+          "low": 491.8299865722656,
           "close": 497.5299987792969,
-          "volume": 4155825
+          "volume": 4169800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AMAT",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:00.776Z",
+      "updatedAt": "2026-10-13T02:41:30.853Z",
       "fallbackPrice": 449.68
     },
     "APP": {
       "date": "2026-10-12",
-      "open": 279.32000732421875,
+      "open": 280,
       "high": 283.6600036621094,
       "low": 270.1400146484375,
       "close": 270.8699951171875,
-      "volume": 3613973,
+      "volume": 3700600,
       "prevClose": 277.0400085449219,
       "history": [
         {
@@ -210119,27 +210119,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 279.32000732421875,
+          "open": 280,
           "high": 283.6600036621094,
           "low": 270.1400146484375,
           "close": 270.8699951171875,
-          "volume": 3613973
+          "volume": 3700600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "APP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:00.997Z",
+      "updatedAt": "2026-10-13T02:41:31.052Z",
       "fallbackPrice": 599.89
     },
     "ARM": {
       "date": "2026-10-12",
-      "open": 260.6499938964844,
-      "high": 263.1199951171875,
+      "open": 260.29998779296875,
+      "high": 263.239990234375,
       "low": 253.33999633789062,
       "close": 255.24000549316406,
-      "volume": 3581107,
+      "volume": 3585600,
       "prevClose": 266.2799987792969,
       "history": [
         {
@@ -214132,31 +214132,31 @@
           "high": 281.5,
           "low": 265.6000061035156,
           "close": 266.2799987792969,
-          "volume": 4253900
+          "volume": 4272000
         },
         {
           "date": "2026-10-12",
-          "open": 260.6499938964844,
-          "high": 263.1199951171875,
+          "open": 260.29998779296875,
+          "high": 263.239990234375,
           "low": 253.33999633789062,
           "close": 255.24000549316406,
-          "volume": 3581107
+          "volume": 3585600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ARM",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:01.216Z",
+      "updatedAt": "2026-10-13T02:41:31.241Z",
       "fallbackPrice": 335.27
     },
     "ASML": {
       "date": "2026-10-12",
-      "open": 1784.8050537109375,
-      "high": 1784.8050537109375,
+      "open": 1784.3599853515625,
+      "high": 1784.81005859375,
       "low": 1750.02001953125,
       "close": 1750.239990234375,
-      "volume": 1101141,
+      "volume": 1103400,
       "prevClose": 1780.3399658203125,
       "history": [
         {
@@ -218153,27 +218153,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 1784.8050537109375,
-          "high": 1784.8050537109375,
+          "open": 1784.3599853515625,
+          "high": 1784.81005859375,
           "low": 1750.02001953125,
           "close": 1750.239990234375,
-          "volume": 1101141
+          "volume": 1103400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ASML",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:01.492Z",
+      "updatedAt": "2026-10-13T02:41:31.532Z",
       "fallbackPrice": 1605.77
     },
     "AZN": {
       "date": "2026-10-12",
       "open": 159.44000244140625,
-      "high": 159.3350067138672,
+      "high": 159.44000244140625,
       "low": 157.60000610351562,
       "close": 158.3300018310547,
-      "volume": 2698761,
+      "volume": 2855600,
       "prevClose": 159.1999969482422,
       "history": [
         {
@@ -222171,26 +222171,26 @@
         {
           "date": "2026-10-12",
           "open": 159.44000244140625,
-          "high": 159.3350067138672,
+          "high": 159.44000244140625,
           "low": 157.60000610351562,
           "close": 158.3300018310547,
-          "volume": 2698761
+          "volume": 2855600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AZN",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:01.766Z",
+      "updatedAt": "2026-10-13T02:41:31.761Z",
       "fallbackPrice": 185.33
     },
     "TEAM": {
       "date": "2026-10-12",
-      "open": 208.99000549316406,
+      "open": 208.97000122070312,
       "high": 212.83999633789062,
       "low": 205.42999267578125,
       "close": 207.75,
-      "volume": 1978110,
+      "volume": 1978300,
       "prevClose": 206.7899932861328,
       "history": [
         {
@@ -226187,27 +226187,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 208.99000549316406,
+          "open": 208.97000122070312,
           "high": 212.83999633789062,
           "low": 205.42999267578125,
           "close": 207.75,
-          "volume": 1978110
+          "volume": 1978300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TEAM",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:01.989Z",
+      "updatedAt": "2026-10-13T02:41:31.929Z",
       "fallbackPrice": 93.29
     },
     "ADSK": {
       "date": "2026-10-12",
-      "open": 234.7030029296875,
+      "open": 234.6999969482422,
       "high": 237.27000427246094,
-      "low": 229.31500244140625,
+      "low": 229.32000732421875,
       "close": 233.5399932861328,
-      "volume": 1549399,
+      "volume": 1549600,
       "prevClose": 235.35000610351562,
       "history": [
         {
@@ -230204,27 +230204,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 234.7030029296875,
+          "open": 234.6999969482422,
           "high": 237.27000427246094,
-          "low": 229.31500244140625,
+          "low": 229.32000732421875,
           "close": 233.5399932861328,
-          "volume": 1549399
+          "volume": 1549600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADSK",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:02.275Z",
+      "updatedAt": "2026-10-13T02:41:32.114Z",
       "fallbackPrice": 240.95
     },
     "ADP": {
       "date": "2026-10-12",
-      "open": 272.25,
+      "open": 272.3299865722656,
       "high": 274.45001220703125,
       "low": 271.9599914550781,
       "close": 273.80999755859375,
-      "volume": 1104079,
+      "volume": 1136500,
       "prevClose": 270.8800048828125,
       "history": [
         {
@@ -234221,18 +234221,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 272.25,
+          "open": 272.3299865722656,
           "high": 274.45001220703125,
           "low": 271.9599914550781,
           "close": 273.80999755859375,
-          "volume": 1104079
+          "volume": 1136500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ADP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:02.552Z",
+      "updatedAt": "2026-10-13T02:41:32.434Z",
       "fallbackPrice": 219.86
     },
     "AXON": {
@@ -234241,7 +234241,7 @@
       "high": 426.9100036621094,
       "low": 412.19000244140625,
       "close": 414.42999267578125,
-      "volume": 583896,
+      "volume": 584100,
       "prevClose": 422.8900146484375,
       "history": [
         {
@@ -238242,23 +238242,23 @@
           "high": 426.9100036621094,
           "low": 412.19000244140625,
           "close": 414.42999267578125,
-          "volume": 583896
+          "volume": 584100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AXON",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:02.777Z",
+      "updatedAt": "2026-10-13T02:41:32.629Z",
       "fallbackPrice": 439.32
     },
     "BKR": {
       "date": "2026-10-12",
       "open": 57.060001373291016,
-      "high": 57.334999084472656,
+      "high": 57.34000015258789,
       "low": 55.93000030517578,
       "close": 56.18000030517578,
-      "volume": 4490976,
+      "volume": 4491100,
       "prevClose": 56.70000076293945,
       "history": [
         {
@@ -242256,26 +242256,26 @@
         {
           "date": "2026-10-12",
           "open": 57.060001373291016,
-          "high": 57.334999084472656,
+          "high": 57.34000015258789,
           "low": 55.93000030517578,
           "close": 56.18000030517578,
-          "volume": 4490976
+          "volume": 4491100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BKR",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:03.066Z",
+      "updatedAt": "2026-10-13T02:41:32.841Z",
       "fallbackPrice": 64.71
     },
     "BIB": {
       "date": "2026-10-12",
       "open": 110.62000274658203,
-      "high": 110.90080261230469,
-      "low": 108.40049743652344,
-      "close": 108.79100036621094,
-      "volume": 2521,
+      "high": 110.9000015258789,
+      "low": 108.4000015258789,
+      "close": 108.79000091552734,
+      "volume": 2600,
       "prevClose": 110.9800033569336,
       "history": [
         {
@@ -246273,26 +246273,26 @@
         {
           "date": "2026-10-12",
           "open": 110.62000274658203,
-          "high": 110.90080261230469,
-          "low": 108.40049743652344,
-          "close": 108.79100036621094,
-          "volume": 2521
+          "high": 110.9000015258789,
+          "low": 108.4000015258789,
+          "close": 108.79000091552734,
+          "volume": 2600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BIB",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:03.393Z",
+      "updatedAt": "2026-10-13T02:41:33.028Z",
       "fallbackPrice": 84.84
     },
     "BKNG": {
       "date": "2026-10-12",
-      "open": 160.28500366210938,
+      "open": 160.2899932861328,
       "high": 161.9600067138672,
-      "low": 158,
+      "low": 157.99000549316406,
       "close": 158.42999267578125,
-      "volume": 4473799,
+      "volume": 4475200,
       "prevClose": 160.33999633789062,
       "history": [
         {
@@ -250289,27 +250289,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 160.28500366210938,
+          "open": 160.2899932861328,
           "high": 161.9600067138672,
-          "low": 158,
+          "low": 157.99000549316406,
           "close": 158.42999267578125,
-          "volume": 4473799
+          "volume": 4475200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "BKNG",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:03.619Z",
+      "updatedAt": "2026-10-13T02:41:33.215Z",
       "fallbackPrice": 169.82
     },
     "AVGO": {
       "date": "2026-10-12",
-      "open": 359.7049865722656,
-      "high": 360.6899108886719,
+      "open": 359.42999267578125,
+      "high": 360.69000244140625,
       "low": 354.2200012207031,
       "close": 354.7300109863281,
-      "volume": 15703894,
+      "volume": 16284100,
       "prevClose": 361.5400085449219,
       "history": [
         {
@@ -254302,31 +254302,31 @@
           "high": 366.6300048828125,
           "low": 361.1000061035156,
           "close": 361.5400085449219,
-          "volume": 16825700
+          "volume": 16843800
         },
         {
           "date": "2026-10-12",
-          "open": 359.7049865722656,
-          "high": 360.6899108886719,
+          "open": 359.42999267578125,
+          "high": 360.69000244140625,
           "low": 354.2200012207031,
           "close": 354.7300109863281,
-          "volume": 15703894
+          "volume": 16284100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "AVGO",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:03.880Z",
+      "updatedAt": "2026-10-13T02:41:33.509Z",
       "fallbackPrice": 426.58
     },
     "CDNS": {
       "date": "2026-10-12",
-      "open": 353.95001220703125,
-      "high": 354.0450134277344,
-      "low": 346.8599853515625,
+      "open": 353,
+      "high": 354.57000732421875,
+      "low": 346.8399963378906,
       "close": 348.4200134277344,
-      "volume": 1221703,
+      "volume": 1293200,
       "prevClose": 352.8399963378906,
       "history": [
         {
@@ -258323,27 +258323,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 353.95001220703125,
-          "high": 354.0450134277344,
-          "low": 346.8599853515625,
+          "open": 353,
+          "high": 354.57000732421875,
+          "low": 346.8399963378906,
           "close": 348.4200134277344,
-          "volume": 1221703
+          "volume": 1293200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CDNS",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:04.108Z",
+      "updatedAt": "2026-10-13T02:41:33.682Z",
       "fallbackPrice": 373.85
     },
     "CDW": {
       "date": "2026-10-12",
-      "open": 143,
+      "open": 143.47000122070312,
       "high": 146.38999938964844,
       "low": 142.67999267578125,
       "close": 143.75999450683594,
-      "volume": 1060955,
+      "volume": 1061000,
       "prevClose": 142.1699981689453,
       "history": [
         {
@@ -262340,27 +262340,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 143,
+          "open": 143.47000122070312,
           "high": 146.38999938964844,
           "low": 142.67999267578125,
           "close": 143.75999450683594,
-          "volume": 1060955
+          "volume": 1061000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CDW",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:04.381Z",
+      "updatedAt": "2026-10-13T02:41:33.895Z",
       "fallbackPrice": 116.16
     },
     "CHTR": {
       "date": "2026-10-12",
       "open": 104,
-      "high": 104.55000305175781,
+      "high": 104.62999725341797,
       "low": 101.62999725341797,
       "close": 102.4800033569336,
-      "volume": 1714591,
+      "volume": 1714700,
       "prevClose": 103.37999725341797,
       "history": [
         {
@@ -266358,26 +266358,26 @@
         {
           "date": "2026-10-12",
           "open": 104,
-          "high": 104.55000305175781,
+          "high": 104.62999725341797,
           "low": 101.62999725341797,
           "close": 102.4800033569336,
-          "volume": 1714591
+          "volume": 1714700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CHTR",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:04.613Z",
+      "updatedAt": "2026-10-13T02:41:34.085Z",
       "fallbackPrice": 147.26
     },
     "CTAS": {
       "date": "2026-10-12",
       "open": 203.4199981689453,
-      "high": 206.3350067138672,
+      "high": 206.33999633789062,
       "low": 203.39999389648438,
       "close": 205.22999572753906,
-      "volume": 1479630,
+      "volume": 1479700,
       "prevClose": 202.41000366210938,
       "history": [
         {
@@ -270375,17 +270375,17 @@
         {
           "date": "2026-10-12",
           "open": 203.4199981689453,
-          "high": 206.3350067138672,
+          "high": 206.33999633789062,
           "low": 203.39999389648438,
           "close": 205.22999572753906,
-          "volume": 1479630
+          "volume": 1479700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CTAS",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:04.890Z",
+      "updatedAt": "2026-10-13T02:41:34.297Z",
       "fallbackPrice": 173.06
     },
     "CSCO": {
@@ -270394,7 +270394,7 @@
       "high": 118.2699966430664,
       "low": 114.12999725341797,
       "close": 115.33999633789062,
-      "volume": 14457036,
+      "volume": 14496000,
       "prevClose": 118.38999938964844,
       "history": [
         {
@@ -274395,23 +274395,23 @@
           "high": 118.2699966430664,
           "low": 114.12999725341797,
           "close": 115.33999633789062,
-          "volume": 14457036
+          "volume": 14496000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CSCO",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:05.133Z",
+      "updatedAt": "2026-10-13T02:41:34.490Z",
       "fallbackPrice": 118.64
     },
     "CCEP": {
       "date": "2026-10-12",
       "open": 104.91000366210938,
       "high": 105.12999725341797,
-      "low": 103.94499969482422,
+      "low": 103.94999694824219,
       "close": 105.08000183105469,
-      "volume": 929547,
+      "volume": 929600,
       "prevClose": 104.25,
       "history": [
         {
@@ -278410,25 +278410,25 @@
           "date": "2026-10-12",
           "open": 104.91000366210938,
           "high": 105.12999725341797,
-          "low": 103.94499969482422,
+          "low": 103.94999694824219,
           "close": 105.08000183105469,
-          "volume": 929547
+          "volume": 929600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CCEP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:05.419Z",
+      "updatedAt": "2026-10-13T02:41:34.722Z",
       "fallbackPrice": 92.29
     },
     "CTSH": {
       "date": "2026-10-12",
       "open": 59.75,
-      "high": 60.90999984741211,
+      "high": 60.91999816894531,
       "low": 59.400001525878906,
       "close": 59.68000030517578,
-      "volume": 3668973,
+      "volume": 3669000,
       "prevClose": 59.20000076293945,
       "history": [
         {
@@ -282426,26 +282426,26 @@
         {
           "date": "2026-10-12",
           "open": 59.75,
-          "high": 60.90999984741211,
+          "high": 60.91999816894531,
           "low": 59.400001525878906,
           "close": 59.68000030517578,
-          "volume": 3668973
+          "volume": 3669000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CTSH",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:05.692Z",
+      "updatedAt": "2026-10-13T02:41:34.921Z",
       "fallbackPrice": 53.85
     },
     "CMCSA": {
       "date": "2026-10-12",
-      "open": 20.75,
-      "high": 20.854999542236328,
+      "open": 20.770000457763672,
+      "high": 20.860000610351562,
       "low": 20.5,
       "close": 20.68000030517578,
-      "volume": 24570983,
+      "volume": 24624200,
       "prevClose": 20.65999984741211,
       "history": [
         {
@@ -286442,27 +286442,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 20.75,
-          "high": 20.854999542236328,
+          "open": 20.770000457763672,
+          "high": 20.860000610351562,
           "low": 20.5,
           "close": 20.68000030517578,
-          "volume": 24570983
+          "volume": 24624200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CMCSA",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:05.962Z",
+      "updatedAt": "2026-10-13T02:41:35.173Z",
       "fallbackPrice": 25.16
     },
     "CEG": {
       "date": "2026-10-12",
       "open": 300.1000061035156,
-      "high": 301.739990234375,
+      "high": 301.7699890136719,
       "low": 290.3999938964844,
       "close": 293.8900146484375,
-      "volume": 2627113,
+      "volume": 2631100,
       "prevClose": 298.07000732421875,
       "history": [
         {
@@ -290460,26 +290460,26 @@
         {
           "date": "2026-10-12",
           "open": 300.1000061035156,
-          "high": 301.739990234375,
+          "high": 301.7699890136719,
           "low": 290.3999938964844,
           "close": 293.8900146484375,
-          "volume": 2627113
+          "volume": 2631100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CEG",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:06.283Z",
+      "updatedAt": "2026-10-13T02:41:35.381Z",
       "fallbackPrice": 286.31
     },
     "CPRT": {
       "date": "2026-10-12",
       "open": 27.299999237060547,
-      "high": 27.329999923706055,
-      "low": 26.454999923706055,
+      "high": 27.34000015258789,
+      "low": 26.459999084472656,
       "close": 26.479999542236328,
-      "volume": 6941436,
+      "volume": 6941500,
       "prevClose": 27.31999969482422,
       "history": [
         {
@@ -294477,17 +294477,17 @@
         {
           "date": "2026-10-12",
           "open": 27.299999237060547,
-          "high": 27.329999923706055,
-          "low": 26.454999923706055,
+          "high": 27.34000015258789,
+          "low": 26.459999084472656,
           "close": 26.479999542236328,
-          "volume": 6941436
+          "volume": 6941500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CPRT",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:06.502Z",
+      "updatedAt": "2026-10-13T02:41:35.554Z",
       "fallbackPrice": 33.28
     },
     "CSGP": {
@@ -294496,7 +294496,7 @@
       "high": 29.899999618530273,
       "low": 29.030000686645508,
       "close": 29.209999084472656,
-      "volume": 2765391,
+      "volume": 2765600,
       "prevClose": 29.670000076293945,
       "history": [
         {
@@ -298497,23 +298497,23 @@
           "high": 29.899999618530273,
           "low": 29.030000686645508,
           "close": 29.209999084472656,
-          "volume": 2765391
+          "volume": 2765600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CSGP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:06.723Z",
+      "updatedAt": "2026-10-13T02:41:35.723Z",
       "fallbackPrice": 32.3
     },
     "COST": {
       "date": "2026-10-12",
-      "open": 949.8027954101562,
+      "open": 949.4600219726562,
       "high": 960.739990234375,
-      "low": 946.6950073242188,
+      "low": 946.7000122070312,
       "close": 959.4400024414062,
-      "volume": 1465138,
+      "volume": 1478800,
       "prevClose": 946.9199829101562,
       "history": [
         {
@@ -302510,18 +302510,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 949.8027954101562,
+          "open": 949.4600219726562,
           "high": 960.739990234375,
-          "low": 946.6950073242188,
+          "low": 946.7000122070312,
           "close": 959.4400024414062,
-          "volume": 1465138
+          "volume": 1478800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "COST",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:06.954Z",
+      "updatedAt": "2026-10-13T02:41:35.922Z",
       "fallbackPrice": 995.2
     },
     "CRWD": {
@@ -302530,7 +302530,7 @@
       "high": 276.3900146484375,
       "low": 261.2300109863281,
       "close": 263.010009765625,
-      "volume": 7145356,
+      "volume": 7153900,
       "prevClose": 275.0400085449219,
       "history": [
         {
@@ -306523,7 +306523,7 @@
           "high": 275.1199951171875,
           "low": 262.3999938964844,
           "close": 275.0400085449219,
-          "volume": 7055200
+          "volume": 7072000
         },
         {
           "date": "2026-10-12",
@@ -306531,23 +306531,23 @@
           "high": 276.3900146484375,
           "low": 261.2300109863281,
           "close": 263.010009765625,
-          "volume": 7145356
+          "volume": 7153900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CRWD",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:07.187Z",
+      "updatedAt": "2026-10-13T02:41:36.114Z",
       "fallbackPrice": 671
     },
     "CSX": {
       "date": "2026-10-12",
       "open": 47.29999923706055,
       "high": 47.75,
-      "low": 47.005001068115234,
+      "low": 47.0099983215332,
       "close": 47.75,
-      "volume": 5695129,
+      "volume": 5696800,
       "prevClose": 47.2599983215332,
       "history": [
         {
@@ -310546,16 +310546,16 @@
           "date": "2026-10-12",
           "open": 47.29999923706055,
           "high": 47.75,
-          "low": 47.005001068115234,
+          "low": 47.0099983215332,
           "close": 47.75,
-          "volume": 5695129
+          "volume": 5696800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "CSX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:07.505Z",
+      "updatedAt": "2026-10-13T02:41:36.430Z",
       "fallbackPrice": 45.81
     },
     "DDOG": {
@@ -310564,7 +310564,7 @@
       "high": 300.67999267578125,
       "low": 286.489990234375,
       "close": 287.2900085449219,
-      "volume": 2757800,
+      "volume": 2758400,
       "prevClose": 293.260009765625,
       "history": [
         {
@@ -314565,23 +314565,23 @@
           "high": 300.67999267578125,
           "low": 286.489990234375,
           "close": 287.2900085449219,
-          "volume": 2757800
+          "volume": 2758400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DDOG",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:07.756Z",
+      "updatedAt": "2026-10-13T02:41:36.614Z",
       "fallbackPrice": 225.24
     },
     "DXCM": {
       "date": "2026-10-12",
-      "open": 84.7300033569336,
+      "open": 84.5999984741211,
       "high": 86.0999984741211,
       "low": 84.20999908447266,
       "close": 85.91999816894531,
-      "volume": 2890300,
+      "volume": 2991800,
       "prevClose": 84.11000061035156,
       "history": [
         {
@@ -318578,27 +318578,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 84.7300033569336,
+          "open": 84.5999984741211,
           "high": 86.0999984741211,
           "low": 84.20999908447266,
           "close": 85.91999816894531,
-          "volume": 2890300
+          "volume": 2991800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DXCM",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:07.980Z",
+      "updatedAt": "2026-10-13T02:41:36.784Z",
       "fallbackPrice": 72.34
     },
     "FANG": {
       "date": "2026-10-12",
-      "open": 195.00999450683594,
-      "high": 198.177001953125,
-      "low": 194.6750030517578,
+      "open": 194.9499969482422,
+      "high": 198.33999633789062,
+      "low": 194.67999267578125,
       "close": 195.11000061035156,
-      "volume": 2444248,
+      "volume": 2444300,
       "prevClose": 192.1300048828125,
       "history": [
         {
@@ -322595,18 +322595,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 195.00999450683594,
-          "high": 198.177001953125,
-          "low": 194.6750030517578,
+          "open": 194.9499969482422,
+          "high": 198.33999633789062,
+          "low": 194.67999267578125,
           "close": 195.11000061035156,
-          "volume": 2444248
+          "volume": 2444300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FANG",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:08.274Z",
+      "updatedAt": "2026-10-13T02:41:36.968Z",
       "fallbackPrice": 194.14
     },
     "DASH": {
@@ -322615,7 +322615,7 @@
       "high": 195.77999877929688,
       "low": 189.3000030517578,
       "close": 194.24000549316406,
-      "volume": 2046983,
+      "volume": 2047200,
       "prevClose": 196.5,
       "history": [
         {
@@ -326616,14 +326616,14 @@
           "high": 195.77999877929688,
           "low": 189.3000030517578,
           "close": 194.24000549316406,
-          "volume": 2046983
+          "volume": 2047200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "DASH",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:08.536Z",
+      "updatedAt": "2026-10-13T02:41:37.155Z",
       "fallbackPrice": 156.7
     },
     "EA": {
@@ -326648,7 +326648,7 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "EA",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:08.761Z",
+      "updatedAt": "2026-10-13T02:41:37.376Z",
       "fallbackPrice": 201.15
     },
     "EXC": {
@@ -326657,7 +326657,7 @@
       "high": 42.150001525878906,
       "low": 41.540000915527344,
       "close": 42.119998931884766,
-      "volume": 4117340,
+      "volume": 4283700,
       "prevClose": 41.7599983215332,
       "history": [
         {
@@ -330658,14 +330658,14 @@
           "high": 42.150001525878906,
           "low": 41.540000915527344,
           "close": 42.119998931884766,
-          "volume": 4117340
+          "volume": 4283700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "EXC",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:09.025Z",
+      "updatedAt": "2026-10-13T02:41:37.582Z",
       "fallbackPrice": 45.58
     },
     "FAST": {
@@ -330674,7 +330674,7 @@
       "high": 51.83000183105469,
       "low": 50.849998474121094,
       "close": 51.4900016784668,
-      "volume": 6194093,
+      "volume": 6194300,
       "prevClose": 50.75,
       "history": [
         {
@@ -334675,23 +334675,23 @@
           "high": 51.83000183105469,
           "low": 50.849998474121094,
           "close": 51.4900016784668,
-          "volume": 6194093
+          "volume": 6194300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FAST",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:09.301Z",
+      "updatedAt": "2026-10-13T02:41:37.775Z",
       "fallbackPrice": 44.76
     },
     "FTNT": {
       "date": "2026-10-12",
-      "open": 196.72500610351562,
-      "high": 196.86990356445312,
+      "open": 196.72999572753906,
+      "high": 196.8699951171875,
       "low": 191.50999450683594,
       "close": 192.94000244140625,
-      "volume": 2438784,
+      "volume": 2441000,
       "prevClose": 194.75,
       "history": [
         {
@@ -338688,27 +338688,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 196.72500610351562,
-          "high": 196.86990356445312,
+          "open": 196.72999572753906,
+          "high": 196.8699951171875,
           "low": 191.50999450683594,
           "close": 192.94000244140625,
-          "volume": 2438784
+          "volume": 2441000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "FTNT",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:09.524Z",
+      "updatedAt": "2026-10-13T02:41:37.988Z",
       "fallbackPrice": 129.7
     },
     "GEHC": {
       "date": "2026-10-12",
       "open": 66.01499938964844,
       "high": 68.33999633789062,
-      "low": 65.75,
+      "low": 65.73999786376953,
       "close": 67.73999786376953,
-      "volume": 3751617,
+      "volume": 3751900,
       "prevClose": 65.73999786376953,
       "history": [
         {
@@ -342707,25 +342707,25 @@
           "date": "2026-10-12",
           "open": 66.01499938964844,
           "high": 68.33999633789062,
-          "low": 65.75,
+          "low": 65.73999786376953,
           "close": 67.73999786376953,
-          "volume": 3751617
+          "volume": 3751900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GEHC",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:09.753Z",
+      "updatedAt": "2026-10-13T02:41:38.180Z",
       "fallbackPrice": 62.86
     },
     "GILD": {
       "date": "2026-10-12",
-      "open": 151.8350067138672,
+      "open": 151.83999633789062,
       "high": 152.25999450683594,
       "low": 149.8000030517578,
       "close": 150.42999267578125,
-      "volume": 5231071,
+      "volume": 5791400,
       "prevClose": 151.1699981689453,
       "history": [
         {
@@ -346722,27 +346722,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 151.8350067138672,
+          "open": 151.83999633789062,
           "high": 152.25999450683594,
           "low": 149.8000030517578,
           "close": 150.42999267578125,
-          "volume": 5231071
+          "volume": 5791400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GILD",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:09.980Z",
+      "updatedAt": "2026-10-13T02:41:38.464Z",
       "fallbackPrice": 136.22
     },
     "GFS": {
       "date": "2026-10-12",
-      "open": 47.470001220703125,
+      "open": 47.494998931884766,
       "high": 48.97999954223633,
-      "low": 46.869998931884766,
+      "low": 46.81999969482422,
       "close": 48.34000015258789,
-      "volume": 7717478,
+      "volume": 7718800,
       "prevClose": 48.2400016784668,
       "history": [
         {
@@ -350735,31 +350735,31 @@
           "high": 50.89799880981445,
           "low": 47.54999923706055,
           "close": 48.2400016784668,
-          "volume": 5925300
+          "volume": 5936800
         },
         {
           "date": "2026-10-12",
-          "open": 47.470001220703125,
+          "open": 47.494998931884766,
           "high": 48.97999954223633,
-          "low": 46.869998931884766,
+          "low": 46.81999969482422,
           "close": 48.34000015258789,
-          "volume": 7717478
+          "volume": 7718800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "GFS",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:10.386Z",
+      "updatedAt": "2026-10-13T02:41:38.675Z",
       "fallbackPrice": 80.63
     },
     "HON": {
       "date": "2026-10-12",
       "open": 207.4499969482422,
       "high": 211.7899932861328,
-      "low": 206.38999938964844,
+      "low": 206.35000610351562,
       "close": 209.63999938964844,
-      "volume": 1666960,
+      "volume": 1667200,
       "prevClose": 207.72999572753906,
       "history": [
         {
@@ -354758,25 +354758,25 @@
           "date": "2026-10-12",
           "open": 207.4499969482422,
           "high": 211.7899932861328,
-          "low": 206.38999938964844,
+          "low": 206.35000610351562,
           "close": 209.63999938964844,
-          "volume": 1666960
+          "volume": 1667200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "HON",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:10.843Z",
+      "updatedAt": "2026-10-13T02:41:38.898Z",
       "fallbackPrice": 233
     },
     "IDXX": {
       "date": "2026-10-12",
       "open": 518,
       "high": 525.760009765625,
-      "low": 515.1298828125,
+      "low": 515.1300048828125,
       "close": 523.9400024414062,
-      "volume": 552783,
+      "volume": 552800,
       "prevClose": 518,
       "history": [
         {
@@ -358775,25 +358775,25 @@
           "date": "2026-10-12",
           "open": 518,
           "high": 525.760009765625,
-          "low": 515.1298828125,
+          "low": 515.1300048828125,
           "close": 523.9400024414062,
-          "volume": 552783
+          "volume": 552800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "IDXX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:11.068Z",
+      "updatedAt": "2026-10-13T02:41:39.068Z",
       "fallbackPrice": 568.03
     },
     "INTC": {
       "date": "2026-10-12",
-      "open": 102.61000061035156,
+      "open": 102.5199966430664,
       "high": 103.19000244140625,
-      "low": 100.71029663085938,
+      "low": 100.70999908447266,
       "close": 101.3499984741211,
-      "volume": 73592416,
+      "volume": 73728400,
       "prevClose": 104.69999694824219,
       "history": [
         {
@@ -362786,31 +362786,31 @@
           "high": 108.37999725341797,
           "low": 104,
           "close": 104.69999694824219,
-          "volume": 74726800
+          "volume": 75017800
         },
         {
           "date": "2026-10-12",
-          "open": 102.61000061035156,
+          "open": 102.5199966430664,
           "high": 103.19000244140625,
-          "low": 100.71029663085938,
+          "low": 100.70999908447266,
           "close": 101.3499984741211,
-          "volume": 73592416
+          "volume": 73728400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "INTC",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:12.040Z",
+      "updatedAt": "2026-10-13T02:41:39.866Z",
       "fallbackPrice": 120.89
     },
     "INTU": {
       "date": "2026-10-12",
-      "open": 307.6099853515625,
+      "open": 307.75,
       "high": 314.95001220703125,
       "low": 304.44000244140625,
       "close": 305.989990234375,
-      "volume": 3621673,
+      "volume": 3940200,
       "prevClose": 302.75,
       "history": [
         {
@@ -366807,27 +366807,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 307.6099853515625,
+          "open": 307.75,
           "high": 314.95001220703125,
           "low": 304.44000244140625,
           "close": 305.989990234375,
-          "volume": 3621673
+          "volume": 3940200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "INTU",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:11.635Z",
+      "updatedAt": "2026-10-13T02:41:39.524Z",
       "fallbackPrice": 313
     },
     "ISRG": {
       "date": "2026-10-12",
-      "open": 423.0199890136719,
+      "open": 423,
       "high": 429.2699890136719,
       "low": 421.0299987792969,
       "close": 427.6400146484375,
-      "volume": 1598028,
+      "volume": 1618700,
       "prevClose": 423.9599914550781,
       "history": [
         {
@@ -370824,18 +370824,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 423.0199890136719,
+          "open": 423,
           "high": 429.2699890136719,
           "low": 421.0299987792969,
           "close": 427.6400146484375,
-          "volume": 1598028
+          "volume": 1618700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ISRG",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:11.883Z",
+      "updatedAt": "2026-10-13T02:41:39.738Z",
       "fallbackPrice": 423.63
     },
     "KDP": {
@@ -370844,7 +370844,7 @@
       "high": 32.779998779296875,
       "low": 31.68000030517578,
       "close": 32.75,
-      "volume": 12436661,
+      "volume": 12437700,
       "prevClose": 31.760000228881836,
       "history": [
         {
@@ -374845,23 +374845,23 @@
           "high": 32.779998779296875,
           "low": 31.68000030517578,
           "close": 32.75,
-          "volume": 12436661
+          "volume": 12437700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "KDP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:12.284Z",
+      "updatedAt": "2026-10-13T02:41:40.056Z",
       "fallbackPrice": 30.04
     },
     "KLAC": {
       "date": "2026-10-12",
-      "open": 193.52000427246094,
+      "open": 193.67999267578125,
       "high": 193.99000549316406,
       "low": 189.44000244140625,
       "close": 190.1199951171875,
-      "volume": 7639678,
+      "volume": 7707200,
       "prevClose": 195.57000732421875,
       "history": [
         {
@@ -378858,18 +378858,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 193.52000427246094,
+          "open": 193.67999267578125,
           "high": 193.99000549316406,
           "low": 189.44000244140625,
           "close": 190.1199951171875,
-          "volume": 7639678
+          "volume": 7707200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "KLAC",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:12.549Z",
+      "updatedAt": "2026-10-13T02:41:40.242Z",
       "fallbackPrice": 1927.63
     },
     "KHC": {
@@ -378878,7 +378878,7 @@
       "high": 22.59000015258789,
       "low": 22.200000762939453,
       "close": 22.450000762939453,
-      "volume": 11244852,
+      "volume": 11245300,
       "prevClose": 22.270000457763672,
       "history": [
         {
@@ -382879,23 +382879,23 @@
           "high": 22.59000015258789,
           "low": 22.200000762939453,
           "close": 22.450000762939453,
-          "volume": 11244852
+          "volume": 11245300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "KHC",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:12.786Z",
+      "updatedAt": "2026-10-13T02:41:40.524Z",
       "fallbackPrice": 24.47
     },
     "LRCX": {
       "date": "2026-10-12",
-      "open": 314.3467102050781,
+      "open": 314.8500061035156,
       "high": 314.95001220703125,
       "low": 308.010009765625,
       "close": 309.55999755859375,
-      "volume": 6122762,
+      "volume": 6256800,
       "prevClose": 318.8399963378906,
       "history": [
         {
@@ -386888,31 +386888,31 @@
           "high": 326.7200012207031,
           "low": 316.010009765625,
           "close": 318.8399963378906,
-          "volume": 4591300
+          "volume": 4655200
         },
         {
           "date": "2026-10-12",
-          "open": 314.3467102050781,
+          "open": 314.8500061035156,
           "high": 314.95001220703125,
           "low": 308.010009765625,
           "close": 309.55999755859375,
-          "volume": 6122762
+          "volume": 6256800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "LRCX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:13.054Z",
+      "updatedAt": "2026-10-13T02:41:40.713Z",
       "fallbackPrice": 318
     },
     "LIN": {
       "date": "2026-10-12",
-      "open": 483.42999267578125,
+      "open": 483.0899963378906,
       "high": 490.989990234375,
       "low": 482.510009765625,
       "close": 487.3500061035156,
-      "volume": 1455401,
+      "volume": 1457200,
       "prevClose": 483.7300109863281,
       "history": [
         {
@@ -390909,27 +390909,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 483.42999267578125,
+          "open": 483.0899963378906,
           "high": 490.989990234375,
           "low": 482.510009765625,
           "close": 487.3500061035156,
-          "volume": 1455401
+          "volume": 1457200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "LIN",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:13.391Z",
+      "updatedAt": "2026-10-13T02:41:40.919Z",
       "fallbackPrice": 501.98
     },
     "LULU": {
       "date": "2026-10-12",
       "open": 94.73999786376953,
-      "high": 95.16000366210938,
+      "high": 95.18000030517578,
       "low": 92.86000061035156,
       "close": 94.66000366210938,
-      "volume": 3011409,
+      "volume": 3012400,
       "prevClose": 94.5,
       "history": [
         {
@@ -394927,26 +394927,26 @@
         {
           "date": "2026-10-12",
           "open": 94.73999786376953,
-          "high": 95.16000366210938,
+          "high": 95.18000030517578,
           "low": 92.86000061035156,
           "close": 94.66000366210938,
-          "volume": 3011409
+          "volume": 3012400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "LULU",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:13.621Z",
+      "updatedAt": "2026-10-13T02:41:41.101Z",
       "fallbackPrice": 131.33
     },
     "MAR": {
       "date": "2026-10-12",
-      "open": 364.1600036621094,
-      "high": 370.135009765625,
-      "low": 363.8009948730469,
+      "open": 365.8800048828125,
+      "high": 370.1400146484375,
+      "low": 363.79998779296875,
       "close": 369.29998779296875,
-      "volume": 853220,
+      "volume": 853300,
       "prevClose": 365.8800048828125,
       "history": [
         {
@@ -398943,27 +398943,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 364.1600036621094,
-          "high": 370.135009765625,
-          "low": 363.8009948730469,
+          "open": 365.8800048828125,
+          "high": 370.1400146484375,
+          "low": 363.79998779296875,
           "close": 369.29998779296875,
-          "volume": 853220
+          "volume": 853300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MAR",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:13.979Z",
+      "updatedAt": "2026-10-13T02:41:41.354Z",
       "fallbackPrice": 385.76
     },
     "MRVL": {
       "date": "2026-10-12",
-      "open": 274.489990234375,
-      "high": 278.0137023925781,
+      "open": 274.5,
+      "high": 278.010009765625,
       "low": 260.79998779296875,
       "close": 265.8599853515625,
-      "volume": 18913901,
+      "volume": 18994300,
       "prevClose": 275.2799987792969,
       "history": [
         {
@@ -402956,31 +402956,31 @@
           "high": 283.7799987792969,
           "low": 267.70001220703125,
           "close": 275.2799987792969,
-          "volume": 15047300
+          "volume": 15082800
         },
         {
           "date": "2026-10-12",
-          "open": 274.489990234375,
-          "high": 278.0137023925781,
+          "open": 274.5,
+          "high": 278.010009765625,
           "low": 260.79998779296875,
           "close": 265.8599853515625,
-          "volume": 18913901
+          "volume": 18994300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MRVL",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:14.290Z",
+      "updatedAt": "2026-10-13T02:41:41.585Z",
       "fallbackPrice": 204.83
     },
     "MELI": {
       "date": "2026-10-12",
-      "open": 1898.5450439453125,
-      "high": 1924.594970703125,
+      "open": 1899.1300048828125,
+      "high": 1924.5999755859375,
       "low": 1890,
       "close": 1892.43994140625,
-      "volume": 406130,
+      "volume": 411700,
       "prevClose": 1889.8499755859375,
       "history": [
         {
@@ -406977,27 +406977,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 1898.5450439453125,
-          "high": 1924.594970703125,
+          "open": 1899.1300048828125,
+          "high": 1924.5999755859375,
           "low": 1890,
           "close": 1892.43994140625,
-          "volume": 406130
+          "volume": 411700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MELI",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:14.552Z",
+      "updatedAt": "2026-10-13T02:41:41.813Z",
       "fallbackPrice": 1695.53
     },
     "META": {
       "date": "2026-10-12",
-      "open": 727.969970703125,
+      "open": 728.5,
       "high": 752.239990234375,
-      "low": 727.780029296875,
+      "low": 727.6400146484375,
       "close": 742.9600219726562,
-      "volume": 24749285,
+      "volume": 24828300,
       "prevClose": 718.6699829101562,
       "history": [
         {
@@ -410990,22 +410990,22 @@
           "high": 728.0700073242188,
           "low": 716.2000122070312,
           "close": 718.6699829101562,
-          "volume": 12605100
+          "volume": 12619900
         },
         {
           "date": "2026-10-12",
-          "open": 727.969970703125,
+          "open": 728.5,
           "high": 752.239990234375,
-          "low": 727.780029296875,
+          "low": 727.6400146484375,
           "close": 742.9600219726562,
-          "volume": 24749285
+          "volume": 24828300
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "META",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:14.785Z",
+      "updatedAt": "2026-10-13T02:41:42.030Z",
       "fallbackPrice": 635.29
     },
     "MCHP": {
@@ -411014,7 +411014,7 @@
       "high": 74.80000305175781,
       "low": 73.19000244140625,
       "close": 73.83000183105469,
-      "volume": 7541555,
+      "volume": 7541900,
       "prevClose": 75.55000305175781,
       "history": [
         {
@@ -415015,23 +415015,23 @@
           "high": 74.80000305175781,
           "low": 73.19000244140625,
           "close": 73.83000183105469,
-          "volume": 7541555
+          "volume": 7541900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MCHP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:15.049Z",
+      "updatedAt": "2026-10-13T02:41:42.254Z",
       "fallbackPrice": 96.04
     },
     "MU": {
       "date": "2026-10-12",
-      "open": 1002.4099731445312,
+      "open": 1002.4500122070312,
       "high": 1002.6699829101562,
       "low": 978.5,
       "close": 989.0399780273438,
-      "volume": 23566935,
+      "volume": 23711800,
       "prevClose": 1029,
       "history": [
         {
@@ -419024,31 +419024,31 @@
           "high": 1054.1700439453125,
           "low": 1017,
           "close": 1029,
-          "volume": 19852800
+          "volume": 19918900
         },
         {
           "date": "2026-10-12",
-          "open": 1002.4099731445312,
+          "open": 1002.4500122070312,
           "high": 1002.6699829101562,
           "low": 978.5,
           "close": 989.0399780273438,
-          "volume": 23566935
+          "volume": 23711800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MU",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:15.336Z",
+      "updatedAt": "2026-10-13T02:41:42.500Z",
       "fallbackPrice": 923.52
     },
     "MSFT": {
       "date": "2026-10-12",
-      "open": 538.0700073242188,
+      "open": 537.530029296875,
       "high": 542.739990234375,
-      "low": 535.7012939453125,
+      "low": 535.7000122070312,
       "close": 541.1500244140625,
-      "volume": 18227041,
+      "volume": 18292000,
       "prevClose": 535.0700073242188,
       "history": [
         {
@@ -423041,31 +423041,31 @@
           "high": 537.219970703125,
           "low": 526.239990234375,
           "close": 535.0700073242188,
-          "volume": 18483600
+          "volume": 18500600
         },
         {
           "date": "2026-10-12",
-          "open": 538.0700073242188,
+          "open": 537.530029296875,
           "high": 542.739990234375,
-          "low": 535.7012939453125,
+          "low": 535.7000122070312,
           "close": 541.1500244140625,
-          "volume": 18227041
+          "volume": 18292000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MSFT",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:15.618Z",
+      "updatedAt": "2026-10-13T02:41:42.726Z",
       "fallbackPrice": 426.99
     },
     "MSTR": {
       "date": "2026-10-12",
-      "open": 153.22000122070312,
-      "high": 158.40350341796875,
-      "low": 150.8406982421875,
+      "open": 153.39999389648438,
+      "high": 158.39999389648438,
+      "low": 150.83999633789062,
       "close": 152.67999267578125,
-      "volume": 12882016,
+      "volume": 12925900,
       "prevClose": 154.33999633789062,
       "history": [
         {
@@ -427058,31 +427058,31 @@
           "high": 158.11000061035156,
           "low": 150.5,
           "close": 154.33999633789062,
-          "volume": 15997900
+          "volume": 16042200
         },
         {
           "date": "2026-10-12",
-          "open": 153.22000122070312,
-          "high": 158.40350341796875,
-          "low": 150.8406982421875,
+          "open": 153.39999389648438,
+          "high": 158.39999389648438,
+          "low": 150.83999633789062,
           "close": 152.67999267578125,
-          "volume": 12882016
+          "volume": 12925900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MSTR",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:15.855Z",
+      "updatedAt": "2026-10-13T02:41:42.939Z",
       "fallbackPrice": 151.64
     },
     "MDLZ": {
       "date": "2026-10-12",
       "open": 60.56999969482422,
-      "high": 61.82500076293945,
+      "high": 61.83000183105469,
       "low": 60.52000045776367,
       "close": 61.790000915527344,
-      "volume": 5490532,
+      "volume": 5662500,
       "prevClose": 60.40999984741211,
       "history": [
         {
@@ -431080,26 +431080,26 @@
         {
           "date": "2026-10-12",
           "open": 60.56999969482422,
-          "high": 61.82500076293945,
+          "high": 61.83000183105469,
           "low": 60.52000045776367,
           "close": 61.790000915527344,
-          "volume": 5490532
+          "volume": 5662500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MDLZ",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:16.088Z",
+      "updatedAt": "2026-10-13T02:41:43.152Z",
       "fallbackPrice": 62.39
     },
     "MNST": {
       "date": "2026-10-12",
       "open": 43.81999969482422,
-      "high": 44.05500030517578,
+      "high": 44.060001373291016,
       "low": 43.279998779296875,
       "close": 43.7599983215332,
-      "volume": 9138984,
+      "volume": 9139600,
       "prevClose": 43.63999938964844,
       "history": [
         {
@@ -435097,17 +435097,17 @@
         {
           "date": "2026-10-12",
           "open": 43.81999969482422,
-          "high": 44.05500030517578,
+          "high": 44.060001373291016,
           "low": 43.279998779296875,
           "close": 43.7599983215332,
-          "volume": 9138984
+          "volume": 9139600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "MNST",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:16.502Z",
+      "updatedAt": "2026-10-13T02:41:43.433Z",
       "fallbackPrice": 87.99
     },
     "NFLX": {
@@ -435116,7 +435116,7 @@
       "high": 71.55000305175781,
       "low": 70.55999755859375,
       "close": 70.61000061035156,
-      "volume": 23989230,
+      "volume": 24166800,
       "prevClose": 70.30000305175781,
       "history": [
         {
@@ -439109,7 +439109,7 @@
           "high": 72.0999984741211,
           "low": 70.19000244140625,
           "close": 70.30000305175781,
-          "volume": 29076700
+          "volume": 29124300
         },
         {
           "date": "2026-10-12",
@@ -439117,23 +439117,23 @@
           "high": 71.55000305175781,
           "low": 70.55999755859375,
           "close": 70.61000061035156,
-          "volume": 23989230
+          "volume": 24166800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "NFLX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:16.748Z",
+      "updatedAt": "2026-10-13T02:41:43.610Z",
       "fallbackPrice": 86.36
     },
     "NVDA": {
       "date": "2026-10-12",
       "open": 228.72999572753906,
       "high": 228.86000061035156,
-      "low": 224.9199981689453,
+      "low": 224.89999389648438,
       "close": 226.32000732421875,
-      "volume": 69908781,
+      "volume": 70089000,
       "prevClose": 229.27999877929688,
       "history": [
         {
@@ -443126,22 +443126,22 @@
           "high": 233.9199981689453,
           "low": 229.11000061035156,
           "close": 229.27999877929688,
-          "volume": 84470000
+          "volume": 84645600
         },
         {
           "date": "2026-10-12",
           "open": 228.72999572753906,
           "high": 228.86000061035156,
-          "low": 224.9199981689453,
+          "low": 224.89999389648438,
           "close": 226.32000732421875,
-          "volume": 69908781
+          "volume": 70089000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "NVDA",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:17.086Z",
+      "updatedAt": "2026-10-13T02:41:43.804Z",
       "fallbackPrice": 214.25
     },
     "NXPI": {
@@ -443150,7 +443150,7 @@
       "high": 228.4499969482422,
       "low": 223.2899932861328,
       "close": 225.2100067138672,
-      "volume": 2852718,
+      "volume": 2852900,
       "prevClose": 227.52000427246094,
       "history": [
         {
@@ -447151,23 +447151,23 @@
           "high": 228.4499969482422,
           "low": 223.2899932861328,
           "close": 225.2100067138672,
-          "volume": 2852718
+          "volume": 2852900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "NXPI",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:17.366Z",
+      "updatedAt": "2026-10-13T02:41:44.005Z",
       "fallbackPrice": 330.28
     },
     "ORLY": {
       "date": "2026-10-12",
       "open": 86.83000183105469,
-      "high": 86.83999633789062,
-      "low": 85.4800033569336,
+      "high": 86.91999816894531,
+      "low": 85.47000122070312,
       "close": 86.6500015258789,
-      "volume": 4838435,
+      "volume": 4845200,
       "prevClose": 86.44999694824219,
       "history": [
         {
@@ -451165,26 +451165,26 @@
         {
           "date": "2026-10-12",
           "open": 86.83000183105469,
-          "high": 86.83999633789062,
-          "low": 85.4800033569336,
+          "high": 86.91999816894531,
+          "low": 85.47000122070312,
           "close": 86.6500015258789,
-          "volume": 4838435
+          "volume": 4845200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ORLY",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:17.844Z",
+      "updatedAt": "2026-10-13T02:41:44.186Z",
       "fallbackPrice": 89.23
     },
     "ODFL": {
       "date": "2026-10-12",
-      "open": 181.97000122070312,
+      "open": 182.13999938964844,
       "high": 183.0500030517578,
-      "low": 181.16000366210938,
+      "low": 180.82000732421875,
       "close": 181.91000366210938,
-      "volume": 1218088,
+      "volume": 1218100,
       "prevClose": 181.97000122070312,
       "history": [
         {
@@ -455181,27 +455181,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 181.97000122070312,
+          "open": 182.13999938964844,
           "high": 183.0500030517578,
-          "low": 181.16000366210938,
+          "low": 180.82000732421875,
           "close": 181.91000366210938,
-          "volume": 1218088
+          "volume": 1218100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ODFL",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:18.150Z",
+      "updatedAt": "2026-10-13T02:41:44.375Z",
       "fallbackPrice": 220.86
     },
     "ON": {
       "date": "2026-10-12",
-      "open": 76.75,
+      "open": 76.87999725341797,
       "high": 77.2699966430664,
-      "low": 75.94499969482422,
+      "low": 75.94000244140625,
       "close": 76,
-      "volume": 7545016,
+      "volume": 7546900,
       "prevClose": 77.52999877929688,
       "history": [
         {
@@ -459198,27 +459198,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 76.75,
+          "open": 76.87999725341797,
           "high": 77.2699966430664,
-          "low": 75.94499969482422,
+          "low": 75.94000244140625,
           "close": 76,
-          "volume": 7545016
+          "volume": 7546900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ON",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:18.393Z",
+      "updatedAt": "2026-10-13T02:41:44.603Z",
       "fallbackPrice": 123.77
     },
     "PCAR": {
       "date": "2026-10-12",
       "open": 108.22000122070312,
       "high": 109.69999694824219,
-      "low": 107.91999816894531,
+      "low": 107.9000015258789,
       "close": 108.12999725341797,
-      "volume": 2153871,
+      "volume": 2153900,
       "prevClose": 108.04000091552734,
       "history": [
         {
@@ -463217,25 +463217,25 @@
           "date": "2026-10-12",
           "open": 108.22000122070312,
           "high": 109.69999694824219,
-          "low": 107.91999816894531,
+          "low": 107.9000015258789,
           "close": 108.12999725341797,
-          "volume": 2153871
+          "volume": 2153900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PCAR",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:18.825Z",
+      "updatedAt": "2026-10-13T02:41:44.800Z",
       "fallbackPrice": 112.22
     },
     "PLTR": {
       "date": "2026-10-12",
       "open": 208.89999389648438,
-      "high": 212.9398956298828,
+      "high": 212.94000244140625,
       "low": 206.0500030517578,
       "close": 209,
-      "volume": 24215062,
+      "volume": 24259200,
       "prevClose": 209.0500030517578,
       "history": [
         {
@@ -467228,22 +467228,22 @@
           "high": 209.5800018310547,
           "low": 198.3000030517578,
           "close": 209.0500030517578,
-          "volume": 37479600
+          "volume": 37622500
         },
         {
           "date": "2026-10-12",
           "open": 208.89999389648438,
-          "high": 212.9398956298828,
+          "high": 212.94000244140625,
           "low": 206.0500030517578,
           "close": 209,
-          "volume": 24215062
+          "volume": 24259200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PLTR",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:19.067Z",
+      "updatedAt": "2026-10-13T02:41:45.021Z",
       "fallbackPrice": 143.34
     },
     "PANW": {
@@ -467252,7 +467252,7 @@
       "high": 421.4800109863281,
       "low": 397.7099914550781,
       "close": 403.8299865722656,
-      "volume": 4795558,
+      "volume": 4797500,
       "prevClose": 418.7799987792969,
       "history": [
         {
@@ -471253,23 +471253,23 @@
           "high": 421.4800109863281,
           "low": 397.7099914550781,
           "close": 403.8299865722656,
-          "volume": 4795558
+          "volume": 4797500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PANW",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:19.290Z",
+      "updatedAt": "2026-10-13T02:41:45.193Z",
       "fallbackPrice": 257.77
     },
     "PAYX": {
       "date": "2026-10-12",
-      "open": 104.12000274658203,
-      "high": 104.99310302734375,
-      "low": 103.74009704589844,
+      "open": 104.5199966430664,
+      "high": 104.98999786376953,
+      "low": 103.73999786376953,
       "close": 104.63999938964844,
-      "volume": 1748963,
+      "volume": 1749000,
       "prevClose": 103.9800033569336,
       "history": [
         {
@@ -475266,27 +475266,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 104.12000274658203,
-          "high": 104.99310302734375,
-          "low": 103.74009704589844,
+          "open": 104.5199966430664,
+          "high": 104.98999786376953,
+          "low": 103.73999786376953,
           "close": 104.63999938964844,
-          "volume": 1748963
+          "volume": 1749000
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PAYX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:19.583Z",
+      "updatedAt": "2026-10-13T02:41:45.389Z",
       "fallbackPrice": 95.51
     },
     "PYPL": {
       "date": "2026-10-12",
-      "open": 55.59000015258789,
-      "high": 56.20000076293945,
+      "open": 55.630001068115234,
+      "high": 56.209999084472656,
       "low": 55.349998474121094,
       "close": 56.04999923706055,
-      "volume": 8705899,
+      "volume": 8706800,
       "prevClose": 55.529998779296875,
       "history": [
         {
@@ -479283,18 +479283,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 55.59000015258789,
-          "high": 56.20000076293945,
+          "open": 55.630001068115234,
+          "high": 56.209999084472656,
           "low": 55.349998474121094,
           "close": 56.04999923706055,
-          "volume": 8705899
+          "volume": 8706800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PYPL",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:19.809Z",
+      "updatedAt": "2026-10-13T02:41:45.604Z",
       "fallbackPrice": 44.46
     },
     "PDD": {
@@ -479303,7 +479303,7 @@
       "high": 81.56999969482422,
       "low": 80.37999725341797,
       "close": 80.91999816894531,
-      "volume": 4125722,
+      "volume": 4181800,
       "prevClose": 81.3499984741211,
       "history": [
         {
@@ -483296,7 +483296,7 @@
           "high": 81.58000183105469,
           "low": 79.19000244140625,
           "close": 81.3499984741211,
-          "volume": 7150500
+          "volume": 7164400
         },
         {
           "date": "2026-10-12",
@@ -483304,23 +483304,23 @@
           "high": 81.56999969482422,
           "low": 80.37999725341797,
           "close": 80.91999816894531,
-          "volume": 4125722
+          "volume": 4181800
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PDD",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:20.069Z",
+      "updatedAt": "2026-10-13T02:41:45.845Z",
       "fallbackPrice": 83.03
     },
     "PEP": {
       "date": "2026-10-12",
-      "open": 126.54000091552734,
-      "high": 127.22000122070312,
+      "open": 126.76000213623047,
+      "high": 127.2300033569336,
       "low": 125.81999969482422,
       "close": 126.68000030517578,
-      "volume": 7896860,
+      "volume": 7900100,
       "prevClose": 125.97000122070312,
       "history": [
         {
@@ -487317,27 +487317,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 126.54000091552734,
-          "high": 127.22000122070312,
+          "open": 126.76000213623047,
+          "high": 127.2300033569336,
           "low": 125.81999969482422,
           "close": 126.68000030517578,
-          "volume": 7896860
+          "volume": 7900100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "PEP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:20.332Z",
+      "updatedAt": "2026-10-13T02:41:46.103Z",
       "fallbackPrice": 146.29
     },
     "QCOM": {
       "date": "2026-10-12",
-      "open": 175,
-      "high": 175.21530151367188,
-      "low": 172.16009521484375,
+      "open": 175.19000244140625,
+      "high": 175.22999572753906,
+      "low": 172.16000366210938,
       "close": 174.42999267578125,
-      "volume": 6899324,
+      "volume": 6904700,
       "prevClose": 175.5,
       "history": [
         {
@@ -491330,31 +491330,31 @@
           "high": 176.39999389648438,
           "low": 171.7899932861328,
           "close": 175.5,
-          "volume": 7565100
+          "volume": 7575200
         },
         {
           "date": "2026-10-12",
-          "open": 175,
-          "high": 175.21530151367188,
-          "low": 172.16009521484375,
+          "open": 175.19000244140625,
+          "high": 175.22999572753906,
+          "low": 172.16000366210938,
           "close": 174.42999267578125,
-          "volume": 6899324
+          "volume": 6904700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "QCOM",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:20.641Z",
+      "updatedAt": "2026-10-13T02:41:46.396Z",
       "fallbackPrice": 243.29
     },
     "REGN": {
       "date": "2026-10-12",
-      "open": 746.5999755859375,
-      "high": 768.6580810546875,
-      "low": 745.66748046875,
+      "open": 748.6699829101562,
+      "high": 768.6599731445312,
+      "low": 744.9600219726562,
       "close": 762.8099975585938,
-      "volume": 618142,
+      "volume": 618200,
       "prevClose": 746.5399780273438,
       "history": [
         {
@@ -495351,27 +495351,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 746.5999755859375,
-          "high": 768.6580810546875,
-          "low": 745.66748046875,
+          "open": 748.6699829101562,
+          "high": 768.6599731445312,
+          "low": 744.9600219726562,
           "close": 762.8099975585938,
-          "volume": 618142
+          "volume": 618200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "REGN",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:20.865Z",
+      "updatedAt": "2026-10-13T02:41:46.605Z",
       "fallbackPrice": 621.52
     },
     "ROP": {
       "date": "2026-10-12",
-      "open": 367.0400085449219,
-      "high": 370.04998779296875,
-      "low": 366.30999755859375,
+      "open": 364.9100036621094,
+      "high": 370.1499938964844,
+      "low": 364.9100036621094,
       "close": 367.32000732421875,
-      "volume": 558467,
+      "volume": 558500,
       "prevClose": 364.0899963378906,
       "history": [
         {
@@ -499368,18 +499368,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 367.0400085449219,
-          "high": 370.04998779296875,
-          "low": 366.30999755859375,
+          "open": 364.9100036621094,
+          "high": 370.1499938964844,
+          "low": 364.9100036621094,
           "close": 367.32000732421875,
-          "volume": 558467
+          "volume": 558500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ROP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:21.115Z",
+      "updatedAt": "2026-10-13T02:41:46.826Z",
       "fallbackPrice": 319.75
     },
     "ROST": {
@@ -499388,7 +499388,7 @@
       "high": 227.50999450683594,
       "low": 220.33999633789062,
       "close": 225.83999633789062,
-      "volume": 2018897,
+      "volume": 2026500,
       "prevClose": 222.41000366210938,
       "history": [
         {
@@ -503389,23 +503389,23 @@
           "high": 227.50999450683594,
           "low": 220.33999633789062,
           "close": 225.83999633789062,
-          "volume": 2018897
+          "volume": 2026500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ROST",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:21.387Z",
+      "updatedAt": "2026-10-13T02:41:47.076Z",
       "fallbackPrice": 227.2
     },
     "SHOP": {
       "date": "2026-10-12",
       "open": 173.89999389648438,
-      "high": 180.86000061035156,
+      "high": 180.8800048828125,
       "low": 172.94000244140625,
       "close": 179.22000122070312,
-      "volume": 12439607,
+      "volume": 12444400,
       "prevClose": 170.85000610351562,
       "history": [
         {
@@ -507403,26 +507403,26 @@
         {
           "date": "2026-10-12",
           "open": 173.89999389648438,
-          "high": 180.86000061035156,
+          "high": 180.8800048828125,
           "low": 172.94000244140625,
           "close": 179.22000122070312,
-          "volume": 12439607
+          "volume": 12444400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SHOP",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:21.750Z",
+      "updatedAt": "2026-10-13T02:41:47.285Z",
       "fallbackPrice": 115.03
     },
     "SBUX": {
       "date": "2026-10-12",
-      "open": 90.87999725341797,
+      "open": 91.20999908447266,
       "high": 92.44000244140625,
       "low": 90.70999908447266,
-      "close": 92.28500366210938,
-      "volume": 10700182,
+      "close": 92.29000091552734,
+      "volume": 10975200,
       "prevClose": 90.75,
       "history": [
         {
@@ -511419,27 +511419,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 90.87999725341797,
+          "open": 91.20999908447266,
           "high": 92.44000244140625,
           "low": 90.70999908447266,
-          "close": 92.28500366210938,
-          "volume": 10700182
+          "close": 92.29000091552734,
+          "volume": 10975200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SBUX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:21.988Z",
+      "updatedAt": "2026-10-13T02:41:47.467Z",
       "fallbackPrice": 100.75
     },
     "SNPS": {
       "date": "2026-10-12",
-      "open": 511,
+      "open": 510.30999755859375,
       "high": 512,
       "low": 500,
       "close": 502.510009765625,
-      "volume": 1612802,
+      "volume": 1627500,
       "prevClose": 509.989990234375,
       "history": [
         {
@@ -515436,27 +515436,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 511,
+          "open": 510.30999755859375,
           "high": 512,
           "low": 500,
           "close": 502.510009765625,
-          "volume": 1612802
+          "volume": 1627500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "SNPS",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:22.218Z",
+      "updatedAt": "2026-10-13T02:41:47.643Z",
       "fallbackPrice": 480.64
     },
     "TMUS": {
       "date": "2026-10-12",
-      "open": 149.5800018310547,
+      "open": 149.60000610351562,
       "high": 153.61000061035156,
       "low": 149.5800018310547,
       "close": 151.8699951171875,
-      "volume": 9024075,
+      "volume": 9028900,
       "prevClose": 148.5800018310547,
       "history": [
         {
@@ -519449,31 +519449,31 @@
           "high": 156.88999938964844,
           "low": 147.89999389648438,
           "close": 148.5800018310547,
-          "volume": 18978100
+          "volume": 19028300
         },
         {
           "date": "2026-10-12",
-          "open": 149.5800018310547,
+          "open": 149.60000610351562,
           "high": 153.61000061035156,
           "low": 149.5800018310547,
           "close": 151.8699951171875,
-          "volume": 9024075
+          "volume": 9028900
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TMUS",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:22.518Z",
+      "updatedAt": "2026-10-13T02:41:47.870Z",
       "fallbackPrice": 189.01
     },
     "TTWO": {
       "date": "2026-10-12",
       "open": 213.50999450683594,
-      "high": 214.6300048828125,
+      "high": 214.67999267578125,
       "low": 206.55999755859375,
       "close": 208.82000732421875,
-      "volume": 1889067,
+      "volume": 1891100,
       "prevClose": 213.44000244140625,
       "history": [
         {
@@ -523471,26 +523471,26 @@
         {
           "date": "2026-10-12",
           "open": 213.50999450683594,
-          "high": 214.6300048828125,
+          "high": 214.67999267578125,
           "low": 206.55999755859375,
           "close": 208.82000732421875,
-          "volume": 1889067
+          "volume": 1891100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TTWO",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:22.777Z",
+      "updatedAt": "2026-10-13T02:41:48.041Z",
       "fallbackPrice": 217.87
     },
     "TSLA": {
       "date": "2026-10-12",
-      "open": 382.6050109863281,
-      "high": 382.6050109863281,
+      "open": 382.6099853515625,
+      "high": 382.70001220703125,
       "low": 377.5799865722656,
       "close": 378.0299987792969,
-      "volume": 20131780,
+      "volume": 20164200,
       "prevClose": 382.70001220703125,
       "history": [
         {
@@ -527483,31 +527483,31 @@
           "high": 388.55999755859375,
           "low": 379.7099914550781,
           "close": 382.70001220703125,
-          "volume": 38897700
+          "volume": 38952400
         },
         {
           "date": "2026-10-12",
-          "open": 382.6050109863281,
-          "high": 382.6050109863281,
+          "open": 382.6099853515625,
+          "high": 382.70001220703125,
           "low": 377.5799865722656,
           "close": 378.0299987792969,
-          "volume": 20131780
+          "volume": 20164200
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TSLA",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:23.082Z",
+      "updatedAt": "2026-10-13T02:41:48.298Z",
       "fallbackPrice": 442.1
     },
     "TXN": {
       "date": "2026-10-12",
       "open": 280.760009765625,
       "high": 283.6300048828125,
-      "low": 277.05499267578125,
+      "low": 277.05999755859375,
       "close": 281.739990234375,
-      "volume": 3843893,
+      "volume": 3853500,
       "prevClose": 283.739990234375,
       "history": [
         {
@@ -531506,16 +531506,16 @@
           "date": "2026-10-12",
           "open": 280.760009765625,
           "high": 283.6300048828125,
-          "low": 277.05499267578125,
+          "low": 277.05999755859375,
           "close": 281.739990234375,
-          "volume": 3843893
+          "volume": 3853500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TXN",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:23.366Z",
+      "updatedAt": "2026-10-13T02:41:48.505Z",
       "fallbackPrice": 315.95
     },
     "TRI": {
@@ -531524,7 +531524,7 @@
       "high": 105.29000091552734,
       "low": 103.2699966430664,
       "close": 104.25,
-      "volume": 958553,
+      "volume": 958600,
       "prevClose": 103.20999908447266,
       "history": [
         {
@@ -535525,14 +535525,14 @@
           "high": 105.29000091552734,
           "low": 103.2699966430664,
           "close": 104.25,
-          "volume": 958553
+          "volume": 958600
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TRI",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:23.689Z",
+      "updatedAt": "2026-10-13T02:41:48.704Z",
       "fallbackPrice": 84.49
     },
     "TTD": {
@@ -535541,7 +535541,7 @@
       "high": 12.329999923706055,
       "low": 11.890000343322754,
       "close": 11.9399995803833,
-      "volume": 13891537,
+      "volume": 13924500,
       "prevClose": 12.079999923706055,
       "history": [
         {
@@ -539542,23 +539542,23 @@
           "high": 12.329999923706055,
           "low": 11.890000343322754,
           "close": 11.9399995803833,
-          "volume": 13891537
+          "volume": 13924500
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "TTD",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:23.910Z",
+      "updatedAt": "2026-10-13T02:41:48.931Z",
       "fallbackPrice": 21.15
     },
     "VRSK": {
       "date": "2026-10-12",
-      "open": 178.4199981689453,
+      "open": 179.25,
       "high": 180.3000030517578,
       "low": 176.8699951171875,
       "close": 177.49000549316406,
-      "volume": 661741,
+      "volume": 661700,
       "prevClose": 177.6300048828125,
       "history": [
         {
@@ -543555,18 +543555,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 178.4199981689453,
+          "open": 179.25,
           "high": 180.3000030517578,
           "low": 176.8699951171875,
           "close": 177.49000549316406,
-          "volume": 661741
+          "volume": 661700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VRSK",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:24.236Z",
+      "updatedAt": "2026-10-13T02:41:49.133Z",
       "fallbackPrice": 172.82
     },
     "VRTX": {
@@ -543575,7 +543575,7 @@
       "high": 514.7999877929688,
       "low": 506,
       "close": 507,
-      "volume": 939963,
+      "volume": 952700,
       "prevClose": 510.0799865722656,
       "history": [
         {
@@ -547576,14 +547576,14 @@
           "high": 514.7999877929688,
           "low": 506,
           "close": 507,
-          "volume": 939963
+          "volume": 952700
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "VRTX",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:24.488Z",
+      "updatedAt": "2026-10-13T02:41:49.306Z",
       "fallbackPrice": 447.97
     },
     "WBD": {
@@ -547608,16 +547608,16 @@
       "source": "Yahoo Finance EOD",
       "symbolUsed": "WBD",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:24.703Z",
+      "updatedAt": "2026-10-13T02:41:49.475Z",
       "fallbackPrice": 27.04
     },
     "WDAY": {
       "date": "2026-10-12",
-      "open": 189.5,
-      "high": 193.40330505371094,
+      "open": 189.4499969482422,
+      "high": 193.60000610351562,
       "low": 187.86000061035156,
       "close": 188.25,
-      "volume": 2102311,
+      "volume": 2102400,
       "prevClose": 186.58999633789062,
       "history": [
         {
@@ -551614,27 +551614,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 189.5,
-          "high": 193.40330505371094,
+          "open": 189.4499969482422,
+          "high": 193.60000610351562,
           "low": 187.86000061035156,
           "close": 188.25,
-          "volume": 2102311
+          "volume": 2102400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "WDAY",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:24.927Z",
+      "updatedAt": "2026-10-13T02:41:49.690Z",
       "fallbackPrice": 130.01
     },
     "XEL": {
       "date": "2026-10-12",
-      "open": 74.01499938964844,
+      "open": 73.76000213623047,
       "high": 74.2300033569336,
-      "low": 73.37000274658203,
+      "low": 73.36000061035156,
       "close": 74.16999816894531,
-      "volume": 4189079,
+      "volume": 4195100,
       "prevClose": 73.77999877929688,
       "history": [
         {
@@ -555631,27 +555631,27 @@
         },
         {
           "date": "2026-10-12",
-          "open": 74.01499938964844,
+          "open": 73.76000213623047,
           "high": 74.2300033569336,
-          "low": 73.37000274658203,
+          "low": 73.36000061035156,
           "close": 74.16999816894531,
-          "volume": 4189079
+          "volume": 4195100
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "XEL",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:25.286Z",
+      "updatedAt": "2026-10-13T02:41:49.960Z",
       "fallbackPrice": 79.26
     },
     "ZS": {
       "date": "2026-10-12",
-      "open": 237.22000122070312,
+      "open": 236.11000061035156,
       "high": 237.22000122070312,
-      "low": 224.64199829101562,
+      "low": 224.60000610351562,
       "close": 225.77999877929688,
-      "volume": 2661492,
+      "volume": 2662400,
       "prevClose": 233.72999572753906,
       "history": [
         {
@@ -559648,18 +559648,18 @@
         },
         {
           "date": "2026-10-12",
-          "open": 237.22000122070312,
+          "open": 236.11000061035156,
           "high": 237.22000122070312,
-          "low": 224.64199829101562,
+          "low": 224.60000610351562,
           "close": 225.77999877929688,
-          "volume": 2661492
+          "volume": 2662400
         }
       ],
       "historyCount": 500,
       "source": "Yahoo Finance EOD",
       "symbolUsed": "ZS",
       "error": "",
-      "updatedAt": "2026-10-12T22:31:25.559Z",
+      "updatedAt": "2026-10-13T02:41:50.177Z",
       "fallbackPrice": 130.04
     }
   }
